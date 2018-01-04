@@ -1,6 +1,6 @@
-# y
+# 博客前端
 
-> y
+> 构建命令
 
 ## Build Setup
 
@@ -18,4 +18,13 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+> 更新历史
+
+## 2018-01-04
+
+```
+# 使用vue的Webpack模板生成脚手架
+
+
+```
+
