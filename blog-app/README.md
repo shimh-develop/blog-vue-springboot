@@ -24,7 +24,17 @@ npm run build --report
 
 ```
 # 使用vue的Webpack模板生成脚手架
+```
 
+## 2018-01-05
 
+```
+# 引入ElementUI
+
+# babel-plugin-component自定义主题
+# 首页
+# 登陆页
+# 注册页面
+# 日志页
 ```
 

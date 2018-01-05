@@ -1,0 +1,148 @@
+<template>
+  <div id="home">
+    <el-container>
+		  <el-header class="me-area">
+		  		<el-row class="me-header">
+					  <el-col :span="4" class="me-header-left">
+					  	 <router-link to="/" class="me-title">
+					  	 	<img src="../static/logo.png"/>
+					  		<!--<span class="me-for">For</span>
+					  		<strong class="me-fun">Fun</strong>-->
+					  	</router-link>
+					  </el-col>
+					  <el-col class="" :span="8" >
+					  	<el-menu :default-active="activeIndex" class="" mode="horizontal" >
+							  <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>
+							  <el-submenu index="2">
+							    <template slot="title">文章分类</template>
+							    <el-menu-item index="2-1">java</el-menu-item>
+							    <el-menu-item index="2-2">js</el-menu-item>
+							    <el-menu-item index="2-3">vue</el-menu-item>
+							  </el-submenu>
+							  <el-menu-item index="3"><router-link to="/log">日志</router-link></el-menu-item>
+							  <el-menu-item index="4">留言板</el-menu-item>
+							</el-menu>
+					  </el-col>
+					  
+					  <el-col class="" :span="4" :offset="8">
+					  	<el-menu  class="" mode="horizontal" >
+							  <el-menu-item index="1"><router-link to="/user/login">登陆</router-link></el-menu-item>
+							  <el-menu-item index="2"><router-link to="/user/register">注册</router-link></el-menu-item>
+							</el-menu>
+					  </el-col>
+					  
+		  	</el-row>
+		  </el-header>
+		  
+		  <router-view/>
+		  
+		  <el-footer class="me-area">
+		  	<div class="me-footer">Footer</div>
+		  </el-footer>
+		</el-container>
+		<transition name="el-zoom-in-center">
+  		<div @click="toTop" v-show="topShow" class="me-to-top"><i class="el-icon-caret-top"></i></div>
+  	</transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'home',
+  data (){
+  	return {
+  		topShow:false,
+  		 activeIndex: '1'
+  	}
+  },
+  methods:{
+  		toTop (){
+  			document.body.scrollTop = 0;
+				document.documentElement.scrollTop = 0;
+  			this.topShow = false;
+  		},
+  		needToTop() {  
+        let curHeight = document.documentElement.scrollTop || document.body.scrollTop;  
+        
+        if (curHeight > 400) {  
+          this.topShow = true;                         
+        }else{  
+          this.topShow = false;  
+        }  
+        
+  		}
+	},
+	mounted() {
+			/**
+			 * 等到整个视图都渲染完毕
+			 */
+      this.$nextTick(function () {  
+         window.addEventListener('scroll', this.needToTop);  
+      });  
+    }
+}
+</script>
+
+<style>
+	.el-header {
+    position: fixed;
+    z-index: 1024;
+    min-width: 100%;
+    box-shadow: 0 2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
+  }
+  
+  .el-footer {
+  	
+    min-width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 -2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
+  }
+  .me-footer{
+  }
+  
+.me-to-top {
+    background-color: #fff;
+    position: fixed;
+    right: 100px;
+    bottom: 150px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 0 0 6px rgba(0,0,0,.12);
+    z-index: 5;
+}
+
+.me-to-top i {
+    color: #00d1b2;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.me-title{
+	margin-top: 10px;
+	font-size: 24px ;
+}
+
+.me-for {
+	color: #36ac70;
+}
+.me-fun {
+	color: #28374b;
+}
+
+.me-header-left{
+		margin-top: 10px;
+}
+.me-title img{
+	max-height: 2.4rem;
+	max-width: 100%;
+}
+.temp{
+	 background: #99a9bf;
+	  border-radius: 4px;
+}
+</style>
