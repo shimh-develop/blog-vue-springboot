@@ -20,7 +20,6 @@ body {
 	line-height: 1.5;
 }
 a {
-    color: #00d1b2;
     cursor: pointer;
     text-decoration: none;
     transition: none 86ms ease-out;
