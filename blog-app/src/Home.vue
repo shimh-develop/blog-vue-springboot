@@ -34,12 +34,14 @@
 		  	</el-row>
 		  </el-header>
 		  
-		  <router-view/>
+		  <router-view class="me-container"/>
 		  
 		  <el-footer class="me-area">
 		  	<div class="me-footer">Footer</div>
 		  </el-footer>
+		  
 		</el-container>
+		
 		<transition name="el-zoom-in-center">
   		<div @click="toTop" v-show="topShow" class="me-to-top"><i class="el-icon-caret-top"></i></div>
   	</transition>
@@ -90,14 +92,18 @@ export default {
     min-width: 100%;
     box-shadow: 0 2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
   }
-  
+  .me-container{
+  	margin-bottom: 100px;
+  }
   .el-footer {
-  	
     min-width: 100%;
-    margin-top: 20px;
     box-shadow: 0 -2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
+    position:absolute;
+    bottom:0;
+    left:0;
   }
   .me-footer{
+
   }
   
 .me-to-top {
