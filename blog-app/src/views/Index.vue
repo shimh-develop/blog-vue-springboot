@@ -6,7 +6,7 @@
 			  	<el-button class="me-article-icon" type="text">置顶</el-button>
 			    <a>搭建element-ui的Vue前端工程操作</a>
 			    <span class="me-pull-right me-article-count">
-			    	<i class="el-icon-tickets"></i>&nbsp;20
+			    	<i class="me-icon-comment"></i>&nbsp;20
 			    </span>
 			    <span class="me-pull-right me-article-count">
 			    	<i class="el-icon-view"></i>&nbsp;10
@@ -18,7 +18,7 @@
 			  </div>
 			  <div class="me-article-footer">
 			  	<span class="me-article-author">
-			    	<i class="el-icon-document"></i>&nbsp;史明辉
+			    	<i class="me-icon-author"></i>&nbsp;史明辉
 			    </span>
 			  	
 			  	<el-tag size="mini" type="warning">前端</el-tag>

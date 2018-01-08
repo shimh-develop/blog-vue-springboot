@@ -1,10 +1,14 @@
 <template>
 	<el-card>
     	<h1 class="me-author-name">shimh</h1>
-    	<!--<h3 class="me-author-description">java开发工程师</h3>-->
-    	<span><i class="el-icon-location"></i> &nbsp;山东&济南</span>
-    	<span><i class="el-icon-location"></i> &nbsp;java开发工程师</span>
-    
+    	<div class="me-author-description">
+	    	<span><i class="el-icon-location-outline"></i> &nbsp;山东&济南</span>
+	    	<span><i class="me-icon-job"></i> &nbsp;java开发工程师</span>
+    	</div>
+    	<div class="me-author-tool">
+	    	<i @click="showTool(qq)" class="me-icon-QQ"></i>
+	    	<i @click="showTool(github)" class="me-icon-github"></i>
+    	</div>
 	</el-card>
 
 </template>
@@ -14,8 +18,18 @@ export default {
   name: 'CardMe',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      qq:{title:'QQ',message:'919431514'},
+      github:{title:'github',message:'<a target="_blank" href="https://github.com/shimh-develop">https://github.com/shimh-develop</a>'}
     }
+  },
+  methods:{
+  	showTool(tool){
+        this.$notify({
+          title: tool.title,
+          dangerouslyUseHTMLString: true,
+          message: '<strong>'+ tool.message +'</strong>'
+        });
+  	}
   }
 }
 </script>
@@ -27,9 +41,18 @@ export default {
 	border-bottom: 1px solid #ebeef5;
 }
 .me-author-description {
+	padding: 4px 0;
+	border-bottom: 1px solid #ebeef5;
+}
+.me-icon-job {
+	padding-left: 16px;
+}
+.me-author-tool {
 	text-align: center;
 }
-
-
-
+.me-author-tool i {
+	cursor: pointer;
+	padding: 4px 10px;
+	font-size: 30px;
+}
 </style>
