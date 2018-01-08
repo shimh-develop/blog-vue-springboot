@@ -1,8 +1,6 @@
 <template>
   <el-container>
     <el-main>
-    	
-    	
     	<el-card class="me-area" v-for="o in 8" :key="o">
 			  <div slot="header" class="me-article-header">
 			  	<el-button class="me-article-icon" type="text">置顶</el-button>
@@ -23,7 +21,7 @@
 			    	<i class="el-icon-document"></i>&nbsp;史明辉
 			    </span>
 			  	
-			  	<el-tag  size="mini" type="warning">前端</el-tag>
+			  	<el-tag size="mini" type="warning">前端</el-tag>
 			  	<el-tag size="mini" type="warning">Vue</el-tag>
 			  	<el-tag size="mini" type="warning">element-ui</el-tag>
 			  	
@@ -34,14 +32,14 @@
 			  </div>
 			</el-card>
 			
-			
     </el-main>
-    
     
     <el-aside>
     	
+    	<card-me class="me-area"></card-me>
+    	
     	<el-card class="me-area">
-			  <p>标签内容</p>
+    		
 			</el-card>
     	
     	<el-card class="me-area">
@@ -60,12 +58,17 @@
 </template>
 
 <script>
+import CardMe from '@/components/card/CardMe'
+	
 export default {
   name: 'index',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components:{
+  	'card-me':CardMe
   }
 }
 </script>
@@ -79,11 +82,8 @@ export default {
 }
 
 .el-aside {
-	
 	margin-left: 20px;
 	width:"300px";
-  text-align: center;
-  line-height: 200px;
 }
   
 .el-main {
