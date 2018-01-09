@@ -38,18 +38,19 @@
     	
     	<card-me class="me-area"></card-me>
     	
-    	<card-category class="me-area"></card-category>
+    	<card-article cardHeader="最新文章" :articles="newArticle"></card-article>
     	
-    	<el-card class="me-area">
+    	<card-article cardHeader="最热文章" :articles="hotArticle"></card-article>
+    		
+    	<!--<el-card class="me-area">
 			  <p>标签内容</p>
 			</el-card>
 			
 			<el-card class="me-area">
 			  <p>标签内容</p>
-			</el-card>
+			</el-card>-->
+			
     </el-aside>
-    
-     
      
   </el-container>
   
@@ -57,18 +58,33 @@
 
 <script>
 import CardMe from '@/components/card/CardMe'
-import CardCategory from '@/components/card/CardCategory'
+import CardArticle from '@/components/card/CardArticle'
 	
 export default {
   name: 'index',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      hotArticle:[
+      	{id:'7',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
+      	{id:'8',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
+      	{id:'9',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
+      	{id:'10',name:'搭建element-ui的Vue前端工程操作'},
+      	{id:'11',name:'搭建element-ui的Vue前端工程操作'},
+      	{id:'12',name:'搭建element-ui的Vue前端工程操作'}
+      ],
+      newArticle:[
+      	{id:'1',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
+      	{id:'2',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
+      	{id:'3',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
+      	{id:'4',name:'搭建element-ui的Vue前端工程操作'},
+      	{id:'5',name:'搭建element-ui的Vue前端工程操作'},
+      	{id:'6',name:'搭建element-ui的Vue前端工程操作'}
+      ]
     }
   },
   components:{
   	'card-me':CardMe,
-  	'card-category':CardCategory
+  	'card-article':CardArticle
   }
 }
 </script>
@@ -77,13 +93,13 @@ export default {
 
 .el-container{
 	margin-top: 80px;
-	margin-left: 20px;
-	margin-right: 20px;
+	margin-left: 100px;
+	margin-right: 100px;
 }
 
 .el-aside {
 	margin-left: 20px;
-	width:"300px";
+	width: 300px;
 }
   
 .el-main {

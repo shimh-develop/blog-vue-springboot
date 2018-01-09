@@ -1,14 +1,11 @@
 <template>
-	
 	<el-card :body-style="{ padding: '8px 18px' }">
 		<div slot="header" class="me-category-header">
-		    <span>最新文章</span>
+		    <span>{{cardHeader}}</span>
 		</div>
 		
 		<ul class="me-category-list">
-			<li class="me-category-item" v-for="l in 3" :key="l"><a>为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱</a></li>
-			<li class="me-category-item" v-for="l in 3" :key="l"><a>搭建element-ui的Vue前端工程操作</a></li>
-			
+			<li class="me-category-item" v-for="a in articles" :key="a.id"><a>{{a.name}}</a></li>
 		</ul>
 	</el-card>
 
@@ -16,9 +13,20 @@
 
 <script>
 export default {
-  name: 'CardCategory',
+  name: 'CardArticle',
+  props: {
+  	cardHeader : {
+    	type: String,
+      	required: true
+    },
+    articles:{
+    	type: Array,
+    	required: true
+    }
+  },
   data () {
     return {
+    	
     }
   },
   methods:{
