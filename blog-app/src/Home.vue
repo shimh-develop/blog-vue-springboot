@@ -11,7 +11,7 @@
 					  	</router-link>
 					  </el-col>
 					  <el-col class="" :span="8" >
-					  	<el-menu :default-active="activeIndex" class="" mode="horizontal" >
+					  	<el-menu menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex" mode="horizontal" >
 							  <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>
 							  <el-submenu index="2">
 							    <template slot="title">文章分类</template>

@@ -6,8 +6,8 @@
 	    	<span><i class="me-icon-job"></i> &nbsp;java开发工程师</span>
     	</div>
     	<div class="me-author-tool">
-	    	<i @click="showTool(qq)" class="me-icon-QQ"></i>
-	    	<i @click="showTool(github)" class="me-icon-github"></i>
+	    	<i @click="showTool(qq)" :title="qq.title" class="me-icon-QQ"></i>
+	    	<i @click="showTool(github)" :title="github.title" class="me-icon-github"></i>
     	</div>
 	</el-card>
 
@@ -38,17 +38,17 @@ export default {
 .me-author-name {
 	text-align: center;
 	font-size: 30px;
-	border-bottom: 1px solid #ebeef5;
+	border-bottom: 1px solid #5FB878;
 }
 .me-author-description {
-	padding: 4px 0;
-	border-bottom: 1px solid #ebeef5;
+	padding: 8px 0;
 }
 .me-icon-job {
 	padding-left: 16px;
 }
 .me-author-tool {
 	text-align: center;
+	padding-top: 10px;
 }
 .me-author-tool i {
 	cursor: pointer;

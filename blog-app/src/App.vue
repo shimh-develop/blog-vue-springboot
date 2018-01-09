@@ -24,11 +24,14 @@ a {
     text-decoration: none;
     transition: none 86ms ease-out;
 }
-	.me-area{
-		/*text-align: center;*/
-		background-color: #fff;
-	}
-	html{height:100%;}
-	body{min-height:100%;}
+a:hover {
+	color: #5FB878;
+}
+.me-area{
+	/*text-align: center;*/
+	background-color: #fff;
+}
+html{height:100%;}
+body{min-height:100%;}
 body{position:relative;}
 </style>

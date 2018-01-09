@@ -38,9 +38,7 @@
     	
     	<card-me class="me-area"></card-me>
     	
-    	<el-card class="me-area">
-    		
-			</el-card>
+    	<card-category class="me-area"></card-category>
     	
     	<el-card class="me-area">
 			  <p>标签内容</p>
@@ -59,6 +57,7 @@
 
 <script>
 import CardMe from '@/components/card/CardMe'
+import CardCategory from '@/components/card/CardCategory'
 	
 export default {
   name: 'index',
@@ -68,7 +67,8 @@ export default {
     }
   },
   components:{
-  	'card-me':CardMe
+  	'card-me':CardMe,
+  	'card-category':CardCategory
   }
 }
 </script>
