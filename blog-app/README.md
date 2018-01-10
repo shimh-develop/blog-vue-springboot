@@ -70,4 +70,8 @@ npm run build --report
 # 写文章页面
 #　mavonEditor局部引入
 
+#　页面的中间区域固定宽度，自动居中
+# 发布和取消
+# 发布dialog
+
 ```

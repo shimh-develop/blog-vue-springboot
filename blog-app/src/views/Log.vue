@@ -41,9 +41,11 @@ export default {
 
 <style scoped>
 .el-container{
-	margin-top: 80px;
+/*	margin-top: 80px;
 	margin-left: 100px;
-	margin-right: 100px;
+	margin-right: 100px;*/
+	width: 700px;
+	margin: 80px auto;
 	
 }
 .me-main{

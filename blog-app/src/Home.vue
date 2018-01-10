@@ -79,7 +79,7 @@ export default {
   box-shadow: 0 2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
 }
 .me-container{
-  margin-bottom: 100px;
+  margin-bottom: 200px;
 }
 .el-footer {
   min-width: 100%;

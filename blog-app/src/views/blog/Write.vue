@@ -12,7 +12,7 @@
   			</el-col>
   			<el-col :span="4" :offset="8">
   				<div class="me-write-btn">
- 				<el-button round @click="">发布</el-button>
+ 				<el-button round @click="publishShow">发布</el-button>
  				<el-button round @click="cancel">取消</el-button>
  				</div>
   			</el-col>
@@ -35,8 +35,27 @@
 	</el-container>
 	 	  
 	<go-top></go-top>  
-</el-container>
 	
+	<el-dialog title="摘要 分类 标签" :visible.sync="publishVisible">
+	  <el-form >
+	  	<el-form-item label="" prop="name">
+	   		<el-input type="textarea" ></el-input>
+	   	</el-form-item>
+	    <el-form-item label="文章分类" prop="region">
+		    <el-select placeholder="请选择文章分类">
+		      <el-option label="java" value="shanghai"></el-option>
+		      <el-option label="vue" value="beijing"></el-option>
+		    </el-select>
+		</el-form-item>
+	   
+	  </el-form>
+	  <div slot="footer" class="dialog-footer">
+	    <el-button @click="publishVisible = false">取 消</el-button>
+	    <el-button type="primary" @click="publish">发布</el-button>
+	  </div>
+	</el-dialog>
+</el-container>
+
 </template>
 
 <script>
@@ -46,6 +65,7 @@ export default {
   name: 'Write',
   data (){
   	return {
+  		publishVisible:false,
   		value:'## 123456 ##',
   		mark:{
   			 toolbarsFlag: false , 
@@ -55,6 +75,12 @@ export default {
   	}
   },
   methods:{
+  	publishShow (){
+  		this.publishVisible = true;
+  	},
+  	publish (){
+  		
+  	},
   	cancel (){
   		this.$confirm('文章将不会保存, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -76,7 +102,7 @@ export default {
 <style>
 .el-header {
 	position: fixed;
-	z-index: 9999;
+	z-index: 1024;
 	min-width: 100%;
 	box-shadow: 0 2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
 }
@@ -88,13 +114,12 @@ export default {
 .me-write-btn {
 	margin-top: 10px;
 }
-.me-container{
-	margin-bottom: 100px;
-}
 .me-write-box {
-	margin-top: 80px;
+/*	margin-top: 80px;
 	margin-left: 200px;
-	margin-right: 200px;
+	margin-right: 200px;*/
+	width: 700px;
+	margin: 80px auto 0;
 }
 .me-write-main {
 	padding: 0;
@@ -109,6 +134,7 @@ export default {
 }
 .me-write-editor {
 	min-height: 650px!important;
+	z-index: 6!important;
 }
 .me-header-left{
 	margin-top: 10px;
