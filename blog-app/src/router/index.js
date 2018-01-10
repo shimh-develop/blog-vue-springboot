@@ -5,6 +5,7 @@ import Index from '@/views/Index'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Log from '@/views/Log'
+import Write from '@/views/blog/Write'
 
 Vue.use(Router)
 
@@ -32,6 +33,10 @@ export default new Router({
     {
     	 path: '/user/register',
     	 component:Register
+    },
+    {
+    	 path: '/blog/write',
+    	 component:Write
     }
   ]
 })

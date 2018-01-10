@@ -10,24 +10,27 @@
 					  		<strong class="me-fun">Fun</strong>-->
 					  	</router-link>
 					  </el-col>
-					  <el-col class="" :span="8" >
-					  	<el-menu menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex" mode="horizontal" >
-							  <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>
+					  <el-col class="" :span="20">
+					  	<el-menu :router=true menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex" mode="horizontal" >
+							  <el-menu-item index="/">首页</el-menu-item>
 							  <el-submenu index="2">
 							    <template slot="title">文章分类</template>
 							    <el-menu-item index="2-1">java</el-menu-item>
 							    <el-menu-item index="2-2">js</el-menu-item>
 							    <el-menu-item index="2-3">vue</el-menu-item>
 							  </el-submenu>
-							  <el-menu-item index="3"><router-link to="/log">日志</router-link></el-menu-item>
+							  <el-menu-item index="/log">日志</el-menu-item>
 							  <el-menu-item index="4">留言板</el-menu-item>
-							</el-menu>
-					  </el-col>
-					  
-					  <el-col class="" :span="4" :offset="8">
-					  	<el-menu  class="" mode="horizontal" >
-							  <el-menu-item index="1"><router-link to="/user/login">登陆</router-link></el-menu-item>
-							  <el-menu-item index="2"><router-link to="/user/register">注册</router-link></el-menu-item>
+							  
+							  <el-col class="" :span="4" :offset="6">
+							  <el-menu-item index="/blog/write"><i class="me-icon-comment"></i>&nbsp;&nbsp;写博客</el-menu-item>
+							  
+							  </el-col>
+							  
+							  <el-col class="" :span="4" :offset="2">
+							  <el-menu-item index="/user/login">登录</el-menu-item>
+							  <el-menu-item index="/user/register">注册</el-menu-item>
+							  </el-col>
 							</el-menu>
 					  </el-col>
 					  
@@ -59,7 +62,7 @@ export default {
   data (){
   	return {
   		topShow:false,
-  		 activeIndex: '1'
+  		activeIndex: '/'
   	}
   },
   methods:{
