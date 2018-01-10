@@ -8,14 +8,14 @@ import ElementUI from 'element-ui'
 import '../static/theme/index.css'
 import '@/assets/icon/iconfont.css'
 
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
+import GoTop from '@/components/gotop/GoTop'
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
-Vue.use(mavonEditor)
 
+
+Vue.component('go-top', GoTop)
 
 new Vue({
   el: '#app',

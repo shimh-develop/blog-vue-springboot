@@ -67,5 +67,7 @@ npm run build --report
 ```
 # 写博客 引入mavonEditor编辑器
 # 顶部导航栏都放入一个Menu中
+# 写文章页面
+#　mavonEditor局部引入
 
 ```

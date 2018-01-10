@@ -50,98 +50,54 @@
 		  
 		</el-container>
 		
-		<transition name="el-zoom-in-center">
-  		<div @click="toTop" v-show="topShow" class="me-to-top"><i class="el-icon-caret-top"></i></div>
-  	</transition>
+  	<go-top></go-top>
   </div>
+  
 </template>
 
 <script>
+	
 export default {
-  name: 'home',
+  name: 'Home',
   data (){
   	return {
-  		topShow:false,
   		activeIndex: '/'
   	}
   },
   methods:{
-  		toTop (){
-  			document.body.scrollTop = 0;
-				document.documentElement.scrollTop = 0;
-  			this.topShow = false;
-  		},
-  		needToTop() {  
-        let curHeight = document.documentElement.scrollTop || document.body.scrollTop;  
-        
-        if (curHeight > 400) {  
-          this.topShow = true;                         
-        }else{  
-          this.topShow = false;  
-        }  
-        
-  		}
 	},
 	mounted() {
-			/**
-			 * 等到整个视图都渲染完毕
-			 */
-      this.$nextTick(function () {  
-         window.addEventListener('scroll', this.needToTop);  
-      });  
-    }
+  }
 }
 </script>
 
 <style>
-	.el-header {
-    position: fixed;
-    z-index: 1024;
-    min-width: 100%;
-    box-shadow: 0 2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
-  }
-  .me-container{
-  	margin-bottom: 100px;
-  }
-  .el-footer {
-    min-width: 100%;
-    box-shadow: 0 -2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
-    position:absolute;
-    bottom:0;
-    left:0;
-  }
-  .me-footer{
-  	text-align: center;
-    line-height: 60px;
-  	font-family: 'Open Sans', sans-serif;
-  	font-size: 18px;
-  }
-  .me-login-design-color{
-  	color: #5FB878 !important;
-  }
+.el-header {
+  position: fixed;
+  z-index: 1024;
+  min-width: 100%;
+  box-shadow: 0 2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
+}
+.me-container{
+  margin-bottom: 100px;
+}
+.el-footer {
+  min-width: 100%;
+  box-shadow: 0 -2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
+  position:absolute;
+  bottom:0;
+  left:0;
+}
+.me-footer{
+  text-align: center;
+  line-height: 60px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+}
+.me-login-design-color{
+  color: #5FB878 !important;
+}
   
-.me-to-top {
-    background-color: #fff;
-    position: fixed;
-    right: 100px;
-    bottom: 150px;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: .3s;
-    box-shadow: 0 0 6px rgba(0,0,0,.12);
-    z-index: 5;
-}
-
-.me-to-top i {
-    color: #00d1b2;
-    display: block;
-    line-height: 40px;
-    text-align: center;
-    font-size: 18px;
-}
-
 .me-title{
 	margin-top: 10px;
 	font-size: 24px ;
