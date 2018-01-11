@@ -1,4 +1,5 @@
 <template>
+<div id="write">
 <el-container>
 	<el-header class="me-area">
 		<el-row class="me-header">
@@ -36,18 +37,35 @@
 	 	  
 	<go-top></go-top>  
 	
-	<el-dialog title="摘要 分类 标签" :visible.sync="publishVisible">
-	  <el-form >
-	  	<el-form-item label="" prop="name">
-	   		<el-input type="textarea" ></el-input>
-	   	</el-form-item>
-	    <el-form-item label="文章分类" prop="region">
-		    <el-select placeholder="请选择文章分类">
-		      <el-option label="java" value="shanghai"></el-option>
-		      <el-option label="vue" value="beijing"></el-option>
-		    </el-select>
-		</el-form-item>
-	   
+	<el-dialog title="摘要 分类 标签" 
+		:visible.sync="publishVisible"
+		:close-on-click-modal=false
+		custom-class="me-dialog">
+	  <el-form :model="form">
+	    <el-form-item >
+	    	<el-input type="textarea"
+				  :rows="6"
+				  placeholder="请输入摘要">
+			</el-input>
+	    </el-form-item>
+	    <el-form-item label="文章分类" >
+	      <el-select v-model="form.region" placeholder="请选择文章分类">
+	        <el-option label="java" value="shanghai"></el-option>
+	        <el-option label="vue" value="beijing"></el-option>
+	      </el-select>
+	    </el-form-item>
+	    
+	      <el-form-item label="文章标签" prop="type">
+		    <el-checkbox-group v-model="form.type">
+		      <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
+		      <el-checkbox label="地推活动" name="type"></el-checkbox>
+		      <el-checkbox label="线下主题活动" name="type"></el-checkbox>
+		      <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+		      <el-checkbox label="单纯品牌曝光1" name="type"></el-checkbox>
+		      <el-checkbox label="单纯品牌曝光2" name="type"></el-checkbox>
+		      <el-checkbox label="单纯品牌曝光3" name="type"></el-checkbox>
+		    </el-checkbox-group>
+		  </el-form-item>
 	  </el-form>
 	  <div slot="footer" class="dialog-footer">
 	    <el-button @click="publishVisible = false">取 消</el-button>
@@ -55,7 +73,7 @@
 	  </div>
 	</el-dialog>
 </el-container>
-
+</div>
 </template>
 
 <script>
@@ -71,7 +89,18 @@ export default {
   			 toolbarsFlag: false , 
   			 subfield: false, 
   			 default_open: "preview"
-  		}
+  		},
+  		form: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
+        formLabelWidth: '120px'
   	}
   },
   methods:{
@@ -79,7 +108,21 @@ export default {
   		this.publishVisible = true;
   	},
   	publish (){
-  		
+  		this.publishVisible = false;
+  		const loading = this.$loading({
+          lock: true,
+          text: '发布中，请稍后...'
+        });
+        let that = this;
+        setTimeout(() => {
+          loading.close();
+          that.$message({
+          	message: '发布成功！',
+          	type: 'success',
+          	showClose:true
+        });
+        that.$router.push('/')
+        }, 4000);
   	},
   	cancel (){
   		this.$confirm('文章将不会保存, 是否继续?', '提示', {
@@ -95,6 +138,15 @@ export default {
   },
   components:{
   	'markdown-editor':MarkdownEditor
+  },
+  //组件内的守卫 调整body的背景色
+  beforeRouteEnter(to, from, next) {
+    window.document.body.style.backgroundColor = '#fff';
+    next();
+  },
+  beforeRouteLeave(to, from, next) {
+    window.document.body.style.backgroundColor = '#f5f5f5';
+    next();
   }
 }
 </script>

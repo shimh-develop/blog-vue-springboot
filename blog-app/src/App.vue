@@ -28,7 +28,6 @@ a:hover {
 	color: #5FB878;
 }
 .me-area{
-	/*text-align: center;*/
 	background-color: #fff;
 }
 html{height:100%;}

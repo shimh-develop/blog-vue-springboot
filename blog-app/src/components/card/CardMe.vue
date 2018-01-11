@@ -24,10 +24,11 @@ export default {
   },
   methods:{
   	showTool(tool){
-        this.$notify({
-          title: tool.title,
-          dangerouslyUseHTMLString: true,
-          message: '<strong>'+ tool.message +'</strong>'
+        this.$message({
+        	duration:0,
+        	showClose:true,
+         	dangerouslyUseHTMLString: true,
+        	message: '<strong>'+ tool.message +'</strong>'
         });
   	}
   }

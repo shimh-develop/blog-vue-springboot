@@ -35,8 +35,8 @@ export default new Router({
     	 component:Register
     },
     {
-    	 path: '/blog/write',
-    	 component:Write
+    	path: '/blog/write',
+    	component:Write
     }
   ]
 })

@@ -68,13 +68,21 @@ export default {
 	top: 0;
   }
   .me-login-box{
-  	position: relative;
+  	/*position: relative;
     width: 300px;
     height: 260px;
     background-color: white;
     margin-top: 150px;
     margin-left: auto;
     margin-right: auto; 
+    padding: 30px;*/
+   position: absolute;
+    width: 300px;
+    height: 260px;
+    background-color: white;
+    margin-top: 150px;
+    margin-left: -180px;
+    left:50%;
     padding: 30px;
   }
   .me-login-box-radius{
