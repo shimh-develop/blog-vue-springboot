@@ -1,10 +1,11 @@
 <template>
+	<div>
   <el-container>
     <el-main>
     	<el-card class="me-area" v-for="o in 8" :key="o">
 			  <div slot="header" class="me-article-header">
 			  	<el-button class="me-article-icon" type="text">置顶</el-button>
-			    <a>搭建element-ui的Vue前端工程操作</a>
+			    	<a @click="view(o)">搭建element-ui的Vue前端工程操作</a>
 			    <span class="me-pull-right me-article-count">
 			    	<i class="me-icon-comment"></i>&nbsp;20
 			    </span>
@@ -53,7 +54,7 @@
     </el-aside>
      
   </el-container>
-  
+ </div>
 </template>
 
 <script>
@@ -81,6 +82,11 @@ export default {
       	{id:'6',name:'搭建element-ui的Vue前端工程操作'}
       ]
     }
+  },
+  methods:{
+  	view (id){
+  		this.$router.push({ path: `/view/${id}` })
+  	}
   },
   components:{
   	'card-me':CardMe,
@@ -119,6 +125,9 @@ export default {
 }
 .me-article-header {
 	/*padding: 10px 18px;*/
+}
+.me-article-title {
+	color: #333;
 }
 .me-article-icon {
 	padding: 3px 8px;

@@ -1,4 +1,5 @@
 <template>
+	<div>
 	<el-container class="me-area">
 		<el-main class="me-main">
 			 <el-steps class="me-log-box" :space="100"  direction="vertical">
@@ -25,7 +26,7 @@
 			 </el-steps>
 		</el-main>
 	</el-container>
-	
+	</div>
 </template>
 
 <script>

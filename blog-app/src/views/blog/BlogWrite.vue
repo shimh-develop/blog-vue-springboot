@@ -31,7 +31,7 @@
 					</el-input>
 				
 			</div>
-			<markdown-editor placeholder="正文..." class="me-write-editor"></markdown-editor>
+			<markdown-editor class="me-write-editor"></markdown-editor>
 		</el-main>
 	</el-container>
 	 	  
@@ -80,7 +80,7 @@
 import MarkdownEditor from '@/components/markdown/MarkdownEditor'	
 
 export default {
-  name: 'Write',
+  name: 'BlogWrite',
   data (){
   	return {
   		publishVisible:false,
@@ -186,7 +186,6 @@ export default {
 }
 .me-write-editor {
 	min-height: 650px!important;
-	z-index: 6!important;
 }
 .me-header-left{
 	margin-top: 10px;

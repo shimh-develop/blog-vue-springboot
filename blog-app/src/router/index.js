@@ -5,7 +5,8 @@ import Index from '@/views/Index'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Log from '@/views/Log'
-import Write from '@/views/blog/Write'
+import BlogWrite from '@/views/blog/BlogWrite'
+import BlogView from '@/views/blog/BlogView'
 
 Vue.use(Router)
 
@@ -23,20 +24,24 @@ export default new Router({
 	    	{
 	    	 path: 'log',
 	    	 component:Log
+	    	},
+	    	{
+	    		path: 'view/:id',
+	    		component:BlogView
 	    	}
       ]
     },
     {
-    	 path: '/user/login',
+    	 path: '/login',
     	 component:Login
     },
     {
-    	 path: '/user/register',
+    	 path: '/register',
     	 component:Register
     },
     {
-    	path: '/blog/write',
-    	component:Write
+    	path: '/write',
+    	component:BlogWrite
     }
   ]
 })
