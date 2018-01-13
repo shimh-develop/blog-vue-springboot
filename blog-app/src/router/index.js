@@ -24,10 +24,6 @@ export default new Router({
 	    	{
 	    	 path: 'log',
 	    	 component:Log
-	    	},
-	    	{
-	    		path: 'view/:id',
-	    		component:BlogView
 	    	}
       ]
     },
@@ -42,6 +38,10 @@ export default new Router({
     {
     	path: '/write',
     	component:BlogWrite
+    },
+    {
+    	path: '/view/:id',
+	    component:BlogView
     }
   ]
 })

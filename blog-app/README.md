@@ -91,3 +91,12 @@ npm run build --report
 # 文章详情页  内容  评论等
 
 ```
+## 2018-01-13
+
+```
+## 重新调整页面结构
+	#顶部和底部 抽成  BaseHeader BaseFooter 组件
+	#BlogView为单独页，以前是Home的子路由
+	
+
+```

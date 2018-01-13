@@ -1,5 +1,5 @@
 <template>
-	<div>
+<div>
   <el-container>
     <el-main>
     	<el-card class="me-area" v-for="o in 8" :key="o">
@@ -43,18 +43,11 @@
     	
     	<card-article cardHeader="最热文章" :articles="hotArticle"></card-article>
     		
-    	<!--<el-card class="me-area">
-			  <p>标签内容</p>
-			</el-card>
-			
-			<el-card class="me-area">
-			  <p>标签内容</p>
-			</el-card>-->
 			
     </el-aside>
      
   </el-container>
- </div>
+</div>
 </template>
 
 <script>
@@ -102,7 +95,7 @@ export default {
 	margin-left: 100px;
 	margin-right: 100px;*/
 	width: 1000px;
-	margin: 80px auto;
+	/*margin: 80px auto;*/
 }
 
 .el-aside {
