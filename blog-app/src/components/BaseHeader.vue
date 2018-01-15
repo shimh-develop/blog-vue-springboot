@@ -9,25 +9,29 @@
 			  <el-col class="" :span="20">
 			  	<el-menu :router=true menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex" mode="horizontal" >
 					  <el-menu-item index="/">首页</el-menu-item>
-					  <!--<el-submenu index="2">
-					    <template slot="title">文章分类</template>
-					    <el-menu-item index="2-1">java</el-menu-item>
-					    <el-menu-item index="2-2">js</el-menu-item>
-					    <el-menu-item index="2-3">vue</el-menu-item>
-					  </el-submenu>-->
-					  <el-menu-item index="/categoryTag">文章分类</el-menu-item>
+					  <el-menu-item index="/category/all">文章分类</el-menu-item>
+					  <el-menu-item index="/tag/all">标签</el-menu-item>
 					  <el-menu-item index="/log">日志</el-menu-item>
 					  <el-menu-item index="2">留言板</el-menu-item>
 					  
-					  <el-col class="" :span="4" :offset="6">
-					  <el-menu-item index="/write"><i class="me-icon-comment"></i>&nbsp;&nbsp;写博客</el-menu-item>
+					  <el-col class="" :span="4" :offset="4">
+					  <el-menu-item index="/write"><i class="el-icon-edit"></i>写文章</el-menu-item>
 					  
 					  </el-col>
 					  
-					  <el-col class="" :span="4" :offset="2">
-					  <el-menu-item index="/login">登录</el-menu-item>
-					  <el-menu-item index="/register">注册</el-menu-item>
-					  </el-col>
+					  <!--<el-col class="" :span="4" :offset="2">
+					  	
+						  <el-menu-item index="/login"><el-button type="text">登录</el-button></el-menu-item>
+						  <el-menu-item index="/register"><el-button type="text">注册</el-button></el-menu-item>
+
+					  
+					  </el-col>-->
+						  <el-submenu index="3">
+						    <template slot="title">
+									<img class="me-header-picture" src="../../static/kebi.jpg" />						    	
+						    </template>
+						    <el-menu-item index="3-3">退出</el-menu-item>
+						  </el-submenu>
 					</el-menu>
 			  </el-col>
 					  
@@ -38,10 +42,14 @@
 <script>
 export default {
   name: 'BaseHeader',
+  props:{
+  	activeIndex:String
+  },
   data (){
   	return {
-  		activeIndex: '/'
   	}
+  },
+  methods:{
   }
 }
 </script>
@@ -66,5 +74,12 @@ export default {
 .me-title img{
 	max-height: 2.4rem;
 	max-width: 100%;
+}
+.me-header-picture {
+	width: 36px;
+    height: 36px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    vertical-align: middle;
 }
 </style>

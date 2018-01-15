@@ -7,12 +7,12 @@ import Register from '@/views/Register'
 import Log from '@/views/Log'
 import BlogWrite from '@/views/blog/BlogWrite'
 import BlogView from '@/views/blog/BlogView'
+import BlogAllCategoryTag from '@/views/blog/BlogAllCategoryTag'
 import BlogCategoryTag from '@/views/blog/BlogCategoryTag'
 
 Vue.use(Router)
 
-export default new Router({
-	linkActiveClass:'aaa',
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -23,10 +23,23 @@ export default new Router({
           path: '',
           component: Index
         },
-	    	{
-	    	 path: 'log',
-	    	 component:Log
-	    	}
+    	{
+    	 path: 'log',
+    	 component:Log
+    	},
+	    {
+	    	path: 'view/:id',
+		    component:BlogView
+	    },
+	    {
+	    	path: ':type/all',
+		    component:BlogAllCategoryTag
+	    },
+	    {
+	    	path: ':type/:id',
+		    component:BlogCategoryTag
+	    }
+    	
       ]
     },
     {
@@ -40,14 +53,9 @@ export default new Router({
     {
     	path: '/write',
     	component:BlogWrite
-    },
-    {
-    	path: '/view/:id',
-	    component:BlogView
-    },
-    {
-    	path: '/categoryTag',
-	    component:BlogCategoryTag
     }
   ]
 })
+
+
+export default router

@@ -1,5 +1,6 @@
 <template>
-	<transition name="el-zoom-in-center">
+	<!--<transition name="el-zoom-in-center">-->
+	<transition>	
 		<div @click="toTop" v-show="topShow" class="me-to-top"><i class="el-icon-caret-top"></i></div>
 	</transition>
 </template>

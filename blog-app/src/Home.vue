@@ -2,11 +2,11 @@
   <div id="home">
     <el-container>
     	
-    	<base-header></base-header>
+    	<base-header :activeIndex="activeIndex"></base-header>
 		  
 		  <router-view class="me-container"/>
 		  
-			<base-footer></base-footer>
+			<base-footer v-show="footerShow"></base-footer>
 		  
 		</el-container>
 		
@@ -23,50 +23,34 @@ export default {
   name: 'Home',
   data (){
   	return {
-  		activeIndex: '/'
+  			activeIndex: '/',
+  			footerShow:true
   	}
   },
   components:{
   	'base-header':BaseHeader,
   	'base-footer':BaseFooter
-  }
+  },
+  beforeRouteEnter (to, from, next){
+  	 next(vm => {
+    	vm.activeIndex = to.path
+  	})
+  },
+  beforeRouteUpdate (to, from, next) {
+	  if(to.path == '/'){
+	  	this.footerShow = true
+	  }else{
+	  	this.footerShow = false
+	  }
+	  this.activeIndex = to.path
+	  next()
+	}
 }
 </script>
 
 <style>
 
-/*.el-header {
-  position: fixed;
-  z-index: 1024;
-  min-width: 100%;
-  box-shadow: 0 2px 3px hsla(0,0%,7%,.1), 0 0 0 1px hsla(0,0%,7%,.1);
-}*/
 .me-container{
-  /*margin-bottom: 60px;*/
-     margin: 100px auto 140px;
+  margin: 100px auto 140px;
 }
-  
-/*.me-title{
-	margin-top: 10px;
-	font-size: 24px ;
-}
-
-.me-for {
-	color: #36ac70;
-}
-.me-fun {
-	color: #28374b;
-}
-
-.me-header-left{
-		margin-top: 10px;
-}
-.me-title img{
-	max-height: 2.4rem;
-	max-width: 100%;
-}
-.temp{
-	 background: #99a9bf;
-	  border-radius: 4px;
-}*/
 </style>

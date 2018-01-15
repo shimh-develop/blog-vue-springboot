@@ -1,126 +1,118 @@
 <template>
-	<div id="view">
-	<el-container>
-    	<base-header></base-header>
-    	<div class="me-view-body">
-		<el-container class="me-view-container">
-		    <el-main>
-				<div class="me-view-card">
-					<h1 class="me-view-title">搭建element-ui的Vue前端工程操作</h1>
-					<div class="me-view-author">
+<div class="me-view-body">
+<el-container class="me-view-container">
+    <el-main>
+		<div class="me-view-card">
+			<h1 class="me-view-title">搭建element-ui的Vue前端工程操作</h1>
+			<div class="me-view-author">
+				<a class="">
+					<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
+				</a>
+				<div class="me-view-info">
+					<span>史明辉</span>
+					<div class="me-view-meta">
+						<span>2018.01.12 15:45</span>
+						<span>阅读   1000</span>
+						<span>评论   500</span>
+					</div>
+				</div>
+			</div>
+			<div>
+				<markdown-editor :config=config></markdown-editor>
+		  	</div>
+		  	
+		  	<div class="me-view-end">
+		  	<el-alert
+			    title="文章End..."
+			    type="success"
+			    center
+			    :closable="false">
+			  </el-alert>
+		  	</div>
+		  	
+		  	<div class="me-view-tag">
+		  		<el-tag class="me-view-tag-item" type="warning">前端</el-tag>
+			  	<el-tag class="me-view-tag-item" type="warning">Vue</el-tag>
+			  	<el-tag class="me-view-tag-item" type="warning">element-ui</el-tag>
+		  	</div>
+		  	
+		  	<div class="me-view-comment">
+		  		
+		  		<div class="me-view-comment-write">
+		  			<!--<a class="">
+						<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
+					</a>
+					
+		  			<el-input
+					  type="textarea"
+					  :autosize="{ minRows: 2, maxRows: 4}"
+					  placeholder="请输入内容">
+					</el-input>-->
+					<el-row :gutter="20">
+					  <el-col :span="2">
+					  	<a class="">
+							<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
+						</a>
+					  </el-col>
+					  <el-col :span="22">
+					  	<el-input
+						  type="textarea"
+						  :autosize="{ minRows: 2}"
+						  placeholder="你的评论..."
+						  class="me-view-comment-text"
+						  resize="none">
+						</el-input>
+					  </el-col>
+					</el-row>
+					
+		  			<el-row :gutter="20">
+					  <el-col :span="2" :offset="22">
+					  	<el-button type="text">评论</el-button>
+					  </el-col>
+					</el-row>
+		  		</div>
+		  		
+		  		<div class="me-view-comment-title">
+		  			<span>8 条评论</span>
+		  		</div>
+		  		
+		  		<div class="me-view-comment-item" v-for="c in 4" :key="c">
+		  			<div class="me-view-comment-author">
 						<a class="">
 							<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
 						</a>
 						<div class="me-view-info">
 							<span>史明辉</span>
 							<div class="me-view-meta">
+								<span>{{c}}楼</span>
 								<span>2018.01.12 15:45</span>
-								<span>阅读   1000</span>
-								<span>评论   500</span>
 							</div>
 						</div>
 					</div>
 					<div>
-						<markdown-editor :config=config></markdown-editor>
-				  	</div>
-				  	
-				  	<div class="me-view-end">
-				  	<el-alert
-					    title="文章End..."
-					    type="success"
-					    center
-					    :closable="false">
-					  </el-alert>
-				  	</div>
-				  	
-				  	<div class="me-view-tag">
-				  		<el-tag class="me-view-tag-item" type="warning">前端</el-tag>
-					  	<el-tag class="me-view-tag-item" type="warning">Vue</el-tag>
-					  	<el-tag class="me-view-tag-item" type="warning">element-ui</el-tag>
-				  	</div>
-				  	
-				  	<div class="me-view-comment">
-				  		
-				  		<div class="me-view-comment-write">
-				  			<!--<a class="">
-								<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
+						<p class="me-view-comment-content">真特么矫情。你想要的样子，是以现状作为基础的幻想。你站在现在已拥有的条件下去谈论那些所缺失的，便觉得现实亏欠了自己太多太多。而当你为了这些幻想牺牲现状或者以现状做为代价的时候，你才会发现自己你得到的一切都不是想象的那么回事。你更多的是在为自己的欲望找借口。安贫乐道也是一种心态和修行，这往往比欲望和抱怨更难忍受。当然要努力，但心态更重要。</p>
+						<div class="me-view-comment-tools">
+							<a class="me-view-comment-tool">
+								<i class="me-icon-comment"></i>&nbsp;120人赞
 							</a>
-							
-				  			<el-input
-							  type="textarea"
-							  :autosize="{ minRows: 2, maxRows: 4}"
-							  placeholder="请输入内容">
-							</el-input>-->
-							<el-row :gutter="20">
-							  <el-col :span="2">
-							  	<a class="">
-									<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
-								</a>
-							  </el-col>
-							  <el-col :span="22">
-							  	<el-input
-								  type="textarea"
-								  :autosize="{ minRows: 2}"
-								  placeholder="你的评论..."
-								  class="me-view-comment-text"
-								  resize="none">
-								</el-input>
-							  </el-col>
-							</el-row>
-							
-				  			<el-row :gutter="20">
-							  <el-col :span="2" :offset="22">
-							  	<el-button type="text">评论</el-button>
-							  </el-col>
-							</el-row>
-				  		</div>
-				  		
-				  		<div class="me-view-comment-title">
-				  			<span>8 条评论</span>
-				  		</div>
-				  		
-				  		<div class="me-view-comment-item" v-for="c in 4" :key="c">
-				  			<div class="me-view-comment-author">
-								<a class="">
-									<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
-								</a>
-								<div class="me-view-info">
-									<span>史明辉</span>
-									<div class="me-view-meta">
-										<span>{{c}}楼</span>
-										<span>2018.01.12 15:45</span>
-									</div>
-								</div>
-							</div>
-							<div>
-								<p class="me-view-comment-content">真特么矫情。你想要的样子，是以现状作为基础的幻想。你站在现在已拥有的条件下去谈论那些所缺失的，便觉得现实亏欠了自己太多太多。而当你为了这些幻想牺牲现状或者以现状做为代价的时候，你才会发现自己你得到的一切都不是想象的那么回事。你更多的是在为自己的欲望找借口。安贫乐道也是一种心态和修行，这往往比欲望和抱怨更难忍受。当然要努力，但心态更重要。</p>
-								<div class="me-view-comment-tools">
-									<a class="me-view-comment-tool">
-										<i class="me-icon-comment"></i>&nbsp;120人赞
-									</a>
-									<a class="me-view-comment-tool">
-										<i class="me-icon-comment"></i>&nbsp;回复
-									</a>
-								</div>
-							</div>
-				  		</div>
-				  		
-				  	</div>
-				  	
-				</div>
-		    </el-main>
-    
-  		</el-container>
-		</div> 
-	</el-container>
-		
-<go-top></go-top>
-</div>
+							<a class="me-view-comment-tool">
+								<i class="me-icon-comment"></i>&nbsp;回复
+							</a>
+						</div>
+					</div>
+		  		</div>
+		  		
+		  	</div>
+		  	
+		</div>
+    </el-main>
+
+</el-container>
+</div> 
 </template>
 
 <script>
 import MarkdownEditor from '@/components/markdown/MarkdownEditor'	
-import BaseHeader from '@/components/BaseHeader'
 export default {
   name: 'BlogView',
   data () {
@@ -162,7 +154,6 @@ export default {
     }
   },
   components:{
-  	'base-header':BaseHeader,
   	'markdown-editor':MarkdownEditor
   },
   //组件内的守卫 调整body的背景色
@@ -183,9 +174,9 @@ export default {
 }
 .me-view-container {
 	width: 700px;
-	/*margin: 80px auto 0;*/
-	/*background-color: gainsboro;*/
-	
+}
+.el-main {
+	overflow: hidden;
 }
 .me-view-title {
 	font-size: 34px;

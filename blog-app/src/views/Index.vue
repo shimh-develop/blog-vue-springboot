@@ -10,7 +10,7 @@
     <el-aside>
     	
     	<card-me class="me-area"></card-me>
-    	
+    	<card-tag :tags="hotTags"></card-tag>
     	<card-article cardHeader="最新文章" :articles="newArticle"></card-article>
     	
     	<card-article cardHeader="最热文章" :articles="hotArticle"></card-article>
@@ -24,6 +24,7 @@
 <script>
 import CardMe from '@/components/card/CardMe'
 import CardArticle from '@/components/card/CardArticle'
+import CardTag from '@/components/card/CardTag'
 import ArticleItem from '@/components/article/ArticleItem'
 	
 export default {
@@ -40,6 +41,14 @@ export default {
 		  	tags:['前端','vue','elementUI'],
 		  	createTime:'3天前'
     	},
+    	hotTags:[
+    		{id:1,name:'前端'},
+    		{id:2,name:'后端'},
+    		{id:3,name:'代码规范'},
+    		{id:4,name:'程序员'},
+    		{id:5,name:'开源'},
+    		{id:6,name:'设计模式'}
+    	],
       hotArticle:[
       	{id:'7',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
       	{id:'8',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
@@ -66,6 +75,7 @@ export default {
   components:{
   	'card-me':CardMe,
   	'card-article':CardArticle,
+  	'card-tag':CardTag,
   	'article-item':ArticleItem
   }
 }
@@ -74,16 +84,12 @@ export default {
 <style scoped>
 
 .el-container{
-/*	margin-top: 80px;
-	margin-left: 100px;
-	margin-right: 100px;*/
-	width: 1000px;
-	/*margin: 80px auto;*/
+	width: 960px;
 }
 
 .el-aside {
 	margin-left: 20px;
-	width: 300px;
+	width: 260px;
 }
   
 .el-main {

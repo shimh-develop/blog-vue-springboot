@@ -33,4 +33,8 @@ a:hover {
 html{height:100%;}
 body{min-height:100%;}
 body{position:relative;}
+
+.me-pull-right {
+	float: right;
+}
 </style>
