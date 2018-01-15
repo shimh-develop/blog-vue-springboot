@@ -7,10 +7,12 @@ import Register from '@/views/Register'
 import Log from '@/views/Log'
 import BlogWrite from '@/views/blog/BlogWrite'
 import BlogView from '@/views/blog/BlogView'
+import BlogCategoryTag from '@/views/blog/BlogCategoryTag'
 
 Vue.use(Router)
 
 export default new Router({
+	linkActiveClass:'aaa',
   routes: [
     {
       path: '/',
@@ -42,6 +44,10 @@ export default new Router({
     {
     	path: '/view/:id',
 	    component:BlogView
+    },
+    {
+    	path: '/categoryTag',
+	    component:BlogCategoryTag
     }
   ]
 })

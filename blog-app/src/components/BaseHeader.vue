@@ -9,14 +9,15 @@
 			  <el-col class="" :span="20">
 			  	<el-menu :router=true menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex" mode="horizontal" >
 					  <el-menu-item index="/">首页</el-menu-item>
-					  <el-submenu index="2">
+					  <!--<el-submenu index="2">
 					    <template slot="title">文章分类</template>
 					    <el-menu-item index="2-1">java</el-menu-item>
 					    <el-menu-item index="2-2">js</el-menu-item>
 					    <el-menu-item index="2-3">vue</el-menu-item>
-					  </el-submenu>
+					  </el-submenu>-->
+					  <el-menu-item index="/categoryTag">文章分类</el-menu-item>
 					  <el-menu-item index="/log">日志</el-menu-item>
-					  <el-menu-item index="4">留言板</el-menu-item>
+					  <el-menu-item index="2">留言板</el-menu-item>
 					  
 					  <el-col class="" :span="4" :offset="6">
 					  <el-menu-item index="/write"><i class="me-icon-comment"></i>&nbsp;&nbsp;写博客</el-menu-item>
