@@ -5,6 +5,7 @@ import Index from '@/views/Index'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Log from '@/views/Log'
+import MessageBoard from '@/views/MessageBoard'
 import BlogWrite from '@/views/blog/BlogWrite'
 import BlogView from '@/views/blog/BlogView'
 import BlogAllCategoryTag from '@/views/blog/BlogAllCategoryTag'
@@ -23,23 +24,26 @@ const router = new Router({
           path: '',
           component: Index
         },
-    	{
-    	 path: 'log',
-    	 component:Log
-    	},
-	    {
-	    	path: 'view/:id',
-		    component:BlogView
-	    },
-	    {
-	    	path: ':type/all',
-		    component:BlogAllCategoryTag
-	    },
-	    {
-	    	path: ':type/:id',
-		    component:BlogCategoryTag
-	    }
-    	
+	    	{
+	    	 path: 'log',
+	    	 component:Log
+	    	},
+	    	{
+		    	path: 'messageBoard',
+		    	component:MessageBoard
+	    	},
+		    {
+		    	path: 'view/:id',
+			    component:BlogView
+		    },
+		    {
+		    	path: ':type/all',
+			    component:BlogAllCategoryTag
+		    },
+		    {
+		    	path: ':type/:id',
+			    component:BlogCategoryTag
+		    }
       ]
     },
     {
