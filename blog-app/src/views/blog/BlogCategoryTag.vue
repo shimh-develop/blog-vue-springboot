@@ -3,7 +3,7 @@
 <el-container class="me-ct-container">
     <el-main>
 		<div class="me-ct-title me-area">
-			<img class="me-ct-picture" src="../../../build/logo.png" />
+			<img class="me-ct-picture" src="../../../static/vue.png" />
 			<h3 class="me-ct-name">vue框架</h3>
 			<p>javascript的mvvm框架ffffffffffssssssjavascript的mvvm框架ffffffffffssssss</p>
 			

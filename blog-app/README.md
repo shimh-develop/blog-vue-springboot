@@ -120,3 +120,11 @@ npm run build --report
 # Home组件增加路由判断：更正导航栏的状态、条件显示底部栏
 
 ```
+
+## 2018-01-16
+
+``` 
+# 将写文章的顶部Header合并到BaseHeader中
+# 图片都放到了static目录下
+
+```

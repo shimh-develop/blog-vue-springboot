@@ -1,24 +1,17 @@
 <template>
 <div id="write">
 <el-container>
-	<el-header class="me-area">
-		<el-row class="me-header">
-  			<el-col :span="4" class="me-header-left">
- 				<router-link to="/" class="me-title">
-					<img src="../../../static/logo.png"/>
-				</router-link>
-  			</el-col>
-  			<el-col :span="4" :offset="2">
- 				<div class="me-write-info">写文章</div>
-  			</el-col>
-  			<el-col :span="4" :offset="8">
-  				<div class="me-write-btn">
- 				<el-button round @click="publishShow">发布</el-button>
- 				<el-button round @click="cancel">取消</el-button>
- 				</div>
-  			</el-col>
-		</el-row>
-  	</el-header>
+  	<base-header :simple=true>
+		<el-col :span="4" :offset="2">
+			<div class="me-write-info">写文章</div>
+		</el-col>
+		<el-col :span="4" :offset="6">
+			<div class="me-write-btn">
+			<el-button round @click="publishShow">发布</el-button>
+			<el-button round @click="cancel">取消</el-button>
+			</div>
+		</el-col>
+  	</base-header>
 	  
 	<el-container class="me-area me-write-box">
 		<el-main class="me-write-main">
@@ -77,6 +70,7 @@
 </template>
 
 <script>
+import BaseHeader from '@/components/BaseHeader'
 import MarkdownEditor from '@/components/markdown/MarkdownEditor'	
 
 export default {
@@ -137,6 +131,7 @@ export default {
   	}
   },
   components:{
+  	'base-header':BaseHeader,
   	'markdown-editor':MarkdownEditor
   },
   //组件内的守卫 调整body的背景色
@@ -167,10 +162,7 @@ export default {
 	margin-top: 10px;
 }
 .me-write-box {
-/*	margin-top: 80px;
-	margin-left: 200px;
-	margin-right: 200px;*/
-	width: 700px;
+	max-width: 700px;
 	margin: 80px auto 0;
 }
 .me-write-main {

@@ -8,7 +8,7 @@
 		    		<li @click="view(ct)" v-for="ct in 8" :key="ct" class="me-allct-item">
 						  <div class="me-allct-content">
 						  	<a class="me-allct-info">
-						  		<img class="me-allct-img" src="../../../build/logo.png" />
+						  		<img class="me-allct-img" src="../../../static/vue.png" />
 						  		<h4 class="me-allct-name">Vue.js</h4>
 						  		<p class="me-allct-description">javascript的mvvm框架ffffffffffssssss</p>
 						  	</a>
@@ -25,7 +25,7 @@
 		    		<li @click="view(ct)" v-for="ct in 8" :key="ct" class="me-allct-item">
 						  <div class="me-allct-content">
 						  	<a class="me-allct-info">
-						  		<img class="me-allct-img" src="../../../build/logo.png" />
+						  		<img class="me-allct-img" src="../../../static/vue.png" />
 						  		<h4 class="me-allct-name">Vue.js</h4>
 						  	</a>
 						  	

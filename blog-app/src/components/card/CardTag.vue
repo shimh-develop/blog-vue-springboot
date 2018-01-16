@@ -26,7 +26,7 @@ export default {
   },
   methods:{
   	moreTags (){
-  		this.$router.push('/categoryTag')
+  		this.$router.push('/tag/all')
   	},
   	tag (id){
   		this.$router.push({ path: `/tags/${id}` })

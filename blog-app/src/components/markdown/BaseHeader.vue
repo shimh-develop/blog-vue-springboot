@@ -6,9 +6,7 @@
 			  	 	<img src="../../static/logo.png"/>
 			  	</router-link>
 			  </el-col>
-			  
-			  
-			  <el-col v-if="!simple" :span="spanNumber">
+			  <el-col class="" :span="20">
 			  	<el-menu :router=true menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex" mode="horizontal" >
 					  <el-menu-item index="/">首页</el-menu-item>
 					  <el-menu-item index="/category/all">文章分类</el-menu-item>
@@ -16,55 +14,39 @@
 					  <el-menu-item index="/log">日志</el-menu-item>
 					  <el-menu-item index="2">留言板</el-menu-item>
 					  
-					  <el-col :span="4" :offset="4">
-					  	<el-menu-item index="/write"><i class="el-icon-edit"></i>写文章</el-menu-item>
+					  <el-col class="" :span="4" :offset="4">
+					  <el-menu-item index="/write"><i class="el-icon-edit"></i>写文章</el-menu-item>
+					  
 					  </el-col>
 					  
-					  <el-col v-if="!isLogin" :span="4" :offset="2">
+					  <!--<el-col class="" :span="4" :offset="2">
+					  	
 						  <el-menu-item index="/login"><el-button type="text">登录</el-button></el-menu-item>
 						  <el-menu-item index="/register"><el-button type="text">注册</el-button></el-menu-item>
-					  </el-col>
-						  
-					</el-menu>
-			  </el-col>
-			  
-			  <template v-else>
-			  	<slot></slot>
-			  </template>
-			  
-			  <el-col v-show="isLogin" :span="2">
-				  <el-menu menu-trigger="click" mode="horizontal" active-text-color="#5FB878">
-					  <el-submenu index="3">
+
+					  
+					  </el-col>-->
+						  <el-submenu index="3">
 						    <template slot="title">
 									<img class="me-header-picture" src="../../static/kebi.jpg" />						    	
 						    </template>
-						    <el-menu-item index="3-3"><i class="el-icon-back"></i>退出</el-menu-item>
-						</el-submenu>
-					</el-menu>	
-				</el-col>
-				
-		</el-row>
-	</el-header>
+						    <el-menu-item index="3-3">退出</el-menu-item>
+						  </el-submenu>
+					</el-menu>
+			  </el-col>
+					  
+		  	</el-row>
+		  </el-header>
 </template>
 
 <script>
 export default {
   name: 'BaseHeader',
   props:{
-  	activeIndex:String,
-  	simple:{
-      type: Boolean,
-      default: false
-    }
+  	activeIndex:String
   },
   data (){
   	return {
-  		isLogin:true
-  	}
-  },
-  computed:{
-  	spanNumber (){
-  		return this.isLogin ? 16:20
   	}
   },
   methods:{
