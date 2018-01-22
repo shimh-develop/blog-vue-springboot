@@ -22,7 +22,7 @@ import com.shimh.common.cache.RedisManager;
 
 import redis.clients.jedis.JedisPoolConfig;
 
-@Configuration  
+//@Configuration  
 public class RedisConfig {  
   
     private static Logger logger = LoggerFactory.getLogger(RedisConfig.class);  
@@ -70,12 +70,12 @@ public class RedisConfig {
     }*/
     @Bean
     @Qualifier("meRedisTemplate")
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory){
-    	RedisTemplate<String,Object> redisTemplate = new RedisTemplate<String,Object>();
+    public RedisTemplate redisTemplate(RedisConnectionFactory factory){
+    	RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
 
-        GenericFastJsonRedisSerializer fastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
-        redisTemplate.setDefaultSerializer(fastJsonRedisSerializer);//设置默认的Serialize，包含 keySerializer & valueSerializer
+        //GenericFastJsonRedisSerializer fastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
+        //redisTemplate.setDefaultSerializer(fastJsonRedisSerializer);//设置默认的Serialize，包含 keySerializer & valueSerializer
 
         //redisTemplate.setKeySerializer(fastJsonRedisSerializer);//单独设置keySerializer
         //redisTemplate.setValueSerializer(fastJsonRedisSerializer);//单独设置valueSerializer
@@ -85,7 +85,7 @@ public class RedisConfig {
     }
     
     @Bean
-    public RedisManager redisManager( @Qualifier("meRedisTemplate")RedisTemplate<String,Object> redisTemplate){
+    public RedisManager redisManager( @Qualifier("meRedisTemplate")RedisTemplate redisTemplate){
     	RedisManager redisManager = new RedisManager();
     	redisManager.setRedisTemplate(redisTemplate);
     	return redisManager;

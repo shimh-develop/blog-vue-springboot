@@ -19,7 +19,7 @@ import com.shimh.oauth.OAuthRealm;
 import com.shimh.oauth.OAuthSessionDAO;
 import com.shimh.oauth.OAuthSessionManager;
 
-@Configuration  
+//@Configuration  
 public class ShiroConfig {  
   
     @Bean  

@@ -1,6 +1,8 @@
 package com.shimh.oauth;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.ValidatingSession;
@@ -18,6 +20,7 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
 	
 	private RedisManager redisManager;
 	
+	private Map<String,Session> map = new HashMap<String,Session>();
 	
 	
 	@Override
@@ -26,7 +29,8 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
         assignSessionId(session, sessionId);
         logger.info(sessionId.toString());
         
-        redisManager.set(sessionId.toString(), JSON.toJSONString(session) , RedisManager.DEFAULT_EXPIRE);
+        //redisManager.set(sessionId.toString(), JSON.toJSONString(session) , RedisManager.DEFAULT_EXPIRE);
+        map.put(sessionId.toString(), session);
         return sessionId;
 	}
 	
@@ -37,12 +41,14 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
             return; //如果会话过期/停止 没必要再更新了
         }
 		 logger.info(session.getId().toString());
-        redisManager.set(session.getId().toString(), JSON.toJSONString(session), RedisManager.DEFAULT_EXPIRE);
+        //redisManager.set(session.getId().toString(), JSON.toJSONString(session), RedisManager.DEFAULT_EXPIRE);
+		 map.put(session.getId().toString(), session);
 	}
 
 	@Override
 	protected void doDelete(Session session) {
-		redisManager.delete(session.getId().toString());
+		//redisManager.delete(session.getId().toString());
+		map.remove(session.getId().toString());
 	}
 
 	
@@ -50,7 +56,8 @@ public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBe
 	@Override
 	protected Session doReadSession(Serializable sessionId) {
 		logger.info(sessionId.toString());
-		return JSON.parseObject(redisManager.get(sessionId.toString()).toString(), Session.class)   ;
+		//return JSON.parseObject(redisManager.get(sessionId.toString()).toString(), Session.class)   ;
+		return map.get(sessionId.toString());
 	}
 
 
