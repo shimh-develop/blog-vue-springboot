@@ -19,7 +19,7 @@ import com.shimh.oauth.OAuthRealm;
 import com.shimh.oauth.OAuthSessionDAO;
 import com.shimh.oauth.OAuthSessionManager;
 
-//@Configuration  
+@Configuration  
 public class ShiroConfig {  
   
     @Bean  
@@ -37,11 +37,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login", "anon");  
         filterChainDefinitionMap.put("/**", "authc");  
         //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据  
+        
         shiroFilterFactoryBean.setLoginUrl("/unauth");  
-        // 登录成功后要跳转的链接  
-//        shiroFilterFactoryBean.setSuccessUrl("/index");  
-        //未授权界面;  
-//        shiroFilterFactoryBean.setUnauthorizedUrl("/403");  
         
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);  
         return shiroFilterFactoryBean;  
@@ -67,14 +64,12 @@ public class ShiroConfig {
     public SecurityManager securityManager(OAuthRealm oAuthRealm, SessionManager sessionManager) {  
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();  
         securityManager.setRealm(oAuthRealm);  
-        // 自定义session管理 使用redis  
         securityManager.setSessionManager(sessionManager);  
         // 自定义缓存实现 使用redis  
         //securityManager.setCacheManager(cacheManager());  
         return securityManager;  
     }  
   
-    //自定义sessionManager  
     @Bean  
     public SessionManager sessionManager(OAuthSessionDAO authSessionDAO) {  
     	OAuthSessionManager mySessionManager = new OAuthSessionManager();  
@@ -86,7 +81,7 @@ public class ShiroConfig {
     @Bean
     public OAuthSessionDAO authSessionDAO(RedisManager redisManager) {  
     	OAuthSessionDAO authSessionDAO = new OAuthSessionDAO();  
-    	authSessionDAO.setRedisManager(redisManager);;  
+    	authSessionDAO.setRedisManager(redisManager);
         return authSessionDAO;  
     }  
   

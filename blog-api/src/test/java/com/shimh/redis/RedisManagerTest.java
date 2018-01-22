@@ -1,33 +1,37 @@
 package com.shimh.redis;
 
-import org.crazycake.shiro.RedisManager;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import com.shimh.BlogApiApplicationTests;
+import com.shimh.common.cache.RedisManager;
 
 public class RedisManagerTest extends BlogApiApplicationTests{
 
 	@Autowired
 	private RedisManager redisManager;
 	
-	//@Autowired
-	//@Qualifier("meRedisTemplate")
-	private  RedisTemplate  meRedisTemplate;
 	
 	@Test
-	public void jpaTest() {
+	public void setTest() {
 		String k = "zzz";
-		String v = "123";
-		redisManager.set(k.getBytes(), v.getBytes());
+		String v = "123789";
+		redisManager.set(k, v);
 	}
 	
 	@Test
-	public void meRedisTemplateTest() {
-		meRedisTemplate.opsForValue().set("zzz", 123);;
-
-			
+	public void getTest() {
+		String k = "zzz";
+		String v = redisManager.get(k,String.class);
+		System.out.println(v);
 	}
+	
+	@Test
+	public void deleteTest() {
+		String k = "zzz";
+		redisManager.delete(k);
+		String v = redisManager.get(k,String.class);
+		System.out.println(v);
+	}
+	
 }

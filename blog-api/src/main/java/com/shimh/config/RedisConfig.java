@@ -13,82 +13,43 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shimh.common.cache.RedisManager;
+import com.shimh.common.json.ExtGenericFastJsonRedisSerializer;
 
 import redis.clients.jedis.JedisPoolConfig;
 
-//@Configuration  
+@Configuration  
 public class RedisConfig {  
   
-    private static Logger logger = LoggerFactory.getLogger(RedisConfig.class);  
       
-   /* @Bean  
-    @ConfigurationProperties(prefix="spring.redis")  
-    public JedisPoolConfig jedisPoolConfig(){  
-        JedisPoolConfig config = new JedisPoolConfig();  
-        logger.info("JedisPoolConfig bean init success.");
-        return config;  
-    }  
-      
-    @Bean  
-    public JedisConnectionFactory jedisConnectionFactory(JedisPoolConfig jedisPoolConfig){  
-        JedisConnectionFactory factory = new JedisConnectionFactory();  
-        factory.setPoolConfig(jedisPoolConfig); 
-        logger.info("JedisConnectionFactory bean init success.");
-        return factory;  
-    }  
-      
-      
-    @Bean  
-    @Qualifier("meRedisTemplate")
-    public RedisTemplate<String,Object> redisTemplate(JedisConnectionFactory jedisConnectionFactory){  
-        
-    	RedisTemplate<String,Object> redisTemplate = new RedisTemplate<String,Object>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
-
-        GenericFastJsonRedisSerializer fastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
-        redisTemplate.setDefaultSerializer(fastJsonRedisSerializer);//设置默认的Serialize，包含 keySerializer & valueSerializer
-
-        //redisTemplate.setKeySerializer(fastJsonRedisSerializer);//单独设置keySerializer
-        //redisTemplate.setValueSerializer(fastJsonRedisSerializer);//单独设置valueSerializer
-        
-        logger.info("RedisTemplate bean init success.");  
-        return redisTemplate;
-    }  
-    
     @Bean
-    @Qualifier("meRedisTemplate")
-    public RedisManager redisManager(RedisTemplate<String,Object> redisTemplate){
+    public RedisManager redisManager(RedisTemplate redisTemplate){
     	RedisManager redisManager = new RedisManager();
     	redisManager.setRedisTemplate(redisTemplate);
     	return redisManager;
-    }*/
+    }
+    
     @Bean
-    @Qualifier("meRedisTemplate")
     public RedisTemplate redisTemplate(RedisConnectionFactory factory){
+    	
     	RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
-
-        //GenericFastJsonRedisSerializer fastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
-        //redisTemplate.setDefaultSerializer(fastJsonRedisSerializer);//设置默认的Serialize，包含 keySerializer & valueSerializer
-
-        //redisTemplate.setKeySerializer(fastJsonRedisSerializer);//单独设置keySerializer
-        //redisTemplate.setValueSerializer(fastJsonRedisSerializer);//单独设置valueSerializer
         
-        logger.info("RedisTemplate bean init success.");  
+        StringRedisSerializer ss = new StringRedisSerializer();
+        //ExtGenericFastJsonRedisSerializer extGenericFastJsonRedisSerializer = new ExtGenericFastJsonRedisSerializer();
+        
+        redisTemplate.setKeySerializer(ss);
+       // redisTemplate.setValueSerializer(extGenericFastJsonRedisSerializer);
+        
         return redisTemplate;
     }
-    
-    @Bean
-    public RedisManager redisManager( @Qualifier("meRedisTemplate")RedisTemplate redisTemplate){
-    	RedisManager redisManager = new RedisManager();
-    	redisManager.setRedisTemplate(redisTemplate);
-    	return redisManager;
-    }
-    
 }  

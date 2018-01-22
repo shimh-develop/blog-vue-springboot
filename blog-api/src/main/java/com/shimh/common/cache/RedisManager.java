@@ -3,6 +3,7 @@ package com.shimh.common.cache;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 
 public class RedisManager {
 	
@@ -11,7 +12,7 @@ public class RedisManager {
     /**  不设置过期时长 */
     public final static long NOT_EXPIRE = -1;
     
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate redisTemplate;
     
     
     public void set(String key, Object value, long expire){
@@ -21,7 +22,6 @@ public class RedisManager {
     	        }else {
     	            redisTemplate.opsForValue().set(key, value, expire,TimeUnit.SECONDS);
     	        }
-    		 redisTemplate.opsForValue().set("aa", "111111");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -33,8 +33,9 @@ public class RedisManager {
     }
 
     public <T> T get(String key, Class<T> clazz) {
-        T value = (T) redisTemplate.opsForValue().get(key);
-        return value;
+    	ValueOperations<String,T> operations = redisTemplate.opsForValue();
+    	return operations.get(key);
+        
     }
     
     public Object get(String key) {
@@ -42,7 +43,7 @@ public class RedisManager {
     }
 
     public void delete(String key) {
-        redisTemplate.opsForValue().getOperations().delete(key);
+    	redisTemplate.delete(key);
     }
 
 	public RedisTemplate<String,Object> getRedisTemplate() {
