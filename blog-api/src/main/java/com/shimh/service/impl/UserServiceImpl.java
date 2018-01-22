@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shimh.common.util.PasswordHelper;
 import com.shimh.entity.User;
@@ -18,13 +19,6 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public void save(User user) {
-		
-		PasswordHelper.encryptPassword(user);
-		userRepository.save(user);
-	}
-
-	@Override
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
@@ -32,6 +26,35 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByAccount(String account) {
 		return userRepository.findByAccount(account);
+	}
+
+	@Override
+	public User getUserById(Long id) {
+		
+		return userRepository.findOne(id);
+	}
+
+	@Override
+	@Transactional
+	public Long saveUser(User user) {
+		
+		PasswordHelper.encryptPassword(user);
+		return userRepository.save(user).getId();
+	}
+
+	@Override
+	@Transactional
+	public Long updateUser(User user) {
+		User oldUser = userRepository.findOne(user.getId());
+		oldUser.setNickname(user.getNickname());
+		
+		return oldUser.getId();
+	}
+
+	@Override
+	@Transactional
+	public void deleteUserById(Long id) {
+		userRepository.delete(id);
 	}
 	
 }

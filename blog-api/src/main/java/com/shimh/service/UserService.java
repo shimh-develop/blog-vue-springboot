@@ -8,7 +8,13 @@ public interface UserService {
 	
 	List<User> findAll();
 	
-	void save(User user);
-
 	User findByAccount(String account);
+
+	User getUserById(Long id);
+
+	Long saveUser(User user);
+
+	Long updateUser(User user);
+
+	void deleteUserById(Long id);
 }

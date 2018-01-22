@@ -182,5 +182,14 @@ public class User extends BaseEntity<Long>{
 		this.lastLogin = lastLogin;
 	}
 
+	@Override
+	public String toString() {
+		return "User [account=" + account + ", password=" + password + ", avatar=" + avatar + ", email=" + email
+				+ ", nickname=" + nickname + ", mobilePhoneNumber=" + mobilePhoneNumber + ", salt=" + salt
+				+ ", createDate=" + createDate + ", lastLogin=" + lastLogin + ", status=" + status + ", admin=" + admin
+				+ ", deleted=" + deleted + "]";
+	}
+
+	
 
 }
