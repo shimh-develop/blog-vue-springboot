@@ -34,7 +34,7 @@ public class UserServiceTest extends BlogApiApplicationTests{
 		u.setAccount("shimh");
 		u.setNickname("史明辉");
 		u.setPassword("123456");
-		u.setAdmin(true);
+		u.setAdmin(false);
 		u.setCreateDate(new Date());
 		u.setEmail("919431514@qq.com");
 		u.setMobilePhoneNumber("18396816462");

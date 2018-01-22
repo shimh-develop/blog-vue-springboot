@@ -2,25 +2,49 @@ package com.shimh.common.controlleradvice;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.AuthorizationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.shimh.common.constant.ResultCode;
 import com.shimh.common.exception.BaseException;
+import com.shimh.common.util.Result;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
+	
+	private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+	
+	@ExceptionHandler(AuthorizationException.class)
+	ResponseEntity<Result> AuthorizationExceptionHandler(AuthorizationException e) {
+	   
+		logger.error(e.getMessage(),e);
+		
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+	    
+	    Result r = new Result();
+	    r.setResultCode(ResultCode.PERMISSION_NO_ACCESS);
+	    
+	    return new ResponseEntity<Result>(r,status);
+	}
 	
 
 	@ExceptionHandler(BaseException.class)
-	@ResponseBody
-	ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable ex) {
+	ResponseEntity<Result> BaseExceptionHandler(HttpServletRequest request, BaseException e) {
+		
+		logger.error(e.getMessage(),e);
+		
 	    HttpStatus status = getStatus(request);
-	    //return new ResponseEntity<>(new CustomErrorType(status.value(), ex.getMessage()), status);
+	    Result r = new Result();
+	    r.setResultCode(ResultCode.SYSTEM_INNER_ERROR);
 	    
-	    return new ResponseEntity<>(status);
+	    r.simple().put("errdetail", e.getMessage());
+	    
+	    return new ResponseEntity<Result>(r,status);
 	}
 	
 	private HttpStatus getStatus(HttpServletRequest request) {

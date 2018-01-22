@@ -2,6 +2,7 @@ package com.shimh.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
 import com.shimh.common.util.Result;
 import com.shimh.entity.User;
@@ -45,7 +47,9 @@ public class UserController {
 		return r;
 	}
 	
+	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result saveUser(@RequestBody User user){
 		
 		Long userId = userService.saveUser(user);
@@ -56,6 +60,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result updateUser(@RequestBody User user){
 		Result r = new Result();
 		
@@ -72,6 +77,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result deleteUserById(@PathVariable("id")Long id){
 		Result r = new Result();
 		

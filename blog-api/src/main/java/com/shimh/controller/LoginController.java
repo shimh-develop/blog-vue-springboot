@@ -6,44 +6,57 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.shimh.common.constant.Base;
+import com.shimh.common.constant.ResultCode;
+import com.shimh.common.util.Result;
 import com.shimh.entity.User;
+import com.shimh.service.UserService;
 
 @RestController
 public class LoginController {
 
+	@Autowired
+	private UserService userService;
 	
-	@RequestMapping(value = "/ajaxLogin", method = RequestMethod.POST)  
-	public String login(User user) {  
-	    JSONObject jsonObject = new JSONObject();  
+	@PostMapping("/login")
+	public Result login(User user) {  
+		
 	    Subject subject = SecurityUtils.getSubject();  
-	    UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPassword());  
+	    UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPassword());
+	    
+	    Result r = new Result();
+	    
 	    try {  
 	        subject.login(token);  
-	        jsonObject.put("token", subject.getSession().getId());  
-	        jsonObject.put("msg", "登录成功");  
+
+	        User currentUser = userService.getUserByAccount(user.getAccount());
+	        subject.getSession().setAttribute(Base.CURRENT_USER, currentUser);
+	        
+	        r.setResultCode(ResultCode.SUCCESS);
+	        r.simple().put("token", subject.getSession().getId());
 	    } catch (UnknownAccountException e) {  
-	        jsonObject.put("msg", "账号不存在");  
+	    	r.setResultCode(ResultCode.USER_NOT_EXIST);
 	    } catch (LockedAccountException e) {  
-	        jsonObject.put("msg", "账号户已被冻结");  
+	    	r.setResultCode(ResultCode.USER_ACCOUNT_FORBIDDEN);
 	    } catch (AuthenticationException e) {  
-	        jsonObject.put("msg", "账号或密码错误");  
+	    	r.setResultCode(ResultCode.USER_LOGIN_ERROR);
 	    } catch (Exception e) {  
-	        e.printStackTrace();  
+	    	r.setResultCode(ResultCode.ERROR);
 	    }  
 	    
-	    return jsonObject.toString();  
+	    return r;  
 	} 
 	
-    @RequestMapping(value = "/unauth")  
-    public Object unauth() {  
-    	JSONObject jsonObject = new JSONObject();   
-    	jsonObject.put("code", "1000000");  
-    	jsonObject.put("msg", "未登录");  
-        return jsonObject;  
+	
+    @RequestMapping(value = "/handleLogin")  
+    public Result handleLogin() {  
+        return Result.error(ResultCode.USER_NOT_LOGGED_IN);
     }
 }

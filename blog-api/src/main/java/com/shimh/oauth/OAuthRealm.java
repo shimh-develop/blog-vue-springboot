@@ -29,16 +29,16 @@ public class OAuthRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String account = (String)principals.getPrimaryPrincipal();
-        User user = userService.findByAccount(account);
+        User user = userService.getUserByAccount(account);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         Set<String> roles = new HashSet<String>();
         
+        //简单处理   只有admin一个角色
         if(user.getAdmin()){
         	roles.add(Base.ROLE_ADMIN);
         }
         
         authorizationInfo.setRoles(roles);
-        //authorizationInfo.setStringPermissions(userService.findPermissions(username));
 
         return authorizationInfo;
     }
@@ -48,7 +48,7 @@ public class OAuthRealm extends AuthorizingRealm {
 
         String account = (String)token.getPrincipal();
 
-        User user = userService.findByAccount(account);
+        User user = userService.getUserByAccount(account);
 
         if(user == null) {
             throw new UnknownAccountException();//没找到帐号
@@ -58,24 +58,14 @@ public class OAuthRealm extends AuthorizingRealm {
             throw new LockedAccountException(); //帐号锁定
         }
 
-        //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getAccount(), //用户名
-                user.getPassword(), //密码
+                user.getAccount(), 
+                user.getPassword(),
                 ByteSource.Util.bytes(user.getSalt()),
-                getName()  //realm name
+                getName()  
         );
         
         return authenticationInfo;
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

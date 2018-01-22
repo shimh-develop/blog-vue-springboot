@@ -26,19 +26,17 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {  
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();  
         shiroFilterFactoryBean.setSecurityManager(securityManager);  
-  
+       
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();  
-        //注意过滤器配置顺序 不能颠倒  
-        //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl  
+        
         filterChainDefinitionMap.put("/logout", "logout");  
-        // 配置不会被拦截的链接 顺序判断  
+
         filterChainDefinitionMap.put("/static/**", "anon");  
-        filterChainDefinitionMap.put("/ajaxLogin", "anon");  
         filterChainDefinitionMap.put("/login", "anon");  
         filterChainDefinitionMap.put("/**", "authc");  
-        //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据  
         
-        shiroFilterFactoryBean.setLoginUrl("/unauth");  
+        //返回json数据，由前端跳转
+        shiroFilterFactoryBean.setLoginUrl("/handleLogin");  
         
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);  
         return shiroFilterFactoryBean;  
@@ -47,8 +45,8 @@ public class ShiroConfig {
     @Bean  
     public HashedCredentialsMatcher hashedCredentialsMatcher() {  
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();  
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;  
-        hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));  
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        hashedCredentialsMatcher.setHashIterations(2);
         return hashedCredentialsMatcher;  
     }  
   
@@ -72,9 +70,9 @@ public class ShiroConfig {
   
     @Bean  
     public SessionManager sessionManager(OAuthSessionDAO authSessionDAO) {  
-    	OAuthSessionManager mySessionManager = new OAuthSessionManager();  
-        mySessionManager.setSessionDAO(authSessionDAO);  
-        return mySessionManager;  
+    	OAuthSessionManager oAuthSessionManager = new OAuthSessionManager();  
+    	oAuthSessionManager.setSessionDAO(authSessionDAO);  
+        return oAuthSessionManager;  
     }  
   
   
