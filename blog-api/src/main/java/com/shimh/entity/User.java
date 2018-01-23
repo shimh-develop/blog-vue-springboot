@@ -10,10 +10,19 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.shimh.common.entity.BaseEntity;
 
+/**
+ * 用户
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @Entity
 @Table(name = "sys_user")
 public class User extends BaseEntity<Long>{
@@ -23,13 +32,15 @@ public class User extends BaseEntity<Long>{
 	 */
 	private static final long serialVersionUID = -4454737765850239378L;
 	
-
+	
+	@NotBlank
 	@Column(name = "account", unique = true, length = 64)
 	private String account;
 	
 	/**
      * 使用md5(username + original password + salt)加密存储
      */
+	@NotBlank
     @Column(name = "password", length = 64)
     private String password;
     
@@ -41,6 +52,7 @@ public class User extends BaseEntity<Long>{
 	@Column(name = "email", unique = true, length = 128)
 	private String email;  // 邮箱
 	
+	@NotBlank
     private String nickname;
 
     @Column(name = "mobile_phone_number",length = 20)

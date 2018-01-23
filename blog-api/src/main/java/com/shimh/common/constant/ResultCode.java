@@ -1,5 +1,13 @@
 package com.shimh.common.constant;
 
+/**
+ * api接口返回 code和message
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 public enum ResultCode {
 
     /* 成功状态码 */

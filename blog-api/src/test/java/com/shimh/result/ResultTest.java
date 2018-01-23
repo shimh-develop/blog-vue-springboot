@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
-import com.shimh.common.util.Result;
+import com.shimh.common.result.Result;
 import com.shimh.entity.User;
 
 public class ResultTest {

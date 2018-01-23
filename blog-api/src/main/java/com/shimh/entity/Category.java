@@ -4,7 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.shimh.common.entity.BaseEntity;
-
+/**
+ * 文章分类
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @Entity
 @Table(name = "me_category")
 public class Category extends BaseEntity<Integer>{

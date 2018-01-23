@@ -4,7 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-
+/**
+ * RedisManager 
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 public class RedisManager {
 	
 	 /**  默认过期时长，单位：秒 */

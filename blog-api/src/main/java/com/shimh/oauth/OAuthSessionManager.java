@@ -11,6 +11,14 @@ import org.apache.shiro.web.util.WebUtils;
 
 import com.shimh.common.util.StringUtils;
 
+/**
+ * 从请求头获取token
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 public class OAuthSessionManager extends DefaultWebSessionManager {  
   
     private static final String AUTHORIZATION = "Authorization";  

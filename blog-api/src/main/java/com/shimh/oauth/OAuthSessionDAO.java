@@ -13,7 +13,14 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.alibaba.fastjson.JSON;
 import com.shimh.common.cache.RedisManager;
-
+/**
+ * 将session保存到redis
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 public class OAuthSessionDAO extends CachingSessionDAO implements InitializingBean{
 	
 	private static Logger logger = LoggerFactory.getLogger(OAuthSessionDAO.class); 

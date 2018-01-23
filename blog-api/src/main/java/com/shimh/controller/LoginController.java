@@ -9,16 +9,21 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
-import com.shimh.common.util.Result;
+import com.shimh.common.result.Result;
 import com.shimh.entity.User;
 import com.shimh.service.UserService;
-
+/**
+ * 登录
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @RestController
 public class LoginController {
 

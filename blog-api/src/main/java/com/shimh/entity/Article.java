@@ -19,7 +19,14 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.shimh.common.entity.BaseEntity;
-
+/**
+ * 文章
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @Entity
 @Table(name = "me_article")
 public class Article extends BaseEntity<Integer>{

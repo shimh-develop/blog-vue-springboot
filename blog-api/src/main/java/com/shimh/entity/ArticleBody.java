@@ -10,6 +10,14 @@ import org.hibernate.annotations.Type;
 
 import com.shimh.common.entity.BaseEntity;
 
+/**
+ * 文章内容
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @Entity
 @Table(name = "me_article_body")
 public class ArticleBody extends BaseEntity<Long>{

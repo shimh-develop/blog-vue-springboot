@@ -20,7 +20,14 @@ import com.shimh.common.constant.Base;
 import com.shimh.entity.User;
 import com.shimh.entity.UserStatus;
 import com.shimh.service.UserService;
-
+/**
+ * 自定义shiroRealm
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 public class OAuthRealm extends AuthorizingRealm {
 	
 	@Autowired

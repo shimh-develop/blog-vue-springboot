@@ -5,7 +5,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
-
+/**
+ * 基础Entity
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @MappedSuperclass
 public abstract class BaseEntity<ID extends Serializable> implements Serializable  {
 

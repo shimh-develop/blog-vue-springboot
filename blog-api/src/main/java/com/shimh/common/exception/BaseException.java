@@ -1,5 +1,12 @@
 package com.shimh.common.exception;
-
+/**
+ * 自定义异常
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 public class BaseException extends RuntimeException{
 
 	private static final long serialVersionUID = 3506744187536228284L;

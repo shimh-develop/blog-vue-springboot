@@ -11,7 +11,13 @@ import com.shimh.common.util.PasswordHelper;
 import com.shimh.entity.User;
 import com.shimh.repository.UserRepository;
 import com.shimh.service.UserService;
-
+/**
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
 	

@@ -1,5 +1,13 @@
 package com.shimh.common.constant;
 
+/**
+ * 系统基础常量
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 public class Base {
 
 	public static final String ROLE_ADMIN = "admin";

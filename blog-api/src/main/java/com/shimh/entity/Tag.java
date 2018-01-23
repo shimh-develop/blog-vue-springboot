@@ -4,7 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.shimh.common.entity.BaseEntity;
-
+/**
+ * 文章标签
+ * 
+ * @author shimh
+ *
+ * 2018年1月23日
+ *
+ */
 @Entity
 @Table(name = "me_tag")
 public class Tag extends BaseEntity<Integer>{
