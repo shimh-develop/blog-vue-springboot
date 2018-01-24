@@ -128,3 +128,13 @@ npm run build --report
 # 图片都放到了static目录下
 
 ```
+
+## 2018-01-24
+
+``` 
+# 将自定义的theme放到assets下
+# 加入axios
+# 加入vuex
+# 实现登录
+
+```

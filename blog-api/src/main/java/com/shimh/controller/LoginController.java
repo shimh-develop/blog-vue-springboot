@@ -8,6 +8,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,7 @@ import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
 import com.shimh.entity.User;
+import com.shimh.oauth.OAuthSessionManager;
 import com.shimh.service.UserService;
 /**
  * 登录
@@ -31,7 +33,7 @@ public class LoginController {
 	private UserService userService;
 	
 	@PostMapping("/login")
-	public Result login(User user) {  
+	public Result login(@RequestBody User user) {  
 		
 	    Subject subject = SecurityUtils.getSubject();  
 	    UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPassword());
@@ -45,7 +47,7 @@ public class LoginController {
 	        subject.getSession().setAttribute(Base.CURRENT_USER, currentUser);
 	        
 	        r.setResultCode(ResultCode.SUCCESS);
-	        r.simple().put("token", subject.getSession().getId());
+	        r.simple().put(OAuthSessionManager.OAUTH_TOKEN, subject.getSession().getId());
 	    } catch (UnknownAccountException e) {  
 	    	r.setResultCode(ResultCode.USER_NOT_EXIST);
 	    } catch (LockedAccountException e) {  

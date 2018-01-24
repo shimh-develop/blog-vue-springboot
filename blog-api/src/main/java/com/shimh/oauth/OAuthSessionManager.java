@@ -21,7 +21,7 @@ import com.shimh.common.util.StringUtils;
  */
 public class OAuthSessionManager extends DefaultWebSessionManager {  
   
-    private static final String AUTHORIZATION = "Authorization";  
+    public static final String OAUTH_TOKEN = "Oauth-Token";  
   
     private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";  
   
@@ -31,7 +31,7 @@ public class OAuthSessionManager extends DefaultWebSessionManager {
   
     @Override  
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {  
-        String id = WebUtils.toHttp(request).getHeader(AUTHORIZATION);  
+        String id = WebUtils.toHttp(request).getHeader(OAUTH_TOKEN);  
         
         //如果请求头中有 Authorization 则其值为sessionId  
         if (!StringUtils.isEmpty(id)) {  

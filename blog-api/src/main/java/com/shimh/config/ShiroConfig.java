@@ -29,7 +29,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);  
        
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();  
-        
+        filterChainDefinitionMap.put("/", "anon");  
         filterChainDefinitionMap.put("/logout", "logout");  
 
         filterChainDefinitionMap.put("/static/**", "anon");  

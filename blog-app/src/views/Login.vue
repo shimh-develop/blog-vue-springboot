@@ -9,15 +9,15 @@
 		
 		<el-form ref="form">
 		  <el-form-item>
-		    <el-input placeholder="用户名"></el-input>
+		    <el-input placeholder="用户名" v-model="user.account" ></el-input>
 		  </el-form-item>
 		  
 		  <el-form-item>
-		    <el-input placeholder="密码"></el-input>
+		    <el-input placeholder="密码" v-model="user.password"></el-input>
 		  </el-form-item>
 		  
 		  <el-form-item size="small" class="me-login-button">
-		    <el-button type="primary">登录</el-button>
+		    <el-button type="primary"  @click.native.prevent="login">登录</el-button>
 		  </el-form-item>
 		</el-form>
 		
@@ -33,20 +33,28 @@
 
 <script>
 export default {
-  name: 'login',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
-  	mounted() {
-			/**
-			 * 等到整个视图都渲染完毕
-			 */
-      /*this.$nextTick(function () {  
-         window.addEventListener('resize', this.needToTop);  
-      }); */ 
-    }
+	name: 'login',
+	data () {
+		return {
+      		user:{
+      			account: '',
+      			password: ''
+      		}
+    	}
+  	},
+	methods:{
+		login(){
+			let that = this
+			this.$store.dispatch('login', this.user).then(() => {
+				this.$router.push({ path: '/' })
+			}).catch((error) => {
+    			that.$message({
+		          message: error,
+		          type: 'warning'
+		        });
+  			})
+		}
+	}
 }
 </script>
 

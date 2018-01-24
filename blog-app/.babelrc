@@ -11,7 +11,7 @@
   "plugins": ["transform-vue-jsx", "transform-runtime",["component", [
     {
       "libraryName": "element-ui",
-      "styleLibraryName": "~static/theme"
+      "styleLibraryName": "~src/assets/theme"
     }
   ]]]
 }
