@@ -5,13 +5,15 @@ import { getToken } from '@/request/token'
 
 const service = axios.create({
   baseURL: process.env.BASE_API, 
-  timeout: 5000 
+  timeout: 10000 
 })
 
 //request拦截器
 service.interceptors.request.use(config => {
   
-  if (store.getters.token) {
+  if (store.state.token) {
+  	console.info('ooo')
+  	console.info("拦截器-" + getToken())
     config.headers['Oauth-Token'] = getToken() 
   }
   return config
@@ -33,15 +35,9 @@ service.interceptors.response.use(
    		
      //20001 用户未登录
      if (res.code === 20001) {
-       MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
-         confirmButtonText: '重新登录',
-         cancelButtonText: '取消',
-         type: 'warning'
-       }).then(() => {
-         store.dispatch('FedLogOut').then(() => {
-           location.reload();// 为了重新实例化vue-router对象 避免bug
-         });
-       })
+        store.dispatch('fedLogOut').then(() => {
+           location.reload();
+        });
      }
      
      //70001 无访问权限
@@ -59,7 +55,7 @@ service.interceptors.response.use(
    }
   },
   error => {
-    console.log('err' + error)
+    console.info("zzzz")
     Message({
       message: error.message,
       type: 'error',

@@ -2,6 +2,8 @@ package com.shimh.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
@@ -61,7 +63,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/currentUser")
-	public Result getCurrentUser(){
+	public Result getCurrentUser(HttpServletRequest request){
 		
 		Result r = new Result();
 		

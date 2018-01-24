@@ -136,5 +136,6 @@ npm run build --report
 # 加入axios
 # 加入vuex
 # 实现登录
+# 实现退出
 
 ```

@@ -7,6 +7,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,4 +67,15 @@ public class LoginController {
     public Result handleLogin() {  
         return Result.error(ResultCode.USER_NOT_LOGGED_IN);
     }
+    
+	@GetMapping("/logout")
+	public Result logout() {  
+		
+	    Result r = new Result();
+	    Subject subject = SecurityUtils.getSubject(); 
+	    subject.logout();
+	    
+	    r.setResultCode(ResultCode.SUCCESS);
+	    return r;
+	} 
 }

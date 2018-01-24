@@ -20,7 +20,7 @@
 					  	<el-menu-item index="/write"><i class="el-icon-edit"></i>写文章</el-menu-item>
 					  </el-col>
 					  
-					  <el-col v-if="!isLogin" :span="4" :offset="2">
+					  <el-col v-if="!user.login" :span="4" :offset="2">
 						  <el-menu-item index="/login"><el-button type="text">登录</el-button></el-menu-item>
 						  <el-menu-item index="/register"><el-button type="text">注册</el-button></el-menu-item>
 					  </el-col>
@@ -32,13 +32,13 @@
 			  	<slot></slot>
 			  </template>
 			  
-			  <el-col v-show="isLogin" :span="2">
+			  <el-col v-show="user.login" :span="2">
 				  <el-menu menu-trigger="click" mode="horizontal" active-text-color="#5FB878">
 					  <el-submenu index="3">
 						    <template slot="title">
-									<img class="me-header-picture" src="../../static/kebi.jpg" />						    	
+									<img class="me-header-picture" :src="user.avatar" />						    	
 						    </template>
-						    <el-menu-item index="3-3"><i class="el-icon-back"></i>退出</el-menu-item>
+						    <el-menu-item @click="logout"><i class="el-icon-back"></i>退出</el-menu-item>
 						</el-submenu>
 					</el-menu>	
 				</el-col>
@@ -57,17 +57,35 @@ export default {
       default: false
     }
   },
-  data (){
+  data() {
   	return {
-  		isLogin:false
+  		//isLogin:false
   	}
   },
   computed:{
-  	spanNumber (){
-  		return this.isLogin ? 16:20
+  	spanNumber() {
+  		return this.user.login ? 16:20
+  	},
+  	user() {
+  		let login = this.$store.state.account.length != 0
+  		let avatar = this.$store.state.avatar
+  		return {
+  			login, avatar
+  		}
   	}
   },
   methods:{
+  	logout(){
+  		let that = this
+  		this.$store.dispatch('logout').then(() => {
+				this.$router.push({ path: '/' })
+			}).catch((error) => {
+    			that.$message({
+		          message: error,
+		          type: 'warning'
+		        });
+  			})
+  	}
   }
 }
 </script>

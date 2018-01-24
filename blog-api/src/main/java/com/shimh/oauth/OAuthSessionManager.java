@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -31,7 +32,8 @@ public class OAuthSessionManager extends DefaultWebSessionManager {
   
     @Override  
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {  
-        String id = WebUtils.toHttp(request).getHeader(OAUTH_TOKEN);  
+    	HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String id = httpRequest.getHeader(OAUTH_TOKEN); 
         
         //如果请求头中有 Authorization 则其值为sessionId  
         if (!StringUtils.isEmpty(id)) {  

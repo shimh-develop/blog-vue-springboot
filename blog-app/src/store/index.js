@@ -46,18 +46,19 @@ export default new Vuex.Store({
     	// 获取用户信息
 	    getUserInfo({ commit, state }) {
 	      return new Promise((resolve, reject) => {
-	      	getUserInfo().then(response => {
-	        	
-	          if (!response.data.code != 0) { 
-	          	reject('error')
+	      	getUserInfo().then(data => {
+	        	console.info("bbb")
+	          if (data.code != 0) { 
+	          	reject(data)
 	          }
 	          
-	          const data = response.data
-	          commit('SET_ACCOUNT', data.account)
-	          commit('SET_NAME', data.name)
-	          commit('SET_AVATAR', data.avatar)
-	          resolve(response)
+	          commit('SET_ACCOUNT', data.data.account)
+	          commit('SET_NAME', data.data.name)
+	          commit('SET_AVATAR', data.data.avatar)
+	          resolve(data)
+	          console.info("aaa")
 	        }).catch(error => {
+	        	console.info("ccc")
 	        	reject(error)
 	        })
 	      })
@@ -65,16 +66,29 @@ export default new Vuex.Store({
 	    // 退出
 	    logout({ commit, state }) {
 	      return new Promise((resolve, reject) => {
-	        logout().then(() => {
+	        logout().then(data => {
+	        	
 	          commit('SET_TOKEN', '')
 	          commit('SET_ACCOUNT', '')
 	          commit('SET_NAME', '')
 	          commit('SET_AVATAR', '')
 	          removeToken()
 	          resolve()
+	          
 	        }).catch(error => {
 	          reject(error)
 	        })
+	      })
+	    },
+	    // 前端 登出
+	    fedLogOut({ commit }) {
+	      return new Promise(resolve => {
+	        commit('SET_TOKEN', '')
+	        commit('SET_ACCOUNT', '')
+	        commit('SET_NAME', '')
+	        commit('SET_AVATAR', '')
+	        removeToken()
+	        resolve()
 	      })
 	    }
     }

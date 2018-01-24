@@ -11,6 +11,11 @@ import BlogView from '@/views/blog/BlogView'
 import BlogAllCategoryTag from '@/views/blog/BlogAllCategoryTag'
 import BlogCategoryTag from '@/views/blog/BlogCategoryTag'
 
+
+import store from '@/store'
+
+import { getToken } from '@/request/token'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -56,9 +61,42 @@ const router = new Router({
     },
     {
     	path: '/write',
-    	component:BlogWrite
+    	component:BlogWrite,
+    	meta: {
+        requireLogin: true
+      },
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+	console.info("守卫--" + getToken())
+  if (getToken()) { 
+    
+    if (to.path === '/login') {
+      next({ path: '/' })
+    } else {
+    	console.info(store.state)
+      if (store.state.account.length === 0) { 
+        store.dispatch('getUserInfo').then(data => { //获取用户信息
+          next()
+        }).catch(() => {
+          store.dispatch('fedLogOut').then(() => {
+            next({ path: '/login' })
+          })
+        })
+      }else{
+      	next()
+      }
+    }
+  } else {
+    if (to.matched.some(r => r.meta.requireLogin)) {
+        next({ path: '/login' });
+    }
+    else {
+        next();
+    }
+  }
 })
 
 
