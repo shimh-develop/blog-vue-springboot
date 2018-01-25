@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
+import com.shimh.common.util.UserUtils;
 import com.shimh.entity.User;
 import com.shimh.service.UserService;
 /**
@@ -67,10 +68,10 @@ public class UserController {
 		
 		Result r = new Result();
 		
-		User user = (User) SecurityUtils.getSubject().getSession().getAttribute(Base.CURRENT_USER);
+		User currentUser = UserUtils.getCurrentUser();
 		
 		r.setResultCode(ResultCode.SUCCESS);
-		r.setData(user);
+		r.setData(currentUser);
 		return r;
 	}
 	

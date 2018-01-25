@@ -38,7 +38,7 @@
 						    <template slot="title">
 									<img class="me-header-picture" :src="user.avatar" />						    	
 						    </template>
-						    <el-menu-item @click="logout"><i class="el-icon-back"></i>退出</el-menu-item>
+						    <el-menu-item index @click="logout"><i class="el-icon-back"></i>退出</el-menu-item>
 						</el-submenu>
 					</el-menu>	
 				</el-col>

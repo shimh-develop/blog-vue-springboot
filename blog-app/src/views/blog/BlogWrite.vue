@@ -19,12 +19,13 @@
 				<el-input resize="none" 
 					  type="textarea"
 					  autosize
+					  v-model="articleForm.title"
 					  placeholder="请输入标题"
 					  class="me-write-input">
 					</el-input>
 				
 			</div>
-			<markdown-editor class="me-write-editor"></markdown-editor>
+			<markdown-editor :mark="articleForm.mark" class="me-write-editor"></markdown-editor>
 		</el-main>
 	</el-container>
 	 	  
@@ -34,35 +35,33 @@
 		:visible.sync="publishVisible"
 		:close-on-click-modal=false
 		custom-class="me-dialog">
-	  <el-form :model="form">
-	    <el-form-item >
+		
+	  <el-form :model="articleForm" ref="articleForm" :rules="rules">
+	    <el-form-item prop="summary">
 	    	<el-input type="textarea"
+	    		  v-model="articleForm.summary"
 				  :rows="6"
 				  placeholder="请输入摘要">
 			</el-input>
 	    </el-form-item>
-	    <el-form-item label="文章分类" >
-	      <el-select v-model="form.region" placeholder="请选择文章分类">
-	        <el-option label="java" value="shanghai"></el-option>
-	        <el-option label="vue" value="beijing"></el-option>
+	    <el-form-item label="文章分类" prop="category">
+	      <el-select v-model="articleForm.category" placeholder="请选择文章分类">
+	        <el-option label="云计算  " value="1"></el-option>
+	        <el-option label="开发技术 " value="2"></el-option>
 	      </el-select>
 	    </el-form-item>
 	    
-	      <el-form-item label="文章标签" prop="type">
-		    <el-checkbox-group v-model="form.type">
-		      <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-		      <el-checkbox label="地推活动" name="type"></el-checkbox>
-		      <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-		      <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-		      <el-checkbox label="单纯品牌曝光1" name="type"></el-checkbox>
-		      <el-checkbox label="单纯品牌曝光2" name="type"></el-checkbox>
-		      <el-checkbox label="单纯品牌曝光3" name="type"></el-checkbox>
+	      <el-form-item label="文章标签" prop="tags">
+		    <el-checkbox-group v-model="articleForm.tags">
+		      <el-checkbox label="1" name="tags">前端</el-checkbox>
+		      <el-checkbox label="2" name="tags">Vue</el-checkbox>
+		      <el-checkbox label="3" name="tags">ElementUI</el-checkbox>
 		    </el-checkbox-group>
 		  </el-form-item>
 	  </el-form>
 	  <div slot="footer" class="dialog-footer">
 	    <el-button @click="publishVisible = false">取 消</el-button>
-	    <el-button type="primary" @click="publish">发布</el-button>
+	    <el-button type="primary" @click="publish('articleForm')">发布</el-button>
 	  </div>
 	</el-dialog>
 </el-container>
@@ -71,52 +70,113 @@
 
 <script>
 import BaseHeader from '@/components/BaseHeader'
-import MarkdownEditor from '@/components/markdown/MarkdownEditor'	
+import MarkdownEditor from '@/components/markdown/MarkdownEditor'
+import {publishArticle} from '@/api/article'
 
 export default {
   name: 'BlogWrite',
   data (){
+  	
   	return {
   		publishVisible:false,
-  		value:'## 123456 ##',
-  		mark:{
-  			 toolbarsFlag: false , 
-  			 subfield: false, 
-  			 default_open: "preview"
-  		},
-  		form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        },
-        formLabelWidth: '120px'
+  		articleForm: {
+  			id: '',
+			title: '',
+	    	summary: '',
+	    	category: '',
+	    	tags: [],
+	    	mark: {
+	    		value: ''
+	    	}
+	    },
+        rules: {
+	      	summary: [
+	        	{ required: true, message: '请输入摘要', trigger: 'blur' }
+	      	],
+	      	category: [
+	        	{ required: true, message: '请选择文章分类', trigger: 'change' }
+	      	],
+	      	tags: [
+	        	{ type: 'array', required: true, message: '请选择标签', trigger: 'change' }
+	      	]
+        }
   	}
   },
   methods:{
   	publishShow (){
+  		if(!this.articleForm.title){
+  			this.$message({message: '标题不能为空哦',type: 'warning'})
+  			return
+  		}
+  		
+  		if(!this.articleForm.mark.ref.d_render){
+  			this.$message({message: '内容不能为空哦',type: 'warning'})
+  			return
+  		}
+  		
   		this.publishVisible = true;
   	},
-  	publish (){
-  		this.publishVisible = false;
-  		const loading = this.$loading({
-          lock: true,
-          text: '发布中，请稍后...'
+  	publish(articleForm) {
+  		
+  		let that = this
+  		
+  		this.$refs[articleForm].validate((valid) => {
+          if (valid) {
+            
+           	let tags = this.articleForm.tags.map(function (item) {
+			  return {id: item};
+			});
+			           
+           	let article = {
+            	id: this.articleForm.id,
+            	title: this.articleForm.title,
+            	summary: this.articleForm.summary,
+            	category:{
+            		id: this.articleForm.category
+            	},
+            	tags: tags,
+            	body: {
+            		content: this.articleForm.mark.value,
+            		contentHtml: this.articleForm.mark.ref.d_render
+            	}
+            	
+            }
+           
+            console.info(article)
+            
+            this.publishVisible = false;
+            
+            let loading = this.$loading({
+	        	lock: true,
+	        	text: '发布中，请稍后...'
+	        })
+            
+            publishArticle(article).then((data) => {
+            	console.info(data)
+            	loading.close();
+				if(data.code == 0){
+					console.info(data.data.articleId)
+		          	that.$message({message: '发布成功啦',type: 'success',showClose:true})
+		          	that.$router.push('/')
+				}else{
+					that.$message({message: data.msg,type: 'error',showClose:true});
+				}
+					
+			}).catch((error) => {
+				loading.close();
+    			that.$message({
+		          message: error,
+		          type: 'error'
+		        });
+  			})
+			
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
         });
-        let that = this;
-        setTimeout(() => {
-          loading.close();
-          that.$message({
-          	message: '发布成功！',
-          	type: 'success',
-          	showClose:true
-        });
-        that.$router.push('/')
-        }, 4000);
+  		
+        
   	},
   	cancel (){
   		this.$confirm('文章将不会保存, 是否继续?', '提示', {
