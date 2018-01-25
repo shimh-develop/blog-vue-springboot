@@ -20,13 +20,13 @@ export default {
   			this.topShow = false;
   		},
   		needToTop() {  
-        let curHeight = document.documentElement.scrollTop || document.body.scrollTop;  
-        
-        if (curHeight > 400) {  
-          this.topShow = true;                         
-        }else{  
-          this.topShow = false;  
-        }  
+	        let curHeight = document.documentElement.scrollTop || document.body.scrollTop;  
+	        
+	        if (curHeight > 400) {  
+	          this.topShow = true;                         
+	        }else{  
+	          this.topShow = false;  
+	        }  
         
   		}
 	},

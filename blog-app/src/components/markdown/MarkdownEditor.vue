@@ -1,5 +1,11 @@
 <template>
-    <mavon-editor class="me-editor" ref="md" v-model="mark.value" v-bind="mark"></mavon-editor>
+    <mavon-editor 
+    	class="me-editor" 
+    	ref="md" 
+    	v-model="mark.value" 
+    	@imgAdd="imgAdd"
+    	v-bind="mark">
+   	</mavon-editor>
 </template>
 
 
@@ -7,6 +13,8 @@
 
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+
+import {upload} from '@/api/upload'
 
 export default {
     name: 'MarkdownEditor',
@@ -20,6 +28,27 @@ export default {
     mounted() {
     	this.$set( this.mark, 'ref', this.$refs.md )
     },
+    methods: {
+    	imgAdd(pos, $file) {
+    		let that = this
+       		let formdata = new FormData();
+       		formdata.append('image', $file);
+       		
+       		upload(formdata).then(data => {
+       			// 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
+           		console.info(data)
+           		if(data.code == 0){
+           			
+           			that.$refs.md.$imgAddByUrl(pos, data.data.url);
+           		}else{
+           			that.$message({message: data.msg, type: 'error', showClose:true})
+           		}
+       			
+       		}).catch(err => {
+       			that.$message({message: err, type: 'error', showClose:true});
+       		})
+    	}
+    },
     components: {
         mavonEditor
     }
@@ -29,4 +58,8 @@ export default {
 .me-editor {
 	z-index: 6!important;
 }	
+
+.v-note-wrapper.fullscreen{
+	top:60px!important
+}
 </style>
