@@ -35,8 +35,9 @@ service.interceptors.response.use(
    		
      //20001 用户未登录
      if (res.code === 20001) {
+     	console.info("ddd")
         store.dispatch('fedLogOut').then(() => {
-           location.reload();
+           //location.reload();
         });
      }
      
@@ -55,7 +56,6 @@ service.interceptors.response.use(
    }
   },
   error => {
-    console.info("zzzz")
     Message({
       message: error.message,
       type: 'error',

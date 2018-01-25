@@ -11,6 +11,8 @@ import BlogView from '@/views/blog/BlogView'
 import BlogAllCategoryTag from '@/views/blog/BlogAllCategoryTag'
 import BlogCategoryTag from '@/views/blog/BlogCategoryTag'
 
+import { Message } from 'element-ui';
+
 
 import store from '@/store'
 
@@ -21,32 +23,32 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/',
+      path: '',
       name: 'Home',
       component: Home,
       children: [
         {
-          path: '',
+          path: '/',
           component: Index
         },
 	    	{
-	    	 path: 'log',
+	    	 path: '/log',
 	    	 component:Log
 	    	},
 	    	{
-		    	path: 'messageBoard',
+		    	path: '/messageBoard',
 		    	component:MessageBoard
 	    	},
 		    {
-		    	path: 'view/:id',
+		    	path: '/view/:id',
 			    component:BlogView
 		    },
 		    {
-		    	path: ':type/all',
+		    	path: '/:type/all',
 			    component:BlogAllCategoryTag
 		    },
 		    {
-		    	path: ':type/:id',
+		    	path: '/:type/:id',
 			    component:BlogCategoryTag
 		    }
       ]
@@ -81,9 +83,7 @@ router.beforeEach((to, from, next) => {
         store.dispatch('getUserInfo').then(data => { //获取用户信息
           next()
         }).catch(() => {
-          store.dispatch('fedLogOut').then(() => {
-            next({ path: '/login' })
-          })
+            next({ path: '/' })
         })
       }else{
       	next()
@@ -91,7 +91,13 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (to.matched.some(r => r.meta.requireLogin)) {
-        next({ path: '/login' });
+    	Message({
+    		type: 'warning',
+    		showClose: true,
+      	message: '写文章 请先登录哦'
+    	})
+    	
+        //next({ path: '/login' });
     }
     else {
         next();
