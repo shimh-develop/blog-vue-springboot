@@ -1,9 +1,8 @@
 .DS_Store
 
 node_modules/
-#blog-app/dist/
+*/dist/
 blog-app/node_modules/
-
 
 npm-debug.log*
 yarn-debug.log*

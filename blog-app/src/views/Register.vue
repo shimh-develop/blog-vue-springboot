@@ -7,21 +7,21 @@
   <div class="me-login-box me-login-box-radius">
 		<h1>ForFun 注册</h1>
 		
-		<el-form ref="form">
-		  <el-form-item>
-		    <el-input placeholder="用户名"></el-input>
+		<el-form ref="userForm" :model="userForm" :rules="rules">
+		  <el-form-item prop="account">
+		    <el-input placeholder="用户名" v-model="userForm.account"></el-input>
 		  </el-form-item>
 		  
-		  <el-form-item>
-		    <el-input placeholder="昵称"></el-input>
+		  <el-form-item prop="nickname">
+		    <el-input placeholder="昵称" v-model="userForm.nickname"></el-input>
 		  </el-form-item>
 		  
-		  <el-form-item>
-		    <el-input placeholder="密码"></el-input>
+		  <el-form-item prop="password">
+		    <el-input placeholder="密码" v-model="userForm.password"></el-input>
 		  </el-form-item>
 		  
 		  <el-form-item size="small" class="me-login-button">
-		    <el-button type="primary">注册</el-button>
+		    <el-button type="primary" @click.native.prevent="register('userForm')">注册</el-button>
 		  </el-form-item>
 		</el-form>
 		
@@ -36,21 +36,59 @@
 </template>
 
 <script>
+import {register} from '@/api/login'	
 export default {
-  name: 'register',
+  name: 'Register',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+    	userForm: {
+	      	account: '',
+	      	nickname: '',
+	      	password: ''
+	      },
+      	rules: {
+	    	account: [
+	        	{ required: true, message: '请输入用户名', trigger: 'blur' }
+	      	],
+	      	nickname: [
+	      		{ required: true, message: '请输入昵称', trigger: 'blur' }
+	      	],
+	      	password: [
+	        	{ required: true, message: '请输入密码', trigger: 'blur' }
+	      	]
+	    }
+      
     }
   },
-  	mounted() {
-			/**
-			 * 等到整个视图都渲染完毕
-			 */
-      /*this.$nextTick(function () {  
-         window.addEventListener('resize', this.needToTop);  
-      }); */ 
-    }
+  methods: {
+  	register(formName) {
+  		let that = this
+  		this.$refs[formName].validate((valid) => {
+          if (valid) {
+			
+			that.$store.dispatch('register', that.userForm).then(() => {
+				that.$message({
+		          message: '注册成功 快写文章吧',
+		          type: 'success'
+		        });
+				
+				that.$router.push({ path: '/' })
+			}).catch((error) => {
+    			that.$message({
+		          message: error,
+		          type: 'warning'
+		        });
+  			})
+			
+          } else {
+            console.log('error register!!');
+            return false;
+          }
+        });
+  		
+  	}
+  	
+  }
 }
 </script>
 

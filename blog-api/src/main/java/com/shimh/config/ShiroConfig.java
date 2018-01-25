@@ -32,7 +32,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/", "anon");  
 
         filterChainDefinitionMap.put("/static/**", "anon");  
-        filterChainDefinitionMap.put("/login", "anon");  
+        filterChainDefinitionMap.put("/login", "anon"); 
+        filterChainDefinitionMap.put("/register", "anon"); 
         filterChainDefinitionMap.put("/**", "authc");  
         
         //返回json数据，由前端跳转

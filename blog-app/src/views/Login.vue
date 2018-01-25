@@ -7,17 +7,17 @@
   <div class="me-login-box me-login-box-radius">
 		<h1>ForFun 登录</h1>
 		
-		<el-form ref="form">
-		  <el-form-item>
-		    <el-input placeholder="用户名" v-model="user.account" ></el-input>
+		<el-form ref="userForm" :model="userForm" :rules="rules">
+		  <el-form-item prop="account">
+		    <el-input placeholder="用户名" v-model="userForm.account" ></el-input>
 		  </el-form-item>
 		  
-		  <el-form-item>
-		    <el-input placeholder="密码" v-model="user.password"></el-input>
+		  <el-form-item prop="password">
+		    <el-input placeholder="密码" v-model="userForm.password"></el-input>
 		  </el-form-item>
 		  
 		  <el-form-item size="small" class="me-login-button">
-		    <el-button type="primary"  @click.native.prevent="login">登录</el-button>
+		    <el-button type="primary"  @click.native.prevent="login('userForm')">登录</el-button>
 		  </el-form-item>
 		</el-form>
 		
@@ -36,23 +36,40 @@ export default {
 	name: 'login',
 	data () {
 		return {
-      		user:{
+      		userForm:{
       			account: '',
       			password: ''
-      		}
-    	}
+      		},
+      		rules: {
+	          account: [
+	            { required: true, message: '请输入用户名', trigger: 'blur' }
+	          ],
+	          password: [
+	            { required: true, message: '请输入密码', trigger: 'blur' }
+	          ]
+	        }
+	      }
   	},
 	methods:{
-		login(){
+		login(formName){
 			let that = this
-			this.$store.dispatch('login', this.user).then(() => {
-				this.$router.push({ path: '/' })
-			}).catch((error) => {
-    			that.$message({
-		          message: error,
-		          type: 'warning'
-		        });
-  			})
+			
+	        this.$refs[formName].validate((valid) => {
+	          if (valid) {
+	            
+				that.$store.dispatch('login', that.userForm).then(() => {
+					that.$router.push({ path: '/' })
+				}).catch((error) => {
+	    			that.$message({
+			          message: error,
+			          type: 'warning'
+			        });
+	  			})
+	          } else {
+	            console.log('error submit!!');
+	            return false;
+	          }
+	        });
 		}
 	}
 }

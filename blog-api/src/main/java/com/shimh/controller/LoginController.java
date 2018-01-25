@@ -37,16 +37,44 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public Result login(@RequestBody User user) {  
+		Result r = new Result();
+		executeLogin(user.getAccount(), user.getPassword(), r);
+	    return r;  
+	} 
+	
+	@PostMapping("/register")
+	public Result register(@RequestBody User user) { 
 		
-	    Subject subject = SecurityUtils.getSubject();  
-	    UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPassword());
-	    
-	    Result r = new Result();
+		Result r = new Result();
+		
+		User temp = userService.getUserByAccount(user.getAccount());
+		if(null != temp){
+			r.setResultCode(ResultCode.USER_HAS_EXISTED);
+			return r;
+		}
+		
+		String account = user.getAccount();
+		String password = user.getPassword();
+		
+		Long userId = userService.saveUser(user);
+		
+		if(userId > 0){
+			executeLogin(account, password, r);
+		}else{
+			r.setResultCode(ResultCode.USER_Register_ERROR);
+		}
+		return r;
+	} 
+	
+	
+	private void executeLogin(String account, String password, Result r){
+		Subject subject = SecurityUtils.getSubject();  
+	    UsernamePasswordToken token = new UsernamePasswordToken(account, password);
 	    
 	    try {  
 	        subject.login(token);  
 
-	        User currentUser = userService.getUserByAccount(user.getAccount());
+	        User currentUser = userService.getUserByAccount(account);
 	        subject.getSession().setAttribute(Base.CURRENT_USER, currentUser);
 	        
 	        r.setResultCode(ResultCode.SUCCESS);
@@ -61,9 +89,7 @@ public class LoginController {
 	    	r.setResultCode(ResultCode.ERROR);
 	    }  
 	    
-	    return r;  
-	} 
-	
+	}
 	
     @RequestMapping(value = "/handleLogin")  
     public Result handleLogin() {  
