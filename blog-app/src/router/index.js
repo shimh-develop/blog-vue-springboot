@@ -71,7 +71,7 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+/*router.beforeEach((to, from, next) => {
 	console.info("守卫--" + getToken())
   if (getToken()) { 
     
@@ -103,7 +103,7 @@ router.beforeEach((to, from, next) => {
         next();
     }
   }
-})
+})*/
 
 
 export default router

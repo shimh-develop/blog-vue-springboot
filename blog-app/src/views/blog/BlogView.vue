@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<div>
-				<markdown-editor :mark=config></markdown-editor>
+				<markdown-editor :editor=config></markdown-editor>
 		  	</div>
 		  	
 		  	<div class="me-view-end">

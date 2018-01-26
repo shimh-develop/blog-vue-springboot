@@ -2,9 +2,9 @@
     <mavon-editor 
     	class="me-editor" 
     	ref="md" 
-    	v-model="mark.value" 
+    	v-model="editor.value" 
     	@imgAdd="imgAdd"
-    	v-bind="mark">
+    	v-bind="editor">
    	</mavon-editor>
 </template>
 
@@ -19,14 +19,14 @@ import {upload} from '@/api/upload'
 export default {
     name: 'MarkdownEditor',
     props: {
-    	mark:Object
+    	editor:Object
     },
     data (){
     	return {
     	}
     },
     mounted() {
-    	this.$set( this.mark, 'ref', this.$refs.md )
+    	this.$set( this.editor, 'ref', this.$refs.md )
     },
     methods: {
     	imgAdd(pos, $file) {

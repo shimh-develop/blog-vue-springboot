@@ -25,7 +25,7 @@
 					</el-input>
 				
 			</div>
-			<markdown-editor :mark="articleForm.mark" class="me-write-editor"></markdown-editor>
+			<markdown-editor :editor="articleForm.editor" class="me-write-editor"></markdown-editor>
 		</el-main>
 	</el-container>
 	 	  
@@ -76,10 +76,10 @@ import {publishArticle} from '@/api/article'
 export default {
   name: 'BlogWrite',
   mounted() {
-  		this.changeToolBar(true)
+		window.addEventListener('scroll', this.wrapEditorToolBarToFixed(), false);
   },
   beforeDestroy() {
-  		this.changeToolBar(false)
+  		window.removeEventListener('scroll', this.wrapEditorToolBarToFixed(),  false)
   },
   data (){
   	return {
@@ -90,9 +90,10 @@ export default {
 	    	summary: '',
 	    	category: '',
 	    	tags: [],
-	    	mark: {
+	    	editor: {
 	    		value: '',
 	    		ref: '',//保存mavonEditor实例  实际不该这样
+	    		default_open: 'edit',
 	    		toolbars: {
 					bold: true, // 粗体
 			  		italic: true, // 斜体
@@ -114,7 +115,7 @@ export default {
 			  		redo: true, // 下一步
 			  		trash: true, // 清空
 			  		navigation: true, // 导航目录
-			  		subfield: true, // 单双栏模式
+			  		//subfield: true, // 单双栏模式
 			  		preview: true, // 预览
 	    		}
 	    	}
@@ -139,7 +140,7 @@ export default {
   			return
   		}
   		
-  		if(!this.articleForm.mark.ref.d_render){
+  		if(!this.articleForm.editor.ref.d_render){
   			this.$message({message: '内容不能为空哦',type: 'warning'})
   			return
   		}
@@ -166,8 +167,8 @@ export default {
             	},
             	tags: tags,
             	body: {
-            		content: this.articleForm.mark.value,
-            		contentHtml: this.articleForm.mark.ref.d_render
+            		content: this.articleForm.editor.value,
+            		contentHtml: this.articleForm.editor.ref.d_render
             	}
             	
             }
@@ -205,8 +206,6 @@ export default {
             return false;
           }
         });
-  		
-        
   	},
   	cancel (){
   		this.$confirm('文章将不会保存, 是否继续?', '提示', {
@@ -219,23 +218,18 @@ export default {
           
         });
   	},
-  	changeToolBar(init) {
-  		let toolbar = document.querySelector('.v-note-op');
-  		let toolBarToFixed = function() {
-  			let curHeight = document.documentElement.scrollTop || document.body.scrollTop; 
-			if(curHeight > 70){
-				toolbar.classList.add("me-write-toolpar-fixed");
-				
-			}else{
-				toolbar.classList.remove("me-write-toolpar-fixed");
-			}
-  		}
+  	wrapEditorToolBarToFixed() {
+  		return this.$_.throttle(this.editorToolBarToFixed, 1000)
+  	},
+  	editorToolBarToFixed() {
   		
-  		if(init){
-			window.addEventListener('scroll', toolBarToFixed, false);
-  		}else{
-  			window.removeEventListener('scroll', toolBarToFixed, false)
-  		}
+  		let toolbar = document.querySelector('.v-note-op');
+		let curHeight = document.documentElement.scrollTop || document.body.scrollTop; 
+		if(curHeight >= 160){
+			toolbar.classList.add("me-write-toolbar-fixed");
+		}else{
+			toolbar.classList.remove("me-write-toolbar-fixed");
+		}
   	}
   },
   components:{
@@ -294,9 +288,15 @@ export default {
 	max-height: 2.4rem;
 	max-width: 100%;
 }
-.me-write-toolpar-fixed {
+.me-write-toolbar-fixed {
 	position: fixed;
     width: 700px !important;
     top: 60px;
+}
+.v-note-op {
+    box-shadow: none !important;
+}
+.auto-textarea-input,.auto-textarea-block {
+	font-size: 18px !important;
 }
 </style>
