@@ -45,17 +45,16 @@
 			</el-input>
 	    </el-form-item>
 	    <el-form-item label="文章分类" prop="category">
-	      <el-select v-model="articleForm.category" placeholder="请选择文章分类">
-	        <el-option label="云计算  " value="1"></el-option>
-	        <el-option label="开发技术 " value="2"></el-option>
+	      <el-select v-model="articleForm.category" value-key="id" placeholder="请选择文章分类">
+	        <el-option v-for="c in categorys" :key="c.id" :label="c.categoryname" :value="c"></el-option>
 	      </el-select>
 	    </el-form-item>
 	    
 	      <el-form-item label="文章标签" prop="tags">
 		    <el-checkbox-group v-model="articleForm.tags">
-		      <el-checkbox label="1" name="tags">前端</el-checkbox>
-		      <el-checkbox label="2" name="tags">Vue</el-checkbox>
-		      <el-checkbox label="3" name="tags">ElementUI</el-checkbox>
+		      <el-checkbox v-for="t in tags" :key="t.id" :label="t.id" name="tags">{{t.tagname}}</el-checkbox>
+		      <!--<el-checkbox label="2" name="tags">Vue</el-checkbox>
+		      <el-checkbox label="3" name="tags">ElementUI</el-checkbox>-->
 		    </el-checkbox-group>
 		  </el-form-item>
 	  </el-form>
@@ -72,10 +71,13 @@
 import BaseHeader from '@/components/BaseHeader'
 import MarkdownEditor from '@/components/markdown/MarkdownEditor'
 import {publishArticle} from '@/api/article'
+import {getAllCategorys} from '@/api/category'
+import {getAllTags} from '@/api/tag'
 
 export default {
   name: 'BlogWrite',
   mounted() {
+  		this.getCategorysAndTags()
 		window.addEventListener('scroll', this.wrapEditorToolBarToFixed(), false);
   },
   beforeDestroy() {
@@ -84,12 +86,23 @@ export default {
   data (){
   	return {
   		publishVisible:false,
+  		categorys: [
+    		{id:1, categoryname:'云计算'},
+    		{id:2, categoryname:'开发技术'}
+    	],
+    	tags: [
+    		{id:1, tagname:'前端'},
+    		{id:2, tagname:'Vue'},
+    		{id:3, tagname:'ElementUI'}
+    	],
   		articleForm: {
   			id: '',
 			title: '',
 	    	summary: '',
-	    	category: '',
-	    	tags: [],
+	    	category: {id:2},
+	    	tags: [
+	    		1
+	    	],
 	    	editor: {
 	    		value: '',
 	    		ref: '',//保存mavonEditor实例  实际不该这样
@@ -162,9 +175,7 @@ export default {
             	id: this.articleForm.id,
             	title: this.articleForm.title,
             	summary: this.articleForm.summary,
-            	category:{
-            		id: this.articleForm.category
-            	},
+            	category: this.articleForm.category,
             	tags: tags,
             	body: {
             		content: this.articleForm.editor.value,
@@ -217,6 +228,25 @@ export default {
         }).catch(() => {
           
         });
+  	},
+  	getCategorysAndTags() {
+  		let that = this
+  		getAllCategorys().then(data => {
+  			if(data.code == 0){
+  				that.categorys = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '文章分类加载失败!'})
+  		})
+  		
+  		getAllTags().then(data => {
+  			if(data.code == 0){
+  				that.tags = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '标签加载失败'})
+  		})
+  		
   	},
   	wrapEditorToolBarToFixed() {
   		return this.$_.throttle(this.editorToolBarToFixed, 1000)

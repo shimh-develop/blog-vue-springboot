@@ -39,7 +39,7 @@ export default {
            		console.info(data)
            		if(data.code == 0){
            			
-           			that.$refs.md.$imgAddByUrl(pos, data.data.url);
+           			that.$refs.md.$img2Url(pos, data.data.url);
            		}else{
            			that.$message({message: data.msg, type: 'error', showClose:true})
            		}
