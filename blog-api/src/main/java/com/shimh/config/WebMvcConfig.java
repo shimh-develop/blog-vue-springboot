@@ -26,7 +26,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
 
         fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.PrettyFormat,SerializerFeature.WriteNullStringAsEmpty
+                SerializerFeature.PrettyFormat,SerializerFeature.WriteNullStringAsEmpty,
+                SerializerFeature.DisableCircularReferenceDetect
         );
 
         

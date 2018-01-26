@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
+import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
 import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
 import com.shimh.entity.Article;
+import com.shimh.entity.Tag;
+import com.shimh.entity.User;
 import com.shimh.service.ArticleService;
 /**
  * 文章api
@@ -34,6 +38,11 @@ public class ArticleController {
 	private ArticleService articleService;
 	
 	@GetMapping
+	@FastJsonView(
+		exclude = {
+				@FastJsonFilter(clazz = Article.class, props = {"body","category"}),
+				@FastJsonFilter(clazz = Tag.class, props = {"id","avatar"})},
+		include = {@FastJsonFilter(clazz = User.class, props = {"nickname"})})
 	public Result listArticles(){
 		List<Article> articles = articleService.findAll();
 		

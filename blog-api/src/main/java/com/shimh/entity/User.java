@@ -13,6 +13,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.shimh.common.entity.BaseEntity;
 
 /**
@@ -68,7 +69,7 @@ public class User extends BaseEntity<Long>{
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
@@ -77,7 +78,7 @@ public class User extends BaseEntity<Long>{
     /**
      * 最后一次登录时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "last_login")
     @Temporal(TemporalType.TIMESTAMP)
 	private Date lastLogin;

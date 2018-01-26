@@ -3,7 +3,9 @@
   <el-container>
     <el-main>
     
-			<article-item v-for="a in 8" :key="a" v-bind="articles"></article-item>
+    	<article-item v-for="a in articles" :key="a.id" v-bind="a"></article-item>
+    	
+			<article-item v-for="a in 8" :key="a" v-bind="articlesTemp"></article-item>
 			
     </el-main>
     
@@ -27,20 +29,32 @@ import CardArticle from '@/components/card/CardArticle'
 import CardTag from '@/components/card/CardTag'
 import ArticleItem from '@/components/article/ArticleItem'
 	
+import {getArticles} from '@/api/article'
+
 export default {
   name: 'index',
+	mounted() {
+		this.getArticles()
+  },
   data () {
     return {
-    	articles:{
-    	  isTop:true,
+    	articlesTemp:{
+    	  weight:1,
 		  	title:'搭建element-ui的Vue前端工程操作',
-		  	commentCount:20,
-		  	viewCount:10,
-		  	abstract:'基于Spring+SpringMVC+Mybatis分布式敏捷开发系统架构，提供整套公共微服务服务模块：集中权限管理基于 分布式敏捷开发系统架构，提供整套公共微服务服务模块',
-		  	author:'史明辉',
-		  	tags:['前端','vue','elementUI'],
-		  	createTime:'3天前'
+		  	comments:20,
+		  	views:10,
+		  	summary:'基于Spring+SpringMVC+Mybatis分布式敏捷开发系统架构，提供整套公共微服务服务模块：集中权限管理基于 分布式敏捷开发系统架构，提供整套公共微服务服务模块',
+		  	author:{
+		  		nickname: '史明辉'
+		  	},
+		  	tags:[
+		  		{tagname: '前端'},
+		  		{tagname: 'Vue'},
+		  		{tagname: 'ElementUI'}
+		  	],
+		  	createDate:'3天前'
     	},
+    	articles:[],
     	hotTags:[
     		{id:1,name:'前端'},
     		{id:2,name:'后端'},
@@ -70,6 +84,17 @@ export default {
   methods:{
   	view (id){
   		this.$router.push({ path: `/view/${id}` })
+  	},
+  	getArticles() {
+  		let that = this
+  		getArticles().then(data => {
+  			if(data.code == 0){
+  				that.articles = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '文章加载失败!'})
+  		})
+  		
   	}
   },
   components:{

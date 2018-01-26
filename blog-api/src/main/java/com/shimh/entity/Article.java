@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.shimh.common.entity.BaseEntity;
 /**
  * 文章
@@ -63,8 +64,8 @@ public class Article extends BaseEntity<Integer>{
 	
 	@ManyToMany(fetch= FetchType.LAZY)
 	@JoinTable(name = "me_article_tag", 
-			joinColumns = {@JoinColumn(name = "tag_id")}, 
-	        inverseJoinColumns = {@JoinColumn(name = "article_id")})
+			joinColumns = {@JoinColumn(name = "article_id")}, 
+	        inverseJoinColumns = {@JoinColumn(name = "tag_id")})
 	private List<Tag> tags;
 	
 	
@@ -81,7 +82,7 @@ public class Article extends BaseEntity<Integer>{
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JSONField(format = "yyyy.MM.dd HH:mm")
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;

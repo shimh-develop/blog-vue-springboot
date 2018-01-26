@@ -1,27 +1,27 @@
 <template>
 <el-card class="me-area">
 	  <div slot="header" class="me-article-header">
-	  	<el-button v-if="isTop" class="me-article-icon" type="text">置顶</el-button>
+	  	<el-button v-if="weight > 0" class="me-article-icon" type="text">置顶</el-button>
 	    <a @click="view(1)">{{title}}</a>
 	    <span class="me-pull-right me-article-count">
-	    	<i class="me-icon-comment"></i>&nbsp;{{commentCount}}
+	    	<i class="me-icon-comment"></i>&nbsp;{{comments}}
 	    </span>
 	    <span class="me-pull-right me-article-count">
-	    	<i class="el-icon-view"></i>&nbsp;{{viewCount}}
+	    	<i class="el-icon-view"></i>&nbsp;{{views}}
 	    </span>
 	  </div>
 	  <div class="me-artile-description">
-	    	{{abstract}}
+	    	{{summary}}
 	  </div>
 	  <div class="me-article-footer">
 	  	<span class="me-article-author">
-	    	<i class="me-icon-author"></i>&nbsp;{{author}}
+	    	<i class="me-icon-author"></i>&nbsp;{{author.nickname}}
 	    </span>
 	  	
-	  	<el-tag v-for="t in tags" :key="t" size="mini" type="warning">{{t}}</el-tag>
+	  	<el-tag v-for="t in tags" :key="t.tagname" size="mini" type="warning">{{t.tagname}}</el-tag>
 	  	
 	  	<span class="me-pull-right me-article-count">
-	    	<i class="el-icon-time"></i>&nbsp;{{createTime}}
+	    	<i class="el-icon-time"></i>&nbsp;{{createDate}}
 	    </span>
 	  	
 	  </div>
@@ -29,19 +29,19 @@
 </template>
 
 <script>
-	
+
 export default {
   name: 'ArticleItem',
   props:{
   	id:String,
-  	isTop:Boolean,
+  	weight:Number,
   	title:String,
-  	commentCount:Number,
-  	viewCount:Number,
-  	abstract:String,
-  	author:String,
+  	comments:Number,
+  	views:Number,
+  	summary:String,
+  	author:Object,
   	tags:Array,
-  	createTime:String
+  	createDate:String
   },
   data () {
     return {
