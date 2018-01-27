@@ -1,11 +1,11 @@
 <template>
 <div>
   <el-container>
-    <el-main>
+    <el-main class="me-articles">
     
     	<article-item v-for="a in articles" :key="a.id" v-bind="a"></article-item>
-    	
-			<article-item v-for="a in 8" :key="a" v-bind="articlesTemp"></article-item>
+    	<!--<article-item v-for="a in 4" :key="a" v-bind="articlesTemp2"></article-item>-->
+			<article-item v-for="a in 4" :key="a+4" v-bind="articlesTemp"></article-item>
 			
     </el-main>
     
@@ -39,11 +39,27 @@ export default {
   data () {
     return {
     	articlesTemp:{
-    	  weight:1,
+    	  weight:0,
 		  	title:'搭建element-ui的Vue前端工程操作',
 		  	comments:20,
 		  	views:10,
 		  	summary:'基于Spring+SpringMVC+Mybatis分布式敏捷开发系统架构，提供整套公共微服务服务模块：集中权限管理基于 分布式敏捷开发系统架构，提供整套公共微服务服务模块',
+		  	author:{
+		  		nickname: '史明辉'
+		  	},
+		  	tags:[
+		  		{tagname: '前端'},
+		  		{tagname: 'Vue'},
+		  		{tagname: 'ElementUI'}
+		  	],
+		  	createDate:'3天前'
+    	},
+    	articlesTemp2:{
+    	  weight:1,
+		  	title:'搭建element-ui的Vue',
+		  	comments:20,
+		  	views:10,
+		  	summary:'基于Spring+SpringMVC+Mybatis分布式敏捷开发系统架构，提供整套公共微服务服务模块',
 		  	author:{
 		  		nickname: '史明辉'
 		  	},
@@ -126,6 +142,10 @@ export default {
 }
 .el-card:not(:first-child){
 	margin-top: 20px;
+	border-radius: 0;
+}
+.me-articles .el-card:not(:first-child){
+	margin-top: 10px;
 	border-radius: 0;
 }
 </style>

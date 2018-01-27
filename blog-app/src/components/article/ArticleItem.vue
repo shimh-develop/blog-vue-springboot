@@ -1,8 +1,9 @@
 <template>
-<el-card class="me-area">
-	  <div slot="header" class="me-article-header">
-	  	<el-button v-if="weight > 0" class="me-article-icon" type="text">置顶</el-button>
-	    <a @click="view(1)">{{title}}</a>
+<el-card class="me-area" :body-style="{ padding: '16px' }">
+	  <div class="me-article-header">
+	  	
+	    <a @click="view(id)" >{{title}}</a>
+	    <el-button v-if="weight > 0" class="me-article-icon" type="text">置顶</el-button>
 	    <span class="me-pull-right me-article-count">
 	    	<i class="me-icon-comment"></i>&nbsp;{{comments}}
 	    </span>
@@ -10,6 +11,7 @@
 	    	<i class="el-icon-view"></i>&nbsp;{{views}}
 	    </span>
 	  </div>
+	  
 	  <div class="me-artile-description">
 	    	{{summary}}
 	  </div>
@@ -59,6 +61,7 @@ export default {
 
 .me-article-header {
 	/*padding: 10px 18px;*/
+	padding-bottom: 10px;
 }
 .me-article-title {
 	color: #333;
@@ -74,11 +77,11 @@ export default {
 	float: right;
 }
 .me-artile-description {
-	font-size: 14px;
+	font-size: 13px;
 	line-height: 20px;
-	padding-left: 10px;
-	margin-bottom: 18px;
-	text-indent: 2.5em;
+	/*padding-left: 10px;*/
+	margin-bottom: 10px;
+	/*text-indent: 2.5em;*/
 }
 .me-article-author {
 	padding-left: 10px;
@@ -89,4 +92,12 @@ export default {
 .el-tag {
 	margin-left: 6px;
 }
+
+/*.me-article-title {
+	font-weight: 700;
+}*/
+
+/*.el-card > div:first {
+	padding: 10px 16px!important;
+}*/
 </style>
