@@ -3,22 +3,22 @@
 <el-container class="me-view-container">
     <el-main>
 		<div class="me-view-card">
-			<h1 class="me-view-title">搭建element-ui的Vue前端工程操作</h1>
+			<h1 class="me-view-title">{{article.title}}</h1>
 			<div class="me-view-author">
 				<a class="">
-					<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
+					<img class="me-view-picture" :src="article.author.avatar"></img>
 				</a>
 				<div class="me-view-info">
-					<span>史明辉</span>
+					<span>{{article.author.nickname}}</span>
 					<div class="me-view-meta">
-						<span>2018.01.12 15:45</span>
-						<span>阅读   1000</span>
-						<span>评论   500</span>
+						<span>{{article.createDate}}</span>
+						<span>阅读   {{article.views}}</span>
+						<span>评论   {{article.comments}}</span>
 					</div>
 				</div>
 			</div>
-			<div>
-				<markdown-editor :editor=config></markdown-editor>
+			<div class="me-view-content">
+				<markdown-editor :editor=article.editor></markdown-editor>
 		  	</div>
 		  	
 		  	<div class="me-view-end">
@@ -31,23 +31,11 @@
 		  	</div>
 		  	
 		  	<div class="me-view-tag">
-		  		<el-tag class="me-view-tag-item" type="warning">前端</el-tag>
-			  	<el-tag class="me-view-tag-item" type="warning">Vue</el-tag>
-			  	<el-tag class="me-view-tag-item" type="warning">element-ui</el-tag>
+		  		<el-tag v-for="t in article.tags" :key="t.id" class="me-view-tag-item" type="warning">{{t.tagname}}</el-tag>
 		  	</div>
 		  	
 		  	<div class="me-view-comment">
-		  		
 		  		<div class="me-view-comment-write">
-		  			<!--<a class="">
-						<img class="me-view-picture" src="../../../static/kebi.jpg"></img>
-					</a>
-					
-		  			<el-input
-					  type="textarea"
-					  :autosize="{ minRows: 2, maxRows: 4}"
-					  placeholder="请输入内容">
-					</el-input>-->
 					<el-row :gutter="20">
 					  <el-col :span="2">
 					  	<a class="">
@@ -113,45 +101,47 @@
 
 <script>
 import MarkdownEditor from '@/components/markdown/MarkdownEditor'	
+import {getArticle} from '@/api/article'
 export default {
   name: 'BlogView',
+  created() {
+  	this.getArticle()
+  },
+  watch: {
+    '$route': 'getArticle'
+  },
   data () {
     return {
-    	config:{
-				toolbarsFlag:false, 
-				subfield:false,
-				default_open:'preview',
-				value:`在文字写书写不同数量的#可以完成不同的标题，如下：
-# 一级标题 
-## 二级标题 
-### 三级标题 
-#### 四级标题 
-##### 五级标题 
-###### 六级标题
-
-等号及减号也可以进行标题的书写，不过只能书写二级标题，并且需要写在文字的下面，减号及等号的数量不会影响标题的基数，如下：
-
-二级标题 
-=========
-
-二级标题 
-# 一级标题 
-## 二级标题 
-### 三级标题 
-#### 四级标题 
-##### 五级标题 
-###### 六级标题
-
-等号及减号也可以进行标题的书写，不过只能书写二级标题，并且需要写在文字的下面，减号及等号的数量不会影响标题的基数，如下：
-
-二级标题 
-=========
-
-二级标题 
----------`
+    	article: {
+    		id:'',
+		  	title:'',
+		  	comments:0,
+		  	views:0,
+		  	summary:'',
+		  	author:{},
+		  	tags:[],
+		  	createDate:'',
+		  	editor: {
+		  		value: '',
+		  		toolbarsFlag:false, 
+		  		subfield:false,
+		  		default_open:'preview'
+		  	}
     	}
-    	
     }
+  },
+  methods: {
+  	getArticle() {
+  		let that = this
+  		getArticle(that.$route.params.id).then(data => {
+  			if(data.code === 0){
+  				Object.assign(that.article, data.data)
+  				that.article.editor.value = data.data.body.content
+  			}
+  		}).catch(error =>{
+  			that.$message({type: 'error', message: '文章加载失败!'})
+  		})
+  	}
   },
   components:{
   	'markdown-editor':MarkdownEditor
@@ -203,6 +193,9 @@ export default {
 	font-size: 12px;
 	color: #969696;
 }
+/*.me-view-content {
+	margin-top: -28px;
+}*/
 .me-view-end {
 	margin-top:20px;
 }

@@ -8,6 +8,13 @@ export function getArticles() {
   })
 }
 
+export function getArticle(id) {
+  return request({
+    url: `/articles/${id}`,
+    method: 'get'
+  })
+}
+
 
 
 export function publishArticle(article) {

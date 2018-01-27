@@ -18,6 +18,7 @@ import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
 import com.shimh.entity.Article;
+import com.shimh.entity.ArticleBody;
 import com.shimh.entity.Tag;
 import com.shimh.entity.User;
 import com.shimh.service.ArticleService;
@@ -50,6 +51,12 @@ public class ArticleController {
 	}
 	
 	@GetMapping("/{id}")
+	@FastJsonView(
+			exclude = {
+					@FastJsonFilter(clazz = Article.class, props = {"category"}),
+					@FastJsonFilter(clazz = ArticleBody.class, props = {"contentHtml"}),
+					@FastJsonFilter(clazz = Tag.class, props = {"avatar"})},
+			include = {@FastJsonFilter(clazz = User.class, props = {"nickname","avatar"})})
 	public Result getArticleById(@PathVariable("id") Integer id){
 		
 		Result r = new Result();
