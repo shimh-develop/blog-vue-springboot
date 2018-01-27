@@ -21,6 +21,7 @@
 
 <script>
 import ArticleItem from '@/components/article/ArticleItem'
+
 export default {
   name: 'BlogCategoryTag',
   data () {

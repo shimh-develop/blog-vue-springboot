@@ -5,7 +5,21 @@
 		<el-tabs v-model="activeName" >
 		    <el-tab-pane label="文章分类" name="category">
 		    	<ul class="me-allct-items">
-		    		<li @click="view(ct)" v-for="ct in 8" :key="ct" class="me-allct-item">
+		    		<li v-for="c in categorys" @click="view(c.id)" :key="c.id" class="me-allct-item">
+						  <div class="me-allct-content">
+						  	<a class="me-allct-info">
+						  		<img class="me-allct-img" :src="c.avatar" />
+						  		<h4 class="me-allct-name">{{c.categoryname}}</h4>
+						  		<p class="me-allct-description">{{c.description}}</p>
+						  	</a>
+						  	
+						  	<div class="me-allct-meta">
+						  		<span>1000  文章</span>
+						  	</div>
+						  </div>
+		    		</li>
+		    		
+		    		<!--<li @click="view(ct)" v-for="ct in 4" :key="ct" class="me-allct-item">
 						  <div class="me-allct-content">
 						  	<a class="me-allct-info">
 						  		<img class="me-allct-img" src="../../../static/vue.png" />
@@ -17,12 +31,27 @@
 						  		<span>1000  文章</span>
 						  	</div>
 						  </div>
-		    		</li>
+		    		</li>-->
+		    		
 		    	</ul>
 		    </el-tab-pane>
 		    <el-tab-pane label="标签" name="tag">
 		    	<ul class="me-allct-items">
-		    		<li @click="view(ct)" v-for="ct in 8" :key="ct" class="me-allct-item">
+		    		
+		    		<li v-for="t in tags" @click="view(t.id)" :key="t.id" class="me-allct-item">
+						  <div class="me-allct-content">
+						  	<a class="me-allct-info">
+						  		<img class="me-allct-img" :src="t.avatar" />
+						  		<h4 class="me-allct-name">{{t.tagname}}</h4>
+						  	</a>
+						  	
+						  	<div class="me-allct-meta">
+						  		<span>1000  文章</span>
+						  	</div>
+						  </div>
+		    		</li>
+		    		
+		    		<!--<li @click="view(ct)" v-for="ct in 4" :key="ct" class="me-allct-item">
 						  <div class="me-allct-content">
 						  	<a class="me-allct-info">
 						  		<img class="me-allct-img" src="../../../static/vue.png" />
@@ -33,7 +62,7 @@
 						  		<span>1000  文章</span>
 						  	</div>
 						  </div>
-		    		</li>
+		    		</li>-->
 		    	</ul>
 		    
 		    </el-tab-pane>
@@ -44,10 +73,19 @@
 </template>
 
 <script>
+import {getAllCategorys} from '@/api/category'
+import {getAllTags} from '@/api/tag'
+	
 export default {
   name: 'BlogAllCategoryTag',
+  created() {
+  	this.getCategorys()
+  	this.getTags()
+  },
   data () {
     return {
+    	categorys: [],
+    	tags: [],
     	currentActiveName:'category'
     }
   },
@@ -64,6 +102,26 @@ export default {
   methods:{
   	view (id){
   		this.$router.push({ path: `/${this.currentActiveName}/${id}` })
+  	},
+  	getCategorys() {
+  		let that = this
+  		getAllCategorys().then(data => {
+  			if(data.code === 0){
+  				that.categorys = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '文章分类加载失败!'})
+  		})
+  	},
+  	getTags() {
+  		let that = this
+  		getAllTags().then(data => {
+  			if(data.code === 0){
+  				that.tags = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '标签加载失败!'})
+  		})
   	}
   },
   //组件内的守卫 调整body的背景色
@@ -123,7 +181,8 @@ export default {
     margin-top: 4px;
 }
 .me-allct-description {
-    font-size: 16px;
+	min-height: 50px;
+    font-size: 13px;
     line-height: 25px;
 }
 .me-allct-meta {
