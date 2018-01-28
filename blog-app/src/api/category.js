@@ -6,3 +6,10 @@ export function getAllCategorys() {
     method: 'get',
   })
 }
+
+export function getCategory(id) {
+  return request({
+    url: `/categorys/${id}`,
+    method: 'get',
+  })
+}

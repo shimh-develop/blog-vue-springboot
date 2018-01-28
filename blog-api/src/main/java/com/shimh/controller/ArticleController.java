@@ -73,6 +73,31 @@ public class ArticleController {
 		return r;
 	}
 	
+	@GetMapping("/tag/{id}")
+	@FastJsonView(
+		exclude = {
+				@FastJsonFilter(clazz = Article.class, props = {"body","category"}),
+				@FastJsonFilter(clazz = Tag.class, props = {"id","avatar"})},
+		include = {@FastJsonFilter(clazz = User.class, props = {"nickname"})})
+	public Result listArticlesByTag(@PathVariable Integer id){
+		List<Article> articles = articleService.listArticlesByTag(id);
+		
+		return Result.success(articles);
+	}
+	
+	
+	@GetMapping("/category/{id}")
+	@FastJsonView(
+		exclude = {
+				@FastJsonFilter(clazz = Article.class, props = {"body","category"}),
+				@FastJsonFilter(clazz = Tag.class, props = {"id","avatar"})},
+		include = {@FastJsonFilter(clazz = User.class, props = {"nickname"})})
+	public Result listArticlesByCategory(@PathVariable Integer id){
+		List<Article> articles = articleService.listArticlesByCategory(id);
+		
+		return Result.success(articles);
+	}
+	
 	@PostMapping("/create")
 	public Result saveArticle( @Validated @RequestBody Article article){
 		

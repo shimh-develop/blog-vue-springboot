@@ -3,15 +3,22 @@
 <el-container class="me-ct-container">
     <el-main>
 		<div class="me-ct-title me-area">
-			<img class="me-ct-picture" src="../../../static/vue.png" />
-			<h3 class="me-ct-name">vue框架</h3>
-			<p>javascript的mvvm框架ffffffffffssssssjavascript的mvvm框架ffffffffffssssss</p>
+			<template v-if="this.$route.params.type === 'tag'">
+				<img class="me-ct-picture" :src="ct.avatar" />
+				<h3 class="me-ct-name">{{ct.tagname}}</h3>
+			</template>
+			
+			<template v-else>
+				<img class="me-ct-picture" :src="ct.avatar" />
+				<h3 class="me-ct-name">{{ct.categoryname}}</h3>
+				<p>{{ct.description}}</p>
+			</template>
 			
 			<span class="me-ct-meta">1000  文章</span>
 		</div>
 		
 		<div class="me-ct-articles">
-			<article-item v-for="a in 8" :key="a" v-bind="articles"></article-item>
+			<article-item v-for="a in articles" :key="a.id" v-bind="a"></article-item>
 		</div>
 		
     </el-main>
@@ -21,12 +28,25 @@
 
 <script>
 import ArticleItem from '@/components/article/ArticleItem'
+import {getArticlesByCategory, getArticlesByTag} from '@/api/article'
+import {getTag} from '@/api/tag'
+import {getCategory} from '@/api/category'
+
 
 export default {
   name: 'BlogCategoryTag',
+  created() {
+  	this.getCategoryOrTagAndArticles()
+  },
+  watch: {
+    '$route': 'getCategoryOrTagAndArticles'
+  },
   data () {
     return {
-    	articles:{
+    	ct: {},
+    	articles: []
+    	
+    	/*articles:{
     	  isTop:true,
 		  	title:'搭建element-ui的Vue前端工程操作',
 		  	commentCount:20,
@@ -35,13 +55,62 @@ export default {
 		  	author:'史明辉',
 		  	tags:['前端','vue','elementUI'],
 		  	createTime:'3天前'
-    	}
+    	}*/
     }
   },
-  computed: {
-  	
-  },
   methods:{
+  	getCategoryOrTagAndArticles() {
+  		let id = this.$route.params.id
+  		let type = this.$route.params.type
+  		if('tag' === type){
+  			this.getTag(id)
+  			this.getArticlesByTag(id)
+  		}else{
+  			this.getCategory(id)
+  			this.getArticlesByCategory(id)
+  		}
+  		
+  	},
+  	getCategory(id) {
+  		let that = this
+  		getCategory(id).then(data => {
+  			if(data.code === 0){
+  				that.ct = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '文章分类加载失败!'})
+  		})
+  	},
+  	getTag(id) {
+  		let that = this
+  		getTag(id).then(data => {
+  			if(data.code === 0){
+  				that.ct = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '标签加载失败!'})
+  		})
+  	},
+  	getArticlesByCategory(id) {
+  		let that = this
+  		getArticlesByCategory(id).then(data => {
+  			if(data.code === 0){
+  				that.articles = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '文章加载失败!'})
+  		})
+  	},
+  	getArticlesByTag(id) {
+  		let that = this
+  		getArticlesByTag(id).then(data => {
+  			if(data.code === 0){
+  				that.articles = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '文章加载失败!'})
+  		})
+  	}
   },
   components:{
   	'article-item':ArticleItem

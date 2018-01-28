@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shimh.common.util.UserUtils;
 import com.shimh.entity.Article;
+import com.shimh.entity.Category;
+import com.shimh.entity.Tag;
 import com.shimh.entity.User;
 import com.shimh.repository.ArticleRepository;
 import com.shimh.service.ArticleService;
@@ -69,6 +71,21 @@ public class ArticleServiceImpl implements ArticleService {
 	@Transactional
 	public void deleteArticleById(Integer id) {
 		articleRepository.delete(id);
+	}
+
+	@Override
+	public List<Article> listArticlesByTag(Integer id) {
+		Tag t = new Tag();
+		t.setId(id);
+		return articleRepository.findByTags(t);
+	}
+
+	@Override
+	public List<Article> listArticlesByCategory(Integer id) {
+		Category c = new Category();
+		c.setId(id);
+				
+		return articleRepository.findByCategory(c);
 	}
 
 }

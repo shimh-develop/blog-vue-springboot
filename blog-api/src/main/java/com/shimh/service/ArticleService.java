@@ -3,6 +3,7 @@ package com.shimh.service;
 import java.util.List;
 
 import com.shimh.entity.Article;
+import com.shimh.entity.Tag;
 /**
  * 
  * @author shimh
@@ -21,5 +22,9 @@ public interface ArticleService {
 	Integer updateArticle(Article article);
 
 	void deleteArticleById(Integer id);
+
+	List<Article> listArticlesByTag(Integer id);
+
+	List<Article> listArticlesByCategory(Integer id);
 
 }

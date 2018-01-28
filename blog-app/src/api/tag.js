@@ -6,3 +6,10 @@ export function getAllTags() {
     method: 'get',
   })
 }
+
+export function getTag(id) {
+  return request({
+    url: `/tags/${id}`,
+    method: 'get',
+  })
+}

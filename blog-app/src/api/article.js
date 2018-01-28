@@ -15,6 +15,20 @@ export function getArticle(id) {
   })
 }
 
+export function getArticlesByCategory(id) {
+  return request({
+    url: `/articles/category/${id}`,
+    method: 'get'
+  })
+}
+
+export function getArticlesByTag(id) {
+  return request({
+    url: `/articles/tag/${id}`,
+    method: 'get'
+  })
+}
+
 
 
 export function publishArticle(article) {
