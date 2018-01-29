@@ -5,7 +5,7 @@
 		</div>
 		
 		<ul class="me-category-list">
-			<li class="me-category-item" v-for="a in articles" :key="a.id"><a>{{a.name}}</a></li>
+			<li v-for="a in articles" @click="view(a.id)" :key="a.id" class="me-category-item"><a>{{a.title}}</a></li>
 		</ul>
 	</el-card>
 
@@ -30,7 +30,9 @@ export default {
     }
   },
   methods:{
-  	
+  	view(id) {
+  		this.$router.push({ path: `/view/${id}` })
+  	}
   }
 }
 </script>

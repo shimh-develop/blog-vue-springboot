@@ -15,6 +15,8 @@ import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
 import com.shimh.entity.Tag;
 import com.shimh.service.TagService;
+import com.shimh.vo.CategoryVO;
+import com.shimh.vo.TagVO;
 /**
  * 标签api
  * 
@@ -34,6 +36,21 @@ public class TagController {
 	@GetMapping
 	public Result listTags(){
 		List<Tag> tags = tagService.findAll();
+		
+		return Result.success(tags);
+	}
+	
+	@GetMapping("detail")
+	public Result listCategorysDetail(){
+		List<TagVO> categorys = tagService.findAllDetail();
+		
+		return Result.success(categorys);
+	}
+	
+	@GetMapping("/hot")
+	public Result listHotTags(){
+		int limit = 6;
+		List<Tag> tags = tagService.listHotTags(limit);
 		
 		return Result.success(tags);
 	}

@@ -7,7 +7,7 @@
 		
 		<ul class="me-tag-list">
 			<li class="me-tag-item" v-for="t in tags" :key="t.id">
-				<el-button @click="tag(t.id)" size="mini" type="info" plain>{{t.name}}</el-button>
+				<el-button @click="tag(t.id)" size="mini" type="info" plain>{{t.tagname}}</el-button>
 			</li>
 		</ul>
 	</el-card>

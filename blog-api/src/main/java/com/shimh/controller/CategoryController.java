@@ -15,6 +15,7 @@ import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
 import com.shimh.entity.Category;
 import com.shimh.service.CategoryService;
+import com.shimh.vo.CategoryVO;
 /**
  * 文章分类api
  * 
@@ -34,6 +35,13 @@ public class CategoryController {
 	@GetMapping
 	public Result listCategorys(){
 		List<Category> categorys = categoryService.findAll();
+		
+		return Result.success(categorys);
+	}
+	
+	@GetMapping("detail")
+	public Result listCategorysDetail(){
+		List<CategoryVO> categorys = categoryService.findAllDetail();
 		
 		return Result.success(categorys);
 	}

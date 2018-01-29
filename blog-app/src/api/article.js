@@ -8,9 +8,23 @@ export function getArticles() {
   })
 }
 
-export function getArticle(id) {
+export function getHotArtices() {
   return request({
-    url: `/articles/${id}`,
+    url: '/articles/hot',
+    method: 'get'
+  })
+}
+
+export function getNewArtices() {
+  return request({
+    url: '/articles/new',
+    method: 'get'
+  })
+}
+
+export function viewArticle(id) {
+  return request({
+    url: `/articles/view/${id}`,
     method: 'get'
   })
 }

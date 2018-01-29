@@ -14,7 +14,7 @@
 				<p>{{ct.description}}</p>
 			</template>
 			
-			<span class="me-ct-meta">1000  文章</span>
+			<span class="me-ct-meta">{{articles.length}} 文章</span>
 		</div>
 		
 		<div class="me-ct-articles">
@@ -45,17 +45,6 @@ export default {
     return {
     	ct: {},
     	articles: []
-    	
-    	/*articles:{
-    	  isTop:true,
-		  	title:'搭建element-ui的Vue前端工程操作',
-		  	commentCount:20,
-		  	viewCount:10,
-		  	abstract:'基于Spring+SpringMVC+Mybatis分布式敏捷开发系统架构，提供整套公共微服务服务模块：集中权限管理基于 分布式敏捷开发系统架构，提供整套公共微服务服务模块',
-		  	author:'史明辉',
-		  	tags:['前端','vue','elementUI'],
-		  	createTime:'3天前'
-    	}*/
     }
   },
   methods:{

@@ -7,6 +7,20 @@ export function getAllTags() {
   })
 }
 
+export function getAllTagsDetail() {
+  return request({
+    url: '/tags/detail',
+    method: 'get',
+  })
+}
+
+export function getHotTags() {
+  return request({
+    url: '/tags/hot',
+    method: 'get',
+  })
+}
+
 export function getTag(id) {
   return request({
     url: `/tags/${id}`,

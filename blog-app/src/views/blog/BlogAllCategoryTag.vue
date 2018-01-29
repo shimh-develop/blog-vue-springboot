@@ -14,30 +14,14 @@
 						  	</a>
 						  	
 						  	<div class="me-allct-meta">
-						  		<span>1000  文章</span>
+						  		<span>{{c.articles}} 文章</span>
 						  	</div>
 						  </div>
 		    		</li>
-		    		
-		    		<!--<li @click="view(ct)" v-for="ct in 4" :key="ct" class="me-allct-item">
-						  <div class="me-allct-content">
-						  	<a class="me-allct-info">
-						  		<img class="me-allct-img" src="../../../static/vue.png" />
-						  		<h4 class="me-allct-name">Vue.js</h4>
-						  		<p class="me-allct-description">javascript的mvvm框架ffffffffffssssss</p>
-						  	</a>
-						  	
-						  	<div class="me-allct-meta">
-						  		<span>1000  文章</span>
-						  	</div>
-						  </div>
-		    		</li>-->
-		    		
 		    	</ul>
 		    </el-tab-pane>
 		    <el-tab-pane label="标签" name="tag">
 		    	<ul class="me-allct-items">
-		    		
 		    		<li v-for="t in tags" @click="view(t.id)" :key="t.id" class="me-allct-item">
 						  <div class="me-allct-content">
 						  	<a class="me-allct-info">
@@ -46,25 +30,11 @@
 						  	</a>
 						  	
 						  	<div class="me-allct-meta">
-						  		<span>1000  文章</span>
+						  		<span>{{t.articles}}  文章</span>
 						  	</div>
 						  </div>
 		    		</li>
-		    		
-		    		<!--<li @click="view(ct)" v-for="ct in 4" :key="ct" class="me-allct-item">
-						  <div class="me-allct-content">
-						  	<a class="me-allct-info">
-						  		<img class="me-allct-img" src="../../../static/vue.png" />
-						  		<h4 class="me-allct-name">Vue.js</h4>
-						  	</a>
-						  	
-						  	<div class="me-allct-meta">
-						  		<span>1000  文章</span>
-						  	</div>
-						  </div>
-		    		</li>-->
 		    	</ul>
-		    
 		    </el-tab-pane>
 	  	</el-tabs>
     </el-main>
@@ -73,8 +43,8 @@
 </template>
 
 <script>
-import {getAllCategorys} from '@/api/category'
-import {getAllTags} from '@/api/tag'
+import {getAllCategorysDetail} from '@/api/category'
+import {getAllTagsDetail} from '@/api/tag'
 	
 export default {
   name: 'BlogAllCategoryTag',
@@ -105,7 +75,7 @@ export default {
   	},
   	getCategorys() {
   		let that = this
-  		getAllCategorys().then(data => {
+  		getAllCategorysDetail().then(data => {
   			if(data.code === 0){
   				that.categorys = data.data
   			}
@@ -115,7 +85,7 @@ export default {
   	},
   	getTags() {
   		let that = this
-  		getAllTags().then(data => {
+  		getAllTagsDetail().then(data => {
   			if(data.code === 0){
   				that.tags = data.data
   			}

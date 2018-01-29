@@ -2,6 +2,7 @@ package com.shimh.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.shimh.common.entity.BaseEntity;
 /**
@@ -27,6 +28,7 @@ public class Category extends BaseEntity<Integer>{
 	private String description;
 	
 	private String avatar;
+	
 
 	public String getCategoryname() {
 		return categoryname;
@@ -51,6 +53,5 @@ public class Category extends BaseEntity<Integer>{
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
-
 	
 }

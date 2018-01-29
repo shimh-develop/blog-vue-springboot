@@ -7,6 +7,13 @@ export function getAllCategorys() {
   })
 }
 
+export function getAllCategorysDetail() {
+  return request({
+    url: '/categorys/detail',
+    method: 'get',
+  })
+}
+
 export function getCategory(id) {
   return request({
     url: `/categorys/${id}`,

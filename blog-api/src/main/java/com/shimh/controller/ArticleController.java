@@ -22,6 +22,7 @@ import com.shimh.entity.ArticleBody;
 import com.shimh.entity.Tag;
 import com.shimh.entity.User;
 import com.shimh.service.ArticleService;
+import com.shimh.service.TagService;
 /**
  * 文章api
  * 
@@ -38,6 +39,9 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 	
+	@Autowired
+	private TagService tagService;
+	
 	@GetMapping
 	@FastJsonView(
 		exclude = {
@@ -49,6 +53,26 @@ public class ArticleController {
 		
 		return Result.success(articles);
 	}
+	
+	@GetMapping("/hot")
+	@FastJsonView( include = {@FastJsonFilter(clazz = Article.class, props = {"id", "title"})})
+	public Result listHotArticles(){
+		int limit = 6;
+		List<Article> articles = articleService.listHotArticles(limit);
+		
+		return Result.success(articles);
+	}
+	
+	@GetMapping("/new")
+	@FastJsonView( include = {@FastJsonFilter(clazz = Article.class, props = {"id", "title"})})
+	public Result listNewArticles(){
+		int limit = 6;
+		List<Article> articles = articleService.listNewArticles(limit);
+		
+		return Result.success(articles);
+	}
+	
+	
 	
 	@GetMapping("/{id}")
 	@FastJsonView(
@@ -67,6 +91,29 @@ public class ArticleController {
 		}
 		
 		Article article = articleService.getArticleById(id);
+		
+		r.setResultCode(ResultCode.SUCCESS);
+		r.setData(article);
+		return r;
+	}
+	
+	@GetMapping("/view/{id}")
+	@FastJsonView(
+			exclude = {
+					@FastJsonFilter(clazz = Article.class, props = {"category"}),
+					@FastJsonFilter(clazz = ArticleBody.class, props = {"contentHtml"}),
+					@FastJsonFilter(clazz = Tag.class, props = {"avatar"})},
+			include = {@FastJsonFilter(clazz = User.class, props = {"nickname","avatar"})})
+	public Result getArticleAndAddViews(@PathVariable("id") Integer id){
+		
+		Result r = new Result();
+		
+		if(null == id){
+			r.setResultCode(ResultCode.PARAM_IS_BLANK);
+			return r;
+		}
+		
+		Article article = articleService.getArticleAndAddViews(id);
 		
 		r.setResultCode(ResultCode.SUCCESS);
 		r.setData(article);

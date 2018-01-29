@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,6 +87,27 @@ public class ArticleServiceImpl implements ArticleService {
 		c.setId(id);
 				
 		return articleRepository.findByCategory(c);
+	}
+
+	@Override
+	@Transactional
+	public Article getArticleAndAddViews(Integer id) {
+		int count = 1;
+		Article article =  articleRepository.getOne(id);
+		article.setViews(article.getViews() + count);
+		return article;
+	}
+
+	@Override
+	public List<Article> listHotArticles(int limit) {
+		
+		return articleRepository.findOrderByViewsAndLimit(limit);
+	}
+
+	@Override
+	public List<Article> listNewArticles(int limit) {
+		
+		return articleRepository.findOrderByCreateDateAndLimit(limit);
 	}
 
 }

@@ -53,8 +53,6 @@
 	      <el-form-item label="文章标签" prop="tags">
 		    <el-checkbox-group v-model="articleForm.tags">
 		      <el-checkbox v-for="t in tags" :key="t.id" :label="t.id" name="tags">{{t.tagname}}</el-checkbox>
-		      <!--<el-checkbox label="2" name="tags">Vue</el-checkbox>
-		      <el-checkbox label="3" name="tags">ElementUI</el-checkbox>-->
 		    </el-checkbox-group>
 		  </el-form-item>
 	  </el-form>
@@ -199,7 +197,8 @@ export default {
 				if(data.code == 0){
 					console.info(data.data.articleId)
 		          	that.$message({message: '发布成功啦',type: 'success',showClose:true})
-		          	that.$router.push('/')
+		          	//that.$router.push('/')
+		          	that.$router.push({ path: `/view/${data.data.articleId}` })
 				}else{
 					that.$message({message: data.msg,type: 'error',showClose:true});
 				}

@@ -3,6 +3,7 @@ package com.shimh.service;
 import java.util.List;
 
 import com.shimh.entity.Category;
+import com.shimh.vo.CategoryVO;
 /**
  * 
  * @author shimh
@@ -21,5 +22,7 @@ public interface CategoryService {
 	Integer updateCategory(Category category);
 
 	void deleteCategoryById(Integer id);
+
+	List<CategoryVO> findAllDetail();
 
 }

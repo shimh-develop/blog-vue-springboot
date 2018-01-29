@@ -101,7 +101,7 @@
 
 <script>
 import MarkdownEditor from '@/components/markdown/MarkdownEditor'	
-import {getArticle} from '@/api/article'
+import {viewArticle} from '@/api/article'
 export default {
   name: 'BlogView',
   created() {
@@ -133,7 +133,7 @@ export default {
   methods: {
   	getArticle() {
   		let that = this
-  		getArticle(that.$route.params.id).then(data => {
+  		viewArticle(that.$route.params.id).then(data => {
   			if(data.code === 0){
   				Object.assign(that.article, data.data)
   				that.article.editor.value = data.data.body.content

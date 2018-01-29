@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shimh.entity.Category;
 import com.shimh.repository.CategoryRepository;
 import com.shimh.service.CategoryService;
+import com.shimh.vo.CategoryVO;
 /**
  * 
  * @author shimh
@@ -56,6 +57,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Transactional
 	public void deleteCategoryById(Integer id) {
 		categoryRepository.delete(id);
+	}
+
+	@Override
+	public List<CategoryVO> findAllDetail() {
+		return categoryRepository.findAllDetail();
 	}
 
 }

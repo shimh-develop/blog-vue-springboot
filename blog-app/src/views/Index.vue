@@ -4,8 +4,6 @@
     <el-main class="me-articles">
     
     	<article-item v-for="a in articles" :key="a.id" v-bind="a"></article-item>
-    	<!--<article-item v-for="a in 4" :key="a" v-bind="articlesTemp2"></article-item>-->
-			<article-item v-for="a in 4" :key="a+4" v-bind="articlesTemp"></article-item>
 			
     </el-main>
     
@@ -13,9 +11,9 @@
     	
     	<card-me class="me-area"></card-me>
     	<card-tag :tags="hotTags"></card-tag>
-    	<card-article cardHeader="最新文章" :articles="newArticle"></card-article>
+    	<card-article cardHeader="最新文章" :articles="newArticles"></card-article>
     	
-    	<card-article cardHeader="最热文章" :articles="hotArticle"></card-article>
+    	<card-article cardHeader="最热文章" :articles="hotArticles"></card-article>
     		
     </el-aside>
      
@@ -28,73 +26,24 @@ import CardMe from '@/components/card/CardMe'
 import CardArticle from '@/components/card/CardArticle'
 import CardTag from '@/components/card/CardTag'
 import ArticleItem from '@/components/article/ArticleItem'
-	
-import {getArticles} from '@/api/article'
+
+import {getArticles, getHotArtices, getNewArtices} from '@/api/article'
+import {getHotTags} from '@/api/tag'
 
 export default {
   name: 'index',
-	mounted() {
+	created() {
 		this.getArticles()
+		this.getHotArtices()
+		this.getNewArtices()
+		this.getHotTags()
   },
   data () {
     return {
-    	articlesTemp:{
-    	  weight:0,
-		  	title:'搭建element-ui的Vue前端工程操作',
-		  	comments:20,
-		  	views:10,
-		  	summary:'基于Spring+SpringMVC+Mybatis分布式敏捷开发系统架构，提供整套公共微服务服务模块：集中权限管理基于 分布式敏捷开发系统架构，提供整套公共微服务服务模块',
-		  	author:{
-		  		nickname: '史明辉'
-		  	},
-		  	tags:[
-		  		{tagname: '前端'},
-		  		{tagname: 'Vue'},
-		  		{tagname: 'ElementUI'}
-		  	],
-		  	createDate:'3天前'
-    	},
-    	articlesTemp2:{
-    	  weight:1,
-		  	title:'搭建element-ui的Vue',
-		  	comments:20,
-		  	views:10,
-		  	summary:'基于Spring+SpringMVC+Mybatis分布式敏捷开发系统架构，提供整套公共微服务服务模块',
-		  	author:{
-		  		nickname: '史明辉'
-		  	},
-		  	tags:[
-		  		{tagname: '前端'},
-		  		{tagname: 'Vue'},
-		  		{tagname: 'ElementUI'}
-		  	],
-		  	createDate:'3天前'
-    	},
     	articles:[],
-    	hotTags:[
-    		{id:1,name:'前端'},
-    		{id:2,name:'后端'},
-    		{id:3,name:'代码规范'},
-    		{id:4,name:'程序员'},
-    		{id:5,name:'开源'},
-    		{id:6,name:'设计模式'}
-    	],
-      hotArticle:[
-      	{id:'7',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
-      	{id:'8',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
-      	{id:'9',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
-      	{id:'10',name:'搭建element-ui的Vue前端工程操作'},
-      	{id:'11',name:'搭建element-ui的Vue前端工程操作'},
-      	{id:'12',name:'搭建element-ui的Vue前端工程操作'}
-      ],
-      newArticle:[
-      	{id:'1',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
-      	{id:'2',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
-      	{id:'3',name:'为什么程序员那么有钱为什么程序员那么有钱为什么程序员那么有钱'},
-      	{id:'4',name:'搭建element-ui的Vue前端工程操作'},
-      	{id:'5',name:'搭建element-ui的Vue前端工程操作'},
-      	{id:'6',name:'搭建element-ui的Vue前端工程操作'}
-      ]
+    	hotTags:[],
+      hotArticles:[],
+      newArticles:[]
     }
   },
   methods:{
@@ -111,7 +60,40 @@ export default {
   			that.$message({type: 'error', message: '文章加载失败!'})
   		})
   		
+  	},
+  	getHotArtices() {
+  		let that = this
+  		getHotArtices().then(data => {
+  			if(data.code == 0){
+  				that.hotArticles = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '最热文章加载失败!'})
+  		})
+  		
+  	},
+  	getNewArtices() {
+  		let that = this
+  		getNewArtices().then(data => {
+  			if(data.code == 0){
+  				that.newArticles = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '最新文章加载失败!'})
+  		})
+  		
+  	},
+  	getHotTags() {
+  		let that = this
+  		getHotTags().then(data => {
+  			if(data.code == 0){
+  				that.hotTags = data.data
+  			}
+  		}).catch(error => {
+  			that.$message({type: 'error', message: '最热标签加载失败!'})
+  		})
   	}
+  	
   },
   components:{
   	'card-me':CardMe,

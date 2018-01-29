@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.shimh.entity.Tag;
 import com.shimh.repository.TagRepository;
 import com.shimh.service.TagService;
+import com.shimh.vo.TagVO;
 /**
  * 
  * @author shimh
@@ -55,6 +56,17 @@ public class TagServiceImpl implements TagService {
 	@Transactional
 	public void deleteTagById(Integer id) {
 		tagRepository.delete(id);
+	}
+
+	@Override
+	public List<Tag> listHotTags(int limit) {
+		
+		return tagRepository.listHotTagsByArticleUse(limit);
+	}
+
+	@Override
+	public List<TagVO> findAllDetail() {
+		return tagRepository.findAllDetail();
 	}
 
 }
