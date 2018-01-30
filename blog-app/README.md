@@ -190,5 +190,6 @@ npm run build --report
 ``` 
 # BaseHeader放回views中
 # 修改Axios后置拦截，全局处理错误
+# 将登录 退出 和头像 放到一起
 
 ```

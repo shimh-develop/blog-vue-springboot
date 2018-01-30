@@ -58,15 +58,13 @@ export default {
 	          if (valid) {
 	            
 				that.$store.dispatch('login', that.userForm).then(() => {
-					that.$router.push({ path: '/' })
+					that.$router.go(-1)
 				}).catch((error) => {
-	    			that.$message({
-			          message: error,
-			          type: 'warning'
-			        });
+					if(error !== 'error'){
+						that.$message({message: error,type: 'error'});
+					}
 	  			})
 	          } else {
-	            console.log('error submit!!');
 	            return false;
 	          }
 	        });

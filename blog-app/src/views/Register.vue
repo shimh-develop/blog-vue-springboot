@@ -67,21 +67,15 @@ export default {
           if (valid) {
 			
 			that.$store.dispatch('register', that.userForm).then(() => {
-				that.$message({
-		          message: '注册成功 快写文章吧',
-		          type: 'success'
-		        });
-				
+				that.$message({message: '注册成功 快写文章吧',type: 'success'});
 				that.$router.push({ path: '/' })
 			}).catch((error) => {
-    			that.$message({
-		          message: error,
-		          type: 'warning'
-		        });
+				if(error !== 'error'){
+					that.$message({message: error,type: 'error'});
+				}
   			})
 			
           } else {
-            console.log('error register!!');
             return false;
           }
         });
