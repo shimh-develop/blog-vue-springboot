@@ -2,6 +2,8 @@ package com.shimh.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
 import com.shimh.entity.Category;
@@ -64,6 +67,7 @@ public class CategoryController {
 	}
 	
 	@PostMapping("/create")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result saveCategory( @Validated @RequestBody Category category){
 		
 		Integer categoryId = categoryService.saveCategory(category);
@@ -74,6 +78,7 @@ public class CategoryController {
 	}
 	
 	@PostMapping("/update")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result updateCategory(@RequestBody Category category){
 		Result r = new Result();
 		
@@ -90,6 +95,7 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result deleteCategoryById(@PathVariable("id")Integer id){
 		Result r = new Result();
 		

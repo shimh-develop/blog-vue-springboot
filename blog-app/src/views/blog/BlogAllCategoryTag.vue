@@ -76,21 +76,21 @@ export default {
   	getCategorys() {
   		let that = this
   		getAllCategorysDetail().then(data => {
-  			if(data.code === 0){
-  				that.categorys = data.data
-  			}
+  			that.categorys = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '文章分类加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '文章分类加载失败!'})
+  			}
   		})
   	},
   	getTags() {
   		let that = this
   		getAllTagsDetail().then(data => {
-  			if(data.code === 0){
-  				that.tags = data.data
-  			}
+  			that.tags = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '标签加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '标签加载失败!'})
+  			}
   		})
   	}
   },

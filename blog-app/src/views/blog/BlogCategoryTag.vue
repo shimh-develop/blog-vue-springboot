@@ -63,41 +63,41 @@ export default {
   	getCategory(id) {
   		let that = this
   		getCategory(id).then(data => {
-  			if(data.code === 0){
-  				that.ct = data.data
-  			}
+  			that.ct = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '文章分类加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '文章分类加载失败!'})
+  			}
   		})
   	},
   	getTag(id) {
   		let that = this
   		getTag(id).then(data => {
-  			if(data.code === 0){
-  				that.ct = data.data
-  			}
+  			that.ct = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '标签加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '标签加载失败!'})
+  			}
   		})
   	},
   	getArticlesByCategory(id) {
   		let that = this
   		getArticlesByCategory(id).then(data => {
-  			if(data.code === 0){
-  				that.articles = data.data
-  			}
+  			that.articles = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '文章加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '文章加载失败!'})
+  			}
   		})
   	},
   	getArticlesByTag(id) {
   		let that = this
   		getArticlesByTag(id).then(data => {
-  			if(data.code === 0){
-  				that.articles = data.data
-  			}
+  			that.articles = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '文章加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '文章加载失败!'})
+  			}
   		})
   	}
   },

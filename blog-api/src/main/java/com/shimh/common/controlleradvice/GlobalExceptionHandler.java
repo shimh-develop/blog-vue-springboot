@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -59,10 +60,23 @@ public class GlobalExceptionHandler {
 	   
 		logger.error("权限认证错误 , uri: {} , caused by: ", request.getRequestURI(), e);
 		
-		HttpStatus status = HttpStatus.FORBIDDEN;
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
 	    
 	    Result r = new Result();
 	    r.setResultCode(ResultCode.PERMISSION_NO_ACCESS);
+	    
+	    return new ResponseEntity<Result>(r,status);
+	}
+	
+	@ExceptionHandler(UnauthenticatedException.class)
+	ResponseEntity<Result> UnauthenticatedExceptionHandler(HttpServletRequest request, UnauthenticatedException e) {
+	   
+		logger.error("登录认证错误 , uri: {} , caused by: ", request.getRequestURI(), e);
+		
+		HttpStatus status = HttpStatus.OK;
+	    
+	    Result r = new Result();
+	    r.setResultCode(ResultCode.USER_NOT_LOGGED_IN);
 	    
 	    return new ResponseEntity<Result>(r,status);
 	}

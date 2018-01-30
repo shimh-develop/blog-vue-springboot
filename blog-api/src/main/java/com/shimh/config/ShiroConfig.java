@@ -29,13 +29,21 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);  
        
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();  
-        filterChainDefinitionMap.put("/", "anon");  
+       /* filterChainDefinitionMap.put("/", "anon");  
 
         filterChainDefinitionMap.put("/static/**", "anon"); 
         filterChainDefinitionMap.put("/blogFile/**", "anon");
         filterChainDefinitionMap.put("/login", "anon"); 
         filterChainDefinitionMap.put("/register", "anon"); 
-        filterChainDefinitionMap.put("/**", "authc");  
+        filterChainDefinitionMap.put("/**", "authc"); */ 
+        
+        //filterChainDefinitionMap.put("/**/create", "authc");
+        //filterChainDefinitionMap.put("/**/update", "authc");
+        //filterChainDefinitionMap.put("/**/delete", "authc");
+        //filterChainDefinitionMap.put("/upload", "authc");
+        //filterChainDefinitionMap.put("/users/currentUser", "authc");
+        
+        filterChainDefinitionMap.put("/**", "anon");
         
         //返回json数据，由前端跳转
         shiroFilterFactoryBean.setLoginUrl("/handleLogin");  

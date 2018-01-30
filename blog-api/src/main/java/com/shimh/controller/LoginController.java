@@ -1,5 +1,7 @@
 package com.shimh.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -92,8 +94,10 @@ public class LoginController {
 	}
 	
     @RequestMapping(value = "/handleLogin")  
-    public Result handleLogin() {  
-        return Result.error(ResultCode.USER_NOT_LOGGED_IN);
+    public Result handleLogin(HttpServletRequest request) {
+    	 String id = request.getHeader(OAuthSessionManager.OAUTH_TOKEN); 
+    	 System.out.println("超时登录。。。:" + id);
+        return Result.error(ResultCode.SESSION_TIME_OUT);
     }
 	
     

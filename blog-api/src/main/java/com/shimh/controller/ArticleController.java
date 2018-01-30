@@ -2,6 +2,7 @@ package com.shimh.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -146,6 +147,7 @@ public class ArticleController {
 	}
 	
 	@PostMapping("/create")
+	@RequiresAuthentication
 	public Result saveArticle( @Validated @RequestBody Article article){
 		
 		Integer articleId = articleService.saveArticle(article);
@@ -156,6 +158,7 @@ public class ArticleController {
 	}
 	
 	@PostMapping("/update")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result updateArticle(@RequestBody Article article){
 		Result r = new Result();
 		
@@ -172,6 +175,7 @@ public class ArticleController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result deleteArticleById(@PathVariable("id")Integer id){
 		Result r = new Result();
 		

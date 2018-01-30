@@ -134,12 +134,12 @@ export default {
   	getArticle() {
   		let that = this
   		viewArticle(that.$route.params.id).then(data => {
-  			if(data.code === 0){
-  				Object.assign(that.article, data.data)
-  				that.article.editor.value = data.data.body.content
-  			}
+			Object.assign(that.article, data.data)
+			that.article.editor.value = data.data.body.content
   		}).catch(error =>{
-  			that.$message({type: 'error', message: '文章加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '文章加载失败!'})
+  			}
   		})
   	}
   },

@@ -53,44 +53,47 @@ export default {
   	getArticles() {
   		let that = this
   		getArticles().then(data => {
-  			if(data.code == 0){
-  				that.articles = data.data
-  			}
+  			that.articles = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '文章加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '文章加载失败!'})
+  			}
   		})
   		
   	},
   	getHotArtices() {
   		let that = this
   		getHotArtices().then(data => {
-  			if(data.code == 0){
-  				that.hotArticles = data.data
-  			}
+  			that.hotArticles = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '最热文章加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '最热文章加载失败!'})
+  			}
+  			
   		})
   		
   	},
   	getNewArtices() {
   		let that = this
   		getNewArtices().then(data => {
-  			if(data.code == 0){
-  				that.newArticles = data.data
-  			}
+  			that.newArticles = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '最新文章加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '最新文章加载失败!'})
+  			}
+  			
   		})
   		
   	},
   	getHotTags() {
   		let that = this
   		getHotTags().then(data => {
-  			if(data.code == 0){
-  				that.hotTags = data.data
-  			}
+  			that.hotTags = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '最热标签加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '最热标签加载失败!'})
+  			}
+  			
   		})
   	}
   	

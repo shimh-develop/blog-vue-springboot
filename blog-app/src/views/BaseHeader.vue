@@ -1,12 +1,12 @@
 <template>
   <el-header class="me-area">
 		<el-row class="me-header">
+			
 			  <el-col :span="4" class="me-header-left">
 			  	 <router-link to="/" class="me-title">
 			  	 	<img src="../../static/logo.png"/>
 			  	</router-link>
 			  </el-col>
-			  
 			  
 			  <el-col v-if="!simple" :span="spanNumber">
 			  	<el-menu :router=true menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex" mode="horizontal" >

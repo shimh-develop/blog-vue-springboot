@@ -30,14 +30,9 @@ export default new Vuex.Store({
     	login({ commit }, user) {
     		return new Promise((resolve, reject) => {
 		        login(user.account, user.password).then(data => {
-		          if(data.code === 0){
 		          	commit('SET_TOKEN', data.data['Oauth-Token'])
 			      	setToken(data.data['Oauth-Token'])
 			      	resolve()
-		          }else{
-		          	reject(data.msg)
-		          }
-		          
 		        }).catch(error => {
 		          reject(error)
 		        })
@@ -45,20 +40,21 @@ export default new Vuex.Store({
     	},
     	// 获取用户信息
 	    getUserInfo({ commit, state }) {
+	    	let that = this
 	      return new Promise((resolve, reject) => {
 	      	getUserInfo().then(data => {
-	        	console.info("bbb")
-	          if (data.code != 0) { 
-	          	reject(data)
+	          if (data.data) { 
+	          	commit('SET_ACCOUNT', data.data.account)
+	          	commit('SET_NAME', data.data.name)
+	          	commit('SET_AVATAR', data.data.avatar)
+	          }else{
+	          	commit('SET_ACCOUNT', '')
+	          	commit('SET_NAME', '')
+	          	commit('SET_AVATAR', '')
+	          	removeToken()
 	          }
-	          
-	          commit('SET_ACCOUNT', data.data.account)
-	          commit('SET_NAME', data.data.name)
-	          commit('SET_AVATAR', data.data.avatar)
 	          resolve(data)
-	          console.info("aaa")
 	        }).catch(error => {
-	        	console.info("ccc")
 	        	reject(error)
 	        })
 	      })
@@ -89,19 +85,16 @@ export default new Vuex.Store({
 	        commit('SET_AVATAR', '')
 	        removeToken()
 	        resolve()
+	      }).catch(error => {
+	      	reject(error)
 	      })
 	    },
 	    register({ commit }, user) {
 	    	return new Promise((resolve, reject) => {
 	    		register(user.account,user.nickname,user.password).then((data) => {
-					if(data.code == 0){
-						commit('SET_TOKEN', data.data['Oauth-Token'])
-						setToken(data.data['Oauth-Token'])
-			      		resolve()
-					}else{
-			        	reject(data.msg)
-					}
-				
+				commit('SET_TOKEN', data.data['Oauth-Token'])
+				setToken(data.data['Oauth-Token'])
+	      		resolve()
 				}).catch((error) => {
 	    			reject(error)
 	  			})

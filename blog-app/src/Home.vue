@@ -17,7 +17,7 @@
 
 <script>
 import BaseFooter from '@/components/BaseFooter'
-import BaseHeader from '@/components/BaseHeader'
+import BaseHeader from '@/views/BaseHeader'
 
 export default {
   name: 'Home',

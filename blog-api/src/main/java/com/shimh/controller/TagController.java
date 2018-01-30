@@ -2,6 +2,7 @@ package com.shimh.controller;
 
 import java.util.List;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shimh.common.constant.Base;
 import com.shimh.common.constant.ResultCode;
 import com.shimh.common.result.Result;
 import com.shimh.entity.Tag;
@@ -73,6 +75,7 @@ public class TagController {
 	}
 	
 	@PostMapping("/create")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result saveTag( @Validated @RequestBody Tag tag){
 		
 		Integer tagId = tagService.saveTag(tag);
@@ -83,6 +86,7 @@ public class TagController {
 	}
 	
 	@PostMapping("/update")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result updateTag(@RequestBody Tag tag){
 		Result r = new Result();
 		
@@ -99,6 +103,7 @@ public class TagController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@RequiresRoles(Base.ROLE_ADMIN)
 	public Result deleteTagById(@PathVariable("id")Integer id){
 		Result r = new Result();
 		

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import BaseHeader from '@/components/BaseHeader'
+import BaseHeader from '@/views/BaseHeader'
 import MarkdownEditor from '@/components/markdown/MarkdownEditor'
 import {publishArticle} from '@/api/article'
 import {getAllCategorys} from '@/api/category'
@@ -182,8 +182,6 @@ export default {
             	
             }
            
-            console.info(article)
-            
             this.publishVisible = false;
             
             let loading = this.$loading({
@@ -192,27 +190,18 @@ export default {
 	        })
             
             publishArticle(article).then((data) => {
-            	console.info(data)
             	loading.close();
-				if(data.code == 0){
-					console.info(data.data.articleId)
-		          	that.$message({message: '发布成功啦',type: 'success',showClose:true})
-		          	//that.$router.push('/')
-		          	that.$router.push({ path: `/view/${data.data.articleId}` })
-				}else{
-					that.$message({message: data.msg,type: 'error',showClose:true});
-				}
+	          	that.$message({message: '发布成功啦',type: 'success',showClose:true})
+	          	that.$router.push({ path: `/view/${data.data.articleId}` })
 					
 			}).catch((error) => {
 				loading.close();
-    			that.$message({
-		          message: error,
-		          type: 'error'
-		        });
+				if(error !== 'error'){
+					that.$message({message: error,type: 'error'});
+				}
   			})
 			
           } else {
-            console.log('error submit!!');
             return false;
           }
         });
@@ -224,26 +213,24 @@ export default {
           type: 'warning'
         }).then(() => {
           this.$router.push('/')
-        }).catch(() => {
-          
-        });
+        })
   	},
   	getCategorysAndTags() {
   		let that = this
   		getAllCategorys().then(data => {
-  			if(data.code == 0){
-  				that.categorys = data.data
-  			}
+  			that.categorys = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '文章分类加载失败!'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '文章分类加载失败!'})
+  			}
   		})
   		
   		getAllTags().then(data => {
-  			if(data.code == 0){
-  				that.tags = data.data
-  			}
+  			that.tags = data.data
   		}).catch(error => {
-  			that.$message({type: 'error', message: '标签加载失败'})
+  			if(error !== 'error'){
+  				that.$message({type: 'error', message: '标签加载失败'})
+  			}
   		})
   		
   	},

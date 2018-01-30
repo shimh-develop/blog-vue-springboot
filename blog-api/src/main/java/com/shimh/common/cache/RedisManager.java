@@ -15,7 +15,7 @@ import org.springframework.data.redis.core.ValueOperations;
 public class RedisManager {
 	
 	 /**  默认过期时长，单位：秒 */
-    public final static long DEFAULT_EXPIRE = 60 * 10 * 1;
+    public final static long DEFAULT_EXPIRE = 60 * 1 * 1;
     /**  不设置过期时长 */
     public final static long NOT_EXPIRE = -1;
     
