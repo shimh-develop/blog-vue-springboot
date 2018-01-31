@@ -31,7 +31,7 @@ import {getArticles, getHotArtices, getNewArtices} from '@/api/article'
 import {getHotTags} from '@/api/tag'
 
 export default {
-  name: 'index',
+  name: 'Index',
 	created() {
 		this.getArticles()
 		this.getHotArtices()
@@ -56,7 +56,7 @@ export default {
   			that.articles = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '文章加载失败!'})
+  				that.$message({type: 'error', message: '文章加载失败!',showClose: true})
   			}
   		})
   		
@@ -67,7 +67,7 @@ export default {
   			that.hotArticles = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '最热文章加载失败!'})
+  				that.$message({type: 'error', message: '最热文章加载失败!',showClose: true})
   			}
   			
   		})
@@ -79,7 +79,7 @@ export default {
   			that.newArticles = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '最新文章加载失败!'})
+  				that.$message({type: 'error', message: '最新文章加载失败!',showClose: true})
   			}
   			
   		})
@@ -91,7 +91,7 @@ export default {
   			that.hotTags = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '最热标签加载失败!'})
+  				that.$message({type: 'error', message: '最热标签加载失败!',showClose: true})
   			}
   			
   		})

@@ -31,7 +31,7 @@ public class TagRepositoryImpl implements TagWrapper{
 	public List<TagVO> findAllDetail() {
 		
 		String sql = "select t.*,count(at.tag_id ) as articles from me_article_tag at "
-				+ "left join me_tag t on t.id = at.tag_id group by at.tag_id ";
+				+ "right join me_tag t on t.id = at.tag_id group by t.id ";
 		
 		SQLQuery query = getSession().createSQLQuery(sql);
 		query.addScalar("id");

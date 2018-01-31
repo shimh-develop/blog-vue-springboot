@@ -1,6 +1,7 @@
 package com.shimh.service.impl;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -45,8 +46,13 @@ public class UserServiceImpl implements UserService {
 	public Long saveUser(User user) {
 		
 		PasswordHelper.encryptPassword(user);
+		int index = new Random().nextInt(6) + 1;
+		String avatar = "/static/user/user_" + index + ".png";
+		
+		user.setAvatar(avatar);
 		return userRepository.save(user).getId();
 	}
+	
 
 	@Override
 	@Transactional

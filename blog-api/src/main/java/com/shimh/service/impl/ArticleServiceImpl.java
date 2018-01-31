@@ -94,7 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
 	public Article getArticleAndAddViews(Integer id) {
 		int count = 1;
 		Article article =  articleRepository.getOne(id);
-		article.setViews(article.getViews() + count);
+		article.setViewCounts(article.getViewCounts() + count);
 		return article;
 	}
 

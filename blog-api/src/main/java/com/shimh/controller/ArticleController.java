@@ -46,7 +46,7 @@ public class ArticleController {
 	@GetMapping
 	@FastJsonView(
 		exclude = {
-				@FastJsonFilter(clazz = Article.class, props = {"body","category"}),
+				@FastJsonFilter(clazz = Article.class, props = {"body","category","comments"}),
 				@FastJsonFilter(clazz = Tag.class, props = {"id","avatar"})},
 		include = {@FastJsonFilter(clazz = User.class, props = {"nickname"})})
 	public Result listArticles(){
@@ -78,7 +78,7 @@ public class ArticleController {
 	@GetMapping("/{id}")
 	@FastJsonView(
 			exclude = {
-					@FastJsonFilter(clazz = Article.class, props = {"category"}),
+					@FastJsonFilter(clazz = Article.class, props = {"category","comments"}),
 					@FastJsonFilter(clazz = ArticleBody.class, props = {"contentHtml"}),
 					@FastJsonFilter(clazz = Tag.class, props = {"avatar"})},
 			include = {@FastJsonFilter(clazz = User.class, props = {"nickname","avatar"})})
@@ -101,7 +101,7 @@ public class ArticleController {
 	@GetMapping("/view/{id}")
 	@FastJsonView(
 			exclude = {
-					@FastJsonFilter(clazz = Article.class, props = {"category"}),
+					@FastJsonFilter(clazz = Article.class, props = {"category","comments"}),
 					@FastJsonFilter(clazz = ArticleBody.class, props = {"contentHtml"}),
 					@FastJsonFilter(clazz = Tag.class, props = {"avatar"})},
 			include = {@FastJsonFilter(clazz = User.class, props = {"nickname","avatar"})})
@@ -124,7 +124,7 @@ public class ArticleController {
 	@GetMapping("/tag/{id}")
 	@FastJsonView(
 		exclude = {
-				@FastJsonFilter(clazz = Article.class, props = {"body","category"}),
+				@FastJsonFilter(clazz = Article.class, props = {"body","category","comments"}),
 				@FastJsonFilter(clazz = Tag.class, props = {"id","avatar"})},
 		include = {@FastJsonFilter(clazz = User.class, props = {"nickname"})})
 	public Result listArticlesByTag(@PathVariable Integer id){
@@ -137,7 +137,7 @@ public class ArticleController {
 	@GetMapping("/category/{id}")
 	@FastJsonView(
 		exclude = {
-				@FastJsonFilter(clazz = Article.class, props = {"body","category"}),
+				@FastJsonFilter(clazz = Article.class, props = {"body","category","comments"}),
 				@FastJsonFilter(clazz = Tag.class, props = {"id","avatar"})},
 		include = {@FastJsonFilter(clazz = User.class, props = {"nickname"})})
 	public Result listArticlesByCategory(@PathVariable Integer id){

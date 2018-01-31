@@ -4,7 +4,7 @@
 			
 			  <el-col :span="4" class="me-header-left">
 			  	 <router-link to="/" class="me-title">
-			  	 	<img src="../../static/logo.png"/>
+			  	 	<img src="../assets/img/logo.png"/>
 			  	</router-link>
 			  </el-col>
 			  
@@ -80,7 +80,7 @@ export default {
 				this.$router.push({ path: '/' })
 			}).catch((error) => {
 				if(error !== 'error'){
-					that.$message({message: error,type: 'error'});
+					that.$message({message: error,type: 'error',showClose: true});
 				}
   		})
   	}
@@ -115,5 +115,6 @@ export default {
     border: 1px solid #ddd;
     border-radius: 50%;
     vertical-align: middle;
+    background-color: #5fb878;
 }
 </style>

@@ -33,7 +33,7 @@
 
 <script>
 export default {
-	name: 'login',
+	name: 'Login',
 	data () {
 		return {
       		userForm:{
@@ -61,7 +61,7 @@ export default {
 					that.$router.go(-1)
 				}).catch((error) => {
 					if(error !== 'error'){
-						that.$message({message: error,type: 'error'});
+						that.$message({message: error,type: 'error',showClose: true});
 					}
 	  			})
 	          } else {
@@ -80,26 +80,18 @@ export default {
 }
 
 .me-video-player{
-  background-color: transparent;
-  width:100%;
-  height: 100%; 
-  object-fit: fill; 
+  	background-color: transparent;
+  	width:100%;
+  	height: 100%; 
+  	object-fit: fill; 
 	display: block;
 	position: absolute;
 	left:0;
 	z-index: 0;
 	top: 0;
-  }
-  .me-login-box{
-  	/*position: relative;
-    width: 300px;
-    height: 260px;
-    background-color: white;
-    margin-top: 150px;
-    margin-left: auto;
-    margin-right: auto; 
-    padding: 30px;*/
-   position: absolute;
+}
+.me-login-box{
+   	position: absolute;
     width: 300px;
     height: 260px;
     background-color: white;
@@ -107,28 +99,27 @@ export default {
     margin-left: -180px;
     left:50%;
     padding: 30px;
-  }
-  .me-login-box-radius{
+}
+.me-login-box-radius{
   	border-radius: 10px;
     box-shadow: 0px 0px 1px 1px rgba(161, 159, 159, 0.1);
-	}
+}
   	
-  .me-login-box h1{
+.me-login-box h1{
   	text-align: center;
-		font-size: 24px;
-		margin-bottom: 20px;
-		vertical-align: middle;
-  }
+	font-size: 24px;
+	margin-bottom: 20px;
+	vertical-align: middle;
+}
   
-  .me-login-design{
+.me-login-design{
   	text-align: center;
-    /* margin-top: 30px; */
   	font-family: 'Open Sans', sans-serif;
   	font-size: 18px;
-  }
-  .me-login-design-color{
+}
+.me-login-design-color{
   	color: #5FB878 !important;
-  }
+}
 .me-login-button{
 	text-align: center;
 }

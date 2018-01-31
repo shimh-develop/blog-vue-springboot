@@ -7,7 +7,7 @@
 		
 		<ul class="me-tag-list">
 			<li class="me-tag-item" v-for="t in tags" :key="t.id">
-				<el-button @click="tag(t.id)" size="mini" type="info" plain>{{t.tagname}}</el-button>
+				<el-button @click="tag(t.id)" size="mini" type="primary" plain>{{t.tagname}}</el-button>
 			</li>
 		</ul>
 	</el-card>
@@ -29,7 +29,7 @@ export default {
   		this.$router.push('/tag/all')
   	},
   	tag (id){
-  		this.$router.push({ path: `/tags/${id}` })
+  		this.$router.push({ path: `/tag/${id}` })
   	}
   }
 }

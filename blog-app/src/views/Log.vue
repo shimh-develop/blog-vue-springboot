@@ -142,10 +142,9 @@
 
 <script>
 export default {
-  name: 'log',
+  name: 'Log',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   }
 }
@@ -153,12 +152,7 @@ export default {
 
 <style scoped>
 .el-container{
-/*	margin-top: 80px;
-	margin-left: 100px;
-	margin-right: 100px;*/
 	width: 700px;
-	/*margin: 80px auto;*/
-	
 }
 .me-main{
 	overflow: hidden;
@@ -166,7 +160,6 @@ export default {
 .me-log-box{
 	margin-left: 30%;
 	margin-top: 20px;
-	
 }
 
 </style>

@@ -30,7 +30,7 @@ public class CategoryRepositoryImpl implements CategoryWrapper{
 	public List<CategoryVO> findAllDetail() {
 		
 		String sql = "select c.*, count(a.category_id) as articles from me_category c "
-			+ "left join me_article a on a.category_id = c.id group by a.category_id";
+			+ "left join me_article a on a.category_id = c.id group by c.id";
 		
 		SQLQuery query = getSession().createSQLQuery(sql);
 		query.addScalar("id");

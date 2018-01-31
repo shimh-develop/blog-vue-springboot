@@ -25,15 +25,20 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
   	console.info("拦截器response")
-  	console.info(response.data)
+  	console.info(response)
+  	
+  	//全局统一处理 Session超时
+  	if(response.headers['session_time_out'] == 'timeout'){
+        store.dispatch('fedLogOut')
+  	}
+  	
     const res = response.data;
+    
     //0 为成功状态
    	if (res.code !== 0) {
    		
      //90001 Session超时
      if (res.code === 90001) {
-     		console.info("Session超时")
-        store.dispatch('fedLogOut')
         return Promise.reject('error');
      }
      
@@ -46,8 +51,6 @@ service.interceptors.response.use(
 	    		showClose: true,
 	      	message: '未登录或登录超时，请重新登录哦'
 	    	})
-     		
-	    	store.dispatch('fedLogOut')
 	    	
      		return Promise.reject('error');
      }

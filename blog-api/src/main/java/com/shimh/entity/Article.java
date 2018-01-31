@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -68,10 +69,14 @@ public class Article extends BaseEntity<Integer>{
 	        inverseJoinColumns = {@JoinColumn(name = "tag_id")})
 	private List<Tag> tags;
 	
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="article",orphanRemoval=true)
+	private List<Comment> comments;
 	
-	private int comments;
+	@Column(name = "comment_counts")
+	private int commentCounts;
 
-	private int views;
+	@Column(name = "view_counts")
+	private int viewCounts;
 	
 	/**
 	 * 置顶
@@ -148,23 +153,33 @@ public class Article extends BaseEntity<Integer>{
 	}
 
 
-	public int getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
 
-	public void setComments(int comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 
 
-	public int getViews() {
-		return views;
+	public int getCommentCounts() {
+		return commentCounts;
 	}
 
 
-	public void setViews(int views) {
-		this.views = views;
+	public void setCommentCounts(int commentCounts) {
+		this.commentCounts = commentCounts;
+	}
+
+
+	public int getViewCounts() {
+		return viewCounts;
+	}
+
+
+	public void setViewCounts(int viewCounts) {
+		this.viewCounts = viewCounts;
 	}
 
 

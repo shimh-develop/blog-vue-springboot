@@ -17,9 +17,9 @@ import com.shimh.repository.wrapper.TagWrapper;
  */
 public interface TagRepository extends JpaRepository <Tag, Integer>,TagWrapper{
 
-	@Query(value="select t.* from me_article_tag at "
-			+ " left join me_tag t on t.id = at.tag_id "
-			+ "group by at.tag_id order by count(at.tag_id) desc limit :limit",nativeQuery=true)
+	@Query(value="select t.*,count(at.tag_id) as count from me_article_tag at "
+			+ "right join me_tag t on t.id = at.tag_id "
+			+ "group by t.id order by count(at.tag_id) desc limit :limit",nativeQuery=true)
 	List<Tag> listHotTagsByArticleUse(@Param("limit") int limit);
 
 }

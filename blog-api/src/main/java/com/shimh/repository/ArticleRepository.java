@@ -22,7 +22,7 @@ public interface ArticleRepository extends JpaRepository <Article, Integer>{
 
 	List<Article> findByCategory(Category category);
 
-	@Query(value = "select * from me_article order by views desc limit :limit", nativeQuery = true)
+	@Query(value = "select * from me_article order by view_counts desc limit :limit", nativeQuery = true)
 	List<Article> findOrderByViewsAndLimit( @Param("limit") int limit);
 
 	@Query(value = "select * from me_article order by create_date desc limit :limit", nativeQuery = true)

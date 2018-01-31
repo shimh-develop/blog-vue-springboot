@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,10 @@ import com.shimh.common.result.Result;
 public class UploadController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+	
+	
+	@Value("${me.upload.path}")
+    private String baseFolderPath;
 
 	@PostMapping("/upload")
 	@RequiresAuthentication
@@ -32,30 +37,30 @@ public class UploadController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		
         StringBuffer url = new StringBuffer();
-        String filePath = "/blogFile/" + sdf.format(new Date());
-        String imgFolderPath = request.getServletContext().getRealPath(filePath);
-        System.out.println(imgFolderPath);
-        File imgFolder = new File(imgFolderPath);
-        if (!imgFolder.exists()) {
-            imgFolder.mkdirs();
+        String filePath = sdf.format(new Date());
+        
+        File baseFolder = new File(baseFolderPath + filePath);
+        if (!baseFolder.exists()) {
+        	baseFolder.mkdirs();
         }
+        
         url.append(request.getScheme())
                 .append("://")
                 .append(request.getServerName())
                 .append(":")
                 .append(request.getServerPort())
                 .append(request.getContextPath())
+                .append("/")
                 .append(filePath);
+        
         String imgName = UUID.randomUUID() + "_" + image.getOriginalFilename().replaceAll(" ", "");
         
         try {
         	
-        	File dest = new File(imgFolder, imgName);
+        	File dest = new File(baseFolder, imgName);
         	image.transferTo(dest);
         	
             url.append("/").append(imgName);
-            
-            System.out.println(url);
             
             r.setResultCode(ResultCode.SUCCESS);
             

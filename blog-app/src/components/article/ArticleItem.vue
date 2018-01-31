@@ -5,10 +5,10 @@
 	    <a @click="view(id)" >{{title}}</a>
 	    <el-button v-if="weight > 0" class="me-article-icon" type="text">置顶</el-button>
 	    <span class="me-pull-right me-article-count">
-	    	<i class="me-icon-comment"></i>&nbsp;{{comments}}
+	    	<i class="me-icon-comment"></i>&nbsp;{{commentCounts}}
 	    </span>
 	    <span class="me-pull-right me-article-count">
-	    	<i class="el-icon-view"></i>&nbsp;{{views}}
+	    	<i class="el-icon-view"></i>&nbsp;{{viewCounts}}
 	    </span>
 	  </div>
 	  
@@ -20,7 +20,7 @@
 	    	<i class="me-icon-author"></i>&nbsp;{{author.nickname}}
 	    </span>
 	  	
-	  	<el-tag v-for="t in tags" :key="t.tagname" size="mini" type="warning">{{t.tagname}}</el-tag>
+	  	<el-tag v-for="t in tags" :key="t.tagname" size="mini" type="success">{{t.tagname}}</el-tag>
 	  	
 	  	<span class="me-pull-right me-article-count">
 	    	<i class="el-icon-time"></i>&nbsp;{{createDate}}
@@ -38,8 +38,8 @@ export default {
   	id:String,
   	weight:Number,
   	title:String,
-  	comments:Number,
-  	views:Number,
+  	commentCounts:Number,
+  	viewCounts:Number,
   	summary:String,
   	author:Object,
   	tags:Array,

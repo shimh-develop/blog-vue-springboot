@@ -85,22 +85,15 @@ export default {
   	return {
   		publishVisible:false,
   		categorys: [
-    		{id:1, categoryname:'云计算'},
-    		{id:2, categoryname:'开发技术'}
     	],
     	tags: [
-    		{id:1, tagname:'前端'},
-    		{id:2, tagname:'Vue'},
-    		{id:3, tagname:'ElementUI'}
     	],
   		articleForm: {
   			id: '',
 			title: '',
 	    	summary: '',
-	    	category: {id:2},
-	    	tags: [
-	    		1
-	    	],
+	    	category: {},
+	    	tags: [],
 	    	editor: {
 	    		value: '',
 	    		ref: '',//保存mavonEditor实例  实际不该这样
@@ -147,12 +140,12 @@ export default {
   methods:{
   	publishShow() {
   		if(!this.articleForm.title){
-  			this.$message({message: '标题不能为空哦',type: 'warning'})
+  			this.$message({message: '标题不能为空哦',type: 'warning',showClose: true})
   			return
   		}
   		
   		if(!this.articleForm.editor.ref.d_render){
-  			this.$message({message: '内容不能为空哦',type: 'warning'})
+  			this.$message({message: '内容不能为空哦',type: 'warning',showClose: true})
   			return
   		}
   		
@@ -197,7 +190,7 @@ export default {
 			}).catch((error) => {
 				loading.close();
 				if(error !== 'error'){
-					that.$message({message: error,type: 'error'});
+					that.$message({message: error,type: 'error',showClose: true});
 				}
   			})
 			
@@ -221,7 +214,7 @@ export default {
   			that.categorys = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '文章分类加载失败!'})
+  				that.$message({type: 'error', message: '文章分类加载失败',showClose: true})
   			}
   		})
   		
@@ -229,7 +222,7 @@ export default {
   			that.tags = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '标签加载失败'})
+  				that.$message({type: 'error', message: '标签加载失败',showClose: true})
   			}
   		})
   		

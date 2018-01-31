@@ -66,7 +66,7 @@ export default {
   			that.ct = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '文章分类加载失败!'})
+  				that.$message({type: 'error', message: '文章分类加载失败',showClose: true})
   			}
   		})
   	},
@@ -76,7 +76,7 @@ export default {
   			that.ct = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '标签加载失败!'})
+  				that.$message({type: 'error', message: '标签加载失败',showClose: true})
   			}
   		})
   	},
@@ -86,7 +86,7 @@ export default {
   			that.articles = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '文章加载失败!'})
+  				that.$message({type: 'error', message: '文章加载失败',showClose: true})
   			}
   		})
   	},
@@ -96,7 +96,7 @@ export default {
   			that.articles = data.data
   		}).catch(error => {
   			if(error !== 'error'){
-  				that.$message({type: 'error', message: '文章加载失败!'})
+  				that.$message({type: 'error', message: '文章加载失败',showClose: true})
   			}
   		})
   	}

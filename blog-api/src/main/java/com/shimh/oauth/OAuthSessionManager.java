@@ -35,16 +35,10 @@ public class OAuthSessionManager extends DefaultWebSessionManager {
     	HttpServletRequest httpRequest = (HttpServletRequest) request;
         String id = httpRequest.getHeader(OAUTH_TOKEN); 
         
-        //如果请求头中有 Authorization 则其值为sessionId  
-        //if (!StringUtils.isEmpty(id)) {  
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);  
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);  
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);  
-            return id;  
-        //} else {  
-            //否则按默认规则从cookie取sessionId  
-           // return super.getSessionId(request, response);  
-        //}  
+        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);  
+        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);  
+        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);  
+        return id;  
     }  
 }
 
