@@ -45,20 +45,20 @@
 			</el-input>
 	    </el-form-item>
 	    <el-form-item label="文章分类" prop="category">
-	      <el-select v-model="articleForm.category" value-key="id" placeholder="请选择文章分类">
-	        <el-option v-for="c in categorys" :key="c.id" :label="c.categoryname" :value="c"></el-option>
-	      </el-select>
+	      	<el-select v-model="articleForm.category" value-key="id" placeholder="请选择文章分类">
+	        	<el-option v-for="c in categorys" :key="c.id" :label="c.categoryname" :value="c"></el-option>
+	      	</el-select>
 	    </el-form-item>
 	    
-	      <el-form-item label="文章标签" prop="tags">
+	    <el-form-item label="文章标签" prop="tags">
 		    <el-checkbox-group v-model="articleForm.tags">
 		      <el-checkbox v-for="t in tags" :key="t.id" :label="t.id" name="tags">{{t.tagname}}</el-checkbox>
 		    </el-checkbox-group>
-		  </el-form-item>
+		</el-form-item>
 	  </el-form>
 	  <div slot="footer" class="dialog-footer">
-	    <el-button @click="publishVisible = false">取 消</el-button>
-	    <el-button type="primary" @click="publish('articleForm')">发布</el-button>
+	    	<el-button @click="publishVisible = false">取 消</el-button>
+	    	<el-button type="primary" @click="publish('articleForm')">发布</el-button>
 	  </div>
 	</el-dialog>
 </el-container>
@@ -76,18 +76,18 @@ export default {
   name: 'BlogWrite',
   mounted() {
   		this.getCategorysAndTags()
-		window.addEventListener('scroll', this.wrapEditorToolBarToFixed(), false);
+  		this.editorToolBarToFixedWrapper = this.$_.throttle(this.editorToolBarToFixed, 1000)
+  		
+		window.addEventListener('scroll', this.editorToolBarToFixedWrapper, false);
   },
   beforeDestroy() {
-  		window.removeEventListener('scroll', this.wrapEditorToolBarToFixed(),  false)
+  		window.removeEventListener('scroll', this.editorToolBarToFixedWrapper,  false)
   },
   data (){
   	return {
   		publishVisible:false,
-  		categorys: [
-    	],
-    	tags: [
-    	],
+  		categorys: [],
+    	tags: [],
   		articleForm: {
   			id: '',
 			title: '',
@@ -232,9 +232,6 @@ export default {
   			}
   		})
   		
-  	},
-  	wrapEditorToolBarToFixed() {
-  		return this.$_.throttle(this.editorToolBarToFixed, 1000)
   	},
   	editorToolBarToFixed() {
   		
