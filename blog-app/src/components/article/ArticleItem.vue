@@ -2,7 +2,7 @@
 <el-card class="me-area" :body-style="{ padding: '16px' }">
 	  <div class="me-article-header">
 	  	
-	    <a @click="view(id)" >{{title}}</a>
+	    <a @click="view(id)" class="me-article-title">{{title}}</a>
 	    <el-button v-if="weight > 0" class="me-article-icon" type="text">置顶</el-button>
 	    <span class="me-pull-right me-article-count">
 	    	<i class="me-icon-comment"></i>&nbsp;{{commentCounts}}
@@ -64,7 +64,7 @@ export default {
 	padding-bottom: 10px;
 }
 .me-article-title {
-	color: #333;
+	font-weight: 600;
 }
 .me-article-icon {
 	padding: 3px 8px;
@@ -72,32 +72,23 @@ export default {
 .me-article-count {
 	color: #a6a6a6;
 	padding-left: 14px;
+	font-size: 13px;
 }
 .me-pull-right {
 	float: right;
 }
 .me-artile-description {
 	font-size: 13px;
-	line-height: 20px;
-	/*padding-left: 10px;*/
+	line-height: 24px;
 	margin-bottom: 10px;
-	/*text-indent: 2.5em;*/
 }
 .me-article-author {
-	padding-left: 10px;
 	color: #a6a6a6;
 	padding-right: 18px;
-	
+	font-size: 13px;
 }
 .el-tag {
 	margin-left: 6px;
 }
 
-/*.me-article-title {
-	font-weight: 700;
-}*/
-
-/*.el-card > div:first {
-	padding: 10px 16px!important;
-}*/
 </style>

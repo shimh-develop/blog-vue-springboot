@@ -48,13 +48,16 @@ export default {
 	      },
       	rules: {
 	    	account: [
-	        	{ required: true, message: '请输入用户名', trigger: 'blur' }
+	        	{ required: true, message: '请输入用户名', trigger: 'blur' },
+	        	{ max: 10, message: '不能大于10个字符', trigger: 'blur' }
 	      	],
 	      	nickname: [
-	      		{ required: true, message: '请输入昵称', trigger: 'blur' }
+	      		{ required: true, message: '请输入昵称', trigger: 'blur' },
+	      		{ max: 10, message: '不能大于10个字符', trigger: 'blur' }
 	      	],
 	      	password: [
-	        	{ required: true, message: '请输入密码', trigger: 'blur' }
+	        	{ required: true, message: '请输入密码', trigger: 'blur' },
+	        	{ max: 10, message: '不能大于10个字符', trigger: 'blur' }
 	      	]
 	    }
       

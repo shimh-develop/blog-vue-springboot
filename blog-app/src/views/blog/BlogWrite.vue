@@ -126,7 +126,8 @@ export default {
 	    },
         rules: {
 	      	summary: [
-	        	{ required: true, message: '请输入摘要', trigger: 'blur' }
+	        	{ required: true, message: '请输入摘要', trigger: 'blur' },
+	        	{ max: 10, message: '不能大于80个字符', trigger: 'blur' }
 	      	],
 	      	category: [
 	        	{ required: true, message: '请选择文章分类', trigger: 'change' }
@@ -141,6 +142,11 @@ export default {
   	publishShow() {
   		if(!this.articleForm.title){
   			this.$message({message: '标题不能为空哦',type: 'warning',showClose: true})
+  			return
+  		}
+  		
+  		if(this.articleForm.title.length > 30){
+  			this.$message({message: '标题不能大于30个字符',type: 'warning',showClose: true})
   			return
   		}
   		

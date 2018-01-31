@@ -35,7 +35,7 @@ public class User extends BaseEntity<Long>{
 	
 	
 	@NotBlank
-	@Column(name = "account", unique = true, length = 64)
+	@Column(name = "account", unique = true, length = 10)
 	private String account;
 	
 	/**
@@ -50,10 +50,11 @@ public class User extends BaseEntity<Long>{
      */
     private String avatar;
     
-	@Column(name = "email", unique = true, length = 128)
+	@Column(name = "email", unique = true, length = 20)
 	private String email;  // 邮箱
 	
 	@NotBlank
+	@Column(name = "nickname", length = 10)
     private String nickname;
 
     @Column(name = "mobile_phone_number",length = 20)

@@ -43,10 +43,10 @@ public class Article extends BaseEntity<Integer>{
 	private static final long serialVersionUID = -4470366380115322213L;
 	
 	
-	@Column(name = "title", length = 64)
+	@Column(name = "title", length = 40)
 	private String title;
 	
-	@Column(name = "summary", length = 50)
+	@Column(name = "summary", length = 100)
 	private String summary;
 	
 	
