@@ -71,7 +71,7 @@
 							<img class="me-view-picture" :src="c.author.avatar"></img>
 						</a>
 						<div class="me-view-info">
-							<span>{{c.author.nickname}}</span>
+							<span class="me-view-nickname">{{c.author.nickname}}</span>
 							<div class="me-view-meta">
 								<span>{{comments.length - index}}楼</span>
 								<span>{{c.createDate}}</span>
@@ -170,8 +170,8 @@ export default {
   		
   		publishComment(that.comment).then(data => {
   			that.$message({type: 'success', message: '评论成功',showClose: true})
-  			that.comments.push(data.data)
-  			
+  			that.comments.unshift(data.data)
+  			that.comment.content = ''
   		}).catch(error => {
   			if(error !== 'error'){
   				that.$message({type: 'error', message: '评论失败',showClose: true})
@@ -224,8 +224,8 @@ export default {
 	vertical-align: middle;
 }
 .me-view-picture {
-	width: 48px;
-    height: 48px;
+	width: 40px;
+    height: 40px;
     border: 1px solid #ddd;
     border-radius: 50%;
     vertical-align: middle;
@@ -278,6 +278,9 @@ export default {
 .me-view-comment-author {
 	margin: 10px 0;
 	vertical-align: middle;
+}
+.me-view-nickname {
+	font-size: 14px;
 }
 .me-view-comment-content {
 	line-height: 1.5;
