@@ -10,18 +10,14 @@ import lodash from 'lodash'
 import ElementUI from 'element-ui'
 import '@/assets/theme/index.css'
 
-
 import '@/assets/icon/iconfont.css'
 
-import GoTop from '@/components/gotop/GoTop'
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
 Object.defineProperty(Vue.prototype, '$_', { value: lodash })
-
-Vue.component('go-top', GoTop)
 
 new Vue({
   el: '#app',

@@ -29,8 +29,6 @@
 		</el-main>
 	</el-container>
 	 	  
-	<go-top></go-top>  
-	
 	<el-dialog title="摘要 分类 标签" 
 		:visible.sync="publishVisible"
 		:close-on-click-modal=false

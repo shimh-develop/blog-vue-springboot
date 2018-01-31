@@ -72,13 +72,12 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-	console.info("守卫--" + getToken())
+	
   if (getToken()) { 
     
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-    	console.info(store.state)
       if (store.state.account.length === 0) { 
         store.dispatch('getUserInfo').then(data => { //获取用户信息
           next()
@@ -94,10 +93,9 @@ router.beforeEach((to, from, next) => {
     	Message({
     		type: 'warning',
     		showClose: true,
-      	message: '写文章 请先登录哦'
+      	message: '请先登录哦'
     	})
     	
-        //next({ path: '/login' });
     }
     else {
         next();

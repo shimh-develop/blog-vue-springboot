@@ -10,7 +10,6 @@
 		  
 		</el-container>
 		
-  	<go-top></go-top>
   </div>
   
 </template>

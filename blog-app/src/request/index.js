@@ -12,7 +12,6 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   
   if (store.state.token) {
-  	console.info("拦截器-" + getToken())
     config.headers['Oauth-Token'] = getToken() 
   }
   return config
@@ -24,8 +23,6 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
   response => {
-  	console.info("拦截器response")
-  	console.info(response)
   	
   	//全局统一处理 Session超时
   	if(response.headers['session_time_out'] == 'timeout'){
