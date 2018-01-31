@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/Home'
-import Index from '@/views/Index'
+/*import Index from '@/views/Index'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Log from '@/views/Log'
@@ -9,7 +9,7 @@ import MessageBoard from '@/views/MessageBoard'
 import BlogWrite from '@/views/blog/BlogWrite'
 import BlogView from '@/views/blog/BlogView'
 import BlogAllCategoryTag from '@/views/blog/BlogAllCategoryTag'
-import BlogCategoryTag from '@/views/blog/BlogCategoryTag'
+import BlogCategoryTag from '@/views/blog/BlogCategoryTag'*/
 
 import { Message } from 'element-ui';
 
@@ -29,41 +29,41 @@ const router = new Router({
       children: [
         {
           path: '/',
-          component: Index
+          component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
         },
 	    	{
 	    	 path: '/log',
-	    	 component:Log
+	    	 component: r => require.ensure([], () => r(require('@/views/Log')), 'log')
 	    	},
 	    	{
 		    	path: '/messageBoard',
-		    	component:MessageBoard
+		    	component: r => require.ensure([], () => r(require('@/views/MessageBoard')), 'messageboard')
 	    	},
 		    {
 		    	path: '/view/:id',
-			    component:BlogView
+			    component: r => require.ensure([], () => r(require('@/views/blog/BlogView')), 'blogview')
 		    },
 		    {
 		    	path: '/:type/all',
-			    component:BlogAllCategoryTag
+			    component: r => require.ensure([], () => r(require('@/views/blog/BlogAllCategoryTag')), 'blogallcategorytag')
 		    },
 		    {
 		    	path: '/:type/:id',
-			    component:BlogCategoryTag
+			    component: r => require.ensure([], () => r(require('@/views/blog/BlogCategoryTag')), 'blogcategorytag')
 		    }
       ]
     },
     {
     	 path: '/login',
-    	 component:Login
+    	 component: r => require.ensure([], () => r(require('@/views/Login')), 'login')
     },
     {
     	 path: '/register',
-    	 component:Register
+    	 component: r => require.ensure([], () => r(require('@/views/Register')), 'register')
     },
     {
     	path: '/write',
-    	component:BlogWrite,
+    	component: r => require.ensure([], () => r(require('@/views/blog/BlogWrite')), 'blogwrite'),
     	meta: {
         requireLogin: true
       },
