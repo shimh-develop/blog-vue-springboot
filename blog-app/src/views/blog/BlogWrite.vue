@@ -92,7 +92,7 @@ export default {
   			id: '',
 			title: '',
 	    	summary: '',
-	    	category: {},
+	    	category: '',
 	    	tags: [],
 	    	editor: {
 	    		value: '',
