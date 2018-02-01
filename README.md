@@ -88,9 +88,12 @@ Vue + SpringBoot实现的博客系统
 ## 方式二  前后分离（开发方式）
 1. 按方式一运行blog-api，提供api数据接口
 2. 打开命令行	
-	> cd blog-app
-	> npm install
-	> npm run dev
+	> cd blog-app  
+	
+	> npm install  
+	
+	> npm run dev  
+	
 3. 访问：http://localhost:8080
 4. 修改blog-app/src 下的文件进行开发
 5. npm run build 生成最终静态文件
