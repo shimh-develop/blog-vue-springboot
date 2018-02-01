@@ -1,0 +1,2 @@
+webpackJsonp([6],{A4Fv:function(e,t){},ncpC:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement,t=this._self._c||e;return t("div",[t("el-container",{},[t("el-main",{staticClass:"me-main"},[t("el-alert",{attrs:{title:"不能留言哦。。。。。。。。。。。",type:"warning",center:"","show-icon":""}})],1)],1)],1)},staticRenderFns:[]},r=n("8AGX")({name:"MessageBoard",data:function(){return{}}},a,!1,function(e){n("A4Fv")},"data-v-a4956b34",null);t.default=r.exports}});
+//# sourceMappingURL=6.c39b1dbd9f696ce949a9.js.map

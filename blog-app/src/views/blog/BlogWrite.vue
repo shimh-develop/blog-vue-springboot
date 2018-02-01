@@ -125,7 +125,7 @@ export default {
         rules: {
 	      	summary: [
 	        	{ required: true, message: '请输入摘要', trigger: 'blur' },
-	        	{ max: 10, message: '不能大于80个字符', trigger: 'blur' }
+	        	{ max: 80, message: '不能大于80个字符', trigger: 'blur' }
 	      	],
 	      	category: [
 	        	{ required: true, message: '请选择文章分类', trigger: 'change' }
