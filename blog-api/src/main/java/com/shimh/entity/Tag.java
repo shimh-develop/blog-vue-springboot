@@ -3,6 +3,8 @@ package com.shimh.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.shimh.common.entity.BaseEntity;
 /**
  * 文章标签
@@ -21,10 +23,10 @@ public class Tag extends BaseEntity<Integer>{
 	 */
 	private static final long serialVersionUID = 5025313969040054182L;
 
-	
+	@NotBlank
 	private String tagname;
 	
-	
+	@NotBlank
 	private String avatar;
 	
 	

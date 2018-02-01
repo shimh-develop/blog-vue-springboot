@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.shimh.common.entity.BaseEntity;
 /**
@@ -28,6 +30,7 @@ public class Comment extends BaseEntity<Integer>{
 
 	private static final long serialVersionUID = 7346271954336613146L;
 
+	@NotBlank
 	private String content;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

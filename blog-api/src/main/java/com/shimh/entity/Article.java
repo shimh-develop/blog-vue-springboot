@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -42,10 +43,11 @@ public class Article extends BaseEntity<Integer>{
 	 */
 	private static final long serialVersionUID = -4470366380115322213L;
 	
-	
+	@NotBlank
 	@Column(name = "title", length = 40)
 	private String title;
 	
+	@NotBlank
 	@Column(name = "summary", length = 100)
 	private String summary;
 	

@@ -2,6 +2,8 @@ package com.shimh.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +89,7 @@ public class CommentController {
 	
 	@PostMapping("/create")
 	@RequiresAuthentication
-	public Result saveComment(@RequestBody Comment comment){
+	public Result saveComment(@Validated @RequestBody Comment comment){
 		
 		Integer commentId = commentService.saveComment(comment);
 		
