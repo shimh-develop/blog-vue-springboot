@@ -68,7 +68,10 @@ const router = new Router({
         requireLogin: true
       },
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+	  return { x: 0, y: 0 }
+	}
 })
 
 router.beforeEach((to, from, next) => {
