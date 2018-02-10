@@ -25,6 +25,7 @@
 					</el-input>
 				
 			</div>
+			<div id="placeholder" style="visibility: hidden;height: 89px;display: none;"></div>
 			<markdown-editor :editor="articleForm.editor" class="me-write-editor"></markdown-editor>
 		</el-main>
 	</el-container>
@@ -74,7 +75,7 @@ export default {
   name: 'BlogWrite',
   mounted() {
   		this.getCategorysAndTags()
-  		this.editorToolBarToFixedWrapper = this.$_.throttle(this.editorToolBarToFixed, 1000)
+  		this.editorToolBarToFixedWrapper = this.$_.throttle(this.editorToolBarToFixed, 200)
   		
 		window.addEventListener('scroll', this.editorToolBarToFixedWrapper, false);
   },
@@ -236,8 +237,10 @@ export default {
   		let toolbar = document.querySelector('.v-note-op');
 		let curHeight = document.documentElement.scrollTop || document.body.scrollTop; 
 		if(curHeight >= 160){
+			document.getElementById("placeholder").style.display="block"; //bad  用计算属性较好
 			toolbar.classList.add("me-write-toolbar-fixed");
 		}else{
+			document.getElementById("placeholder").style.display="none";
 			toolbar.classList.remove("me-write-toolbar-fixed");
 		}
   	}
