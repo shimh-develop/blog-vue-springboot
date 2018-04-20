@@ -4,33 +4,40 @@ import java.util.List;
 
 import com.shimh.entity.Article;
 import com.shimh.entity.Tag;
+import com.shimh.vo.ArticleVo;
+import com.shimh.vo.PageVo;
+
 /**
- * 
  * @author shimh
- *
+ * <p>
  * 2018年1月25日
- *
  */
 public interface ArticleService {
 
-	List<Article> findAll();
+    List<Article> listArticles(PageVo page);
 
-	Article getArticleById(Integer id);
+    List<Article> listArticles(ArticleVo article, PageVo page);
 
-	Integer saveArticle(Article article);
+    List<Article> findAll();
 
-	Integer updateArticle(Article article);
+    Article getArticleById(Integer id);
 
-	void deleteArticleById(Integer id);
+    Integer saveArticle(Article article);
 
-	List<Article> listArticlesByTag(Integer id);
+    Integer updateArticle(Article article);
 
-	List<Article> listArticlesByCategory(Integer id);
+    void deleteArticleById(Integer id);
 
-	Article getArticleAndAddViews(Integer id);
+    List<Article> listArticlesByTag(Integer id);
 
-	List<Article> listHotArticles(int limit);
+    List<Article> listArticlesByCategory(Integer id);
 
-	List<Article> listNewArticles(int limit);
+    Article getArticleAndAddViews(Integer id);
+
+    List<Article> listHotArticles(int limit);
+
+    List<Article> listNewArticles(int limit);
+
+    List<ArticleVo> listArchives();
 
 }

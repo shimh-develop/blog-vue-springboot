@@ -17,48 +17,48 @@ import com.alibaba.fastjson.support.spring.FastJsonViewResponseBodyAdvice;
 import com.shimh.common.interceptor.ClearTokenInteceptor;
 
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter{
-	
-	
-	@Override
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
-    	
+
         registry.addInterceptor(clearTokenInteceptor()).addPathPatterns("/**");
     }
-	
+
     @Bean
-    public ClearTokenInteceptor clearTokenInteceptor(){
-    	ClearTokenInteceptor clearTokenInteceptor = new ClearTokenInteceptor();
-    	return clearTokenInteceptor;
+    public ClearTokenInteceptor clearTokenInteceptor() {
+        ClearTokenInteceptor clearTokenInteceptor = new ClearTokenInteceptor();
+        return clearTokenInteceptor;
     }
-    
-    
-	@Override
+
+
+    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 
-        FastJsonHttpMessageConverter  fastConverter = new FastJsonHttpMessageConverter ();
+        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
 
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
 
         fastJsonConfig.setSerializerFeatures(
-                SerializerFeature.PrettyFormat,SerializerFeature.WriteNullStringAsEmpty,
+                SerializerFeature.PrettyFormat, SerializerFeature.WriteNullStringAsEmpty,
                 SerializerFeature.DisableCircularReferenceDetect
         );
 
-        
+
         List<MediaType> fastMediaTypes = new ArrayList<>();
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-        
+
         fastConverter.setFastJsonConfig(fastJsonConfig);
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
 
         converters.add(fastConverter);
     }
-	
-	
-	@Bean
-	public FastJsonViewResponseBodyAdvice FastJsonViewResponseBodyAdvice(){
-		FastJsonViewResponseBodyAdvice advice = new FastJsonViewResponseBodyAdvice();
-		return advice;
-	}
+
+
+    @Bean
+    public FastJsonViewResponseBodyAdvice FastJsonViewResponseBodyAdvice() {
+        FastJsonViewResponseBodyAdvice advice = new FastJsonViewResponseBodyAdvice();
+        return advice;
+    }
 }

@@ -20,3 +20,10 @@ export function getCategory(id) {
     method: 'get',
   })
 }
+
+export function getCategoryDetail(id) {
+  return request({
+    url: `/categorys/detail/${id}`,
+    method: 'get',
+  })
+}

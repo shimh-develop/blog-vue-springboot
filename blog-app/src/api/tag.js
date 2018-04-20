@@ -27,3 +27,10 @@ export function getTag(id) {
     method: 'get',
   })
 }
+
+export function getTagDetail(id) {
+  return request({
+    url: `/tags/detail/${id}`,
+    method: 'get',
+  })
+}

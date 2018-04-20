@@ -12,7 +12,7 @@ export function publishComment(comment) {
   return request({
     url: '/comments/create/change',
     method: 'post',
-    data:comment
+    data: comment
   })
 }
 

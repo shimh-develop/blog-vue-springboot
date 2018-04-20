@@ -11,7 +11,7 @@ public class CategoryRepositoryTest extends BlogApiApplicationTests{
 
 	@Autowired
 	private CategoryRepository	categoryRepository;
-	
+
 	@Test
 	public void test() {
 	}

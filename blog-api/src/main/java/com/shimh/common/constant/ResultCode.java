@@ -2,11 +2,10 @@ package com.shimh.common.constant;
 
 /**
  * api接口返回 code和message
- * 
+ *
  * @author shimh
- *
+ * <p>
  * 2018年1月23日
- *
  */
 public enum ResultCode {
 
@@ -19,8 +18,8 @@ public enum ResultCode {
     PARAM_IS_BLANK(10002, "参数为空"),
     PARAM_TYPE_BIND_ERROR(10003, "参数类型错误"),
     PARAM_NOT_COMPLETE(10004, "参数缺失"),
-    
-    
+
+
     /* 用户错误：20001-29999*/
     USER_NOT_LOGGED_IN(20001, "用户未登录"),
     USER_LOGIN_ERROR(20002, "账号或密码错误"),
@@ -50,11 +49,11 @@ public enum ResultCode {
 
     /* 权限错误：70001-79999 */
     PERMISSION_NO_ACCESS(70001, "无访问权限"),
-	
+
     /* 文件上传 */
-	UPLOAD_ERROR(80001, "上传失败"),
-	
-	SESSION_TIME_OUT(90001, "Session超时");
+    UPLOAD_ERROR(80001, "上传失败"),
+
+    SESSION_TIME_OUT(90001, "Session超时");
 
     private Integer code;
 

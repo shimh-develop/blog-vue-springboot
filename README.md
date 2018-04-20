@@ -5,7 +5,7 @@ Vue + SpringBoot实现的博客系统
 
 ## 首页
 
-![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/index.png)
+![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/index2.png)
 
 ## 登录页
 ![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/login.png)
@@ -17,6 +17,9 @@ Vue + SpringBoot实现的博客系统
 ![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/ct.png)
 
 ![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/ct-detail.png)
+
+## 文章归档
+![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/archive.png)
 
 ## 写文章
 ![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/write.png)
@@ -53,25 +56,28 @@ Vue + SpringBoot实现的博客系统
 
 # 实现功能
 
-## 整体 
+## 整体
 
 - 用户：登录 注册 退出
 - 首页：文章列表、最热标签、最新文章、最热文章
 - 文章分类-标签：列表、详情
+- 文章归档
 - 文章：写文章、文章详情
 - 评论：文章添加评论
+- 文章列表滑动分页
 
 ## 后端
 - 用户、文章、文章分类、标签和评论 增删改查api接口
 - 基于token权限控制
 - Redis存储Session
 - 全局异常处理
+- 操作日志记录
 
 # 待实现功能
-- 文章、评论等的分页
+- 评论的分页
 - 评论回复、点赞
 - 留言板
-- 后端日志记录
+- 第三方登录
 - ......
 
 # 运行
@@ -87,13 +93,13 @@ Vue + SpringBoot实现的博客系统
 
 ## 方式二  前后分离（开发方式）
 1. 按方式一运行blog-api，提供api数据接口
-2. 打开命令行	
-	> cd blog-app  
-	
-	> npm install  
-	
-	> npm run dev  
-	
+2. 打开命令行
+	> cd blog-app
+
+	> npm install
+
+	> npm run dev
+
 3. 访问：http://localhost:8080
 4. 修改blog-app/src 下的文件进行开发
 5. npm run build 生成最终静态文件

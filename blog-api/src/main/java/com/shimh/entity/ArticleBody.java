@@ -12,51 +12,50 @@ import com.shimh.common.entity.BaseEntity;
 
 /**
  * 文章内容
- * 
+ *
  * @author shimh
- *
+ * <p>
  * 2018年1月23日
- *
  */
 @Entity
 @Table(name = "me_article_body")
-public class ArticleBody extends BaseEntity<Long>{
+public class ArticleBody extends BaseEntity<Long> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7611409995977927628L;
-	
-	
-	@Lob
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7611409995977927628L;
+
+
+    @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
+    @Type(type = "text")
     private String content; // 内容
-	
-	@Lob
+
+    @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type="text")
-	private String contentHtml;
+    @Type(type = "text")
+    private String contentHtml;
 
 
-	public String getContent() {
-		return content;
-	}
+    public String getContent() {
+        return content;
+    }
 
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 
-	public String getContentHtml() {
-		return contentHtml;
-	}
+    public String getContentHtml() {
+        return contentHtml;
+    }
 
 
-	public void setContentHtml(String contentHtml) {
-		this.contentHtml = contentHtml;
-	}
-	
-	
+    public void setContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
+    }
+
+
 }

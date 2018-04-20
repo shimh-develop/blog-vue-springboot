@@ -8,29 +8,29 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.shimh.common.cache.RedisManager;
 
-@Configuration  
-public class RedisConfig {  
-  
-      
+@Configuration
+public class RedisConfig {
+
+
     @Bean
-    public RedisManager redisManager(RedisTemplate redisTemplate){
-    	RedisManager redisManager = new RedisManager();
-    	redisManager.setRedisTemplate(redisTemplate);
-    	return redisManager;
+    public RedisManager redisManager(RedisTemplate redisTemplate) {
+        RedisManager redisManager = new RedisManager();
+        redisManager.setRedisTemplate(redisTemplate);
+        return redisManager;
     }
-    
+
     @Bean
-    public RedisTemplate redisTemplate(RedisConnectionFactory factory){
-    	
-    	RedisTemplate redisTemplate = new RedisTemplate();
+    public RedisTemplate redisTemplate(RedisConnectionFactory factory) {
+
+        RedisTemplate redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(factory);
-        
+
         StringRedisSerializer ss = new StringRedisSerializer();
         //ExtGenericFastJsonRedisSerializer extGenericFastJsonRedisSerializer = new ExtGenericFastJsonRedisSerializer();
-        
+
         redisTemplate.setKeySerializer(ss);
-       // redisTemplate.setValueSerializer(extGenericFastJsonRedisSerializer);
-        
+        // redisTemplate.setValueSerializer(extGenericFastJsonRedisSerializer);
+
         return redisTemplate;
     }
 }  

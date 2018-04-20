@@ -7,54 +7,54 @@ import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.shimh.common.entity.BaseEntity;
+
 /**
  * 文章分类
- * 
+ *
  * @author shimh
- *
+ * <p>
  * 2018年1月23日
- *
  */
 @Entity
 @Table(name = "me_category")
-public class Category extends BaseEntity<Integer>{
+public class Category extends BaseEntity<Integer> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5025313969040054182L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5025313969040054182L;
 
-	@NotBlank
-	private String categoryname;
-	
-	private String description;
-	
-	@NotBlank
-	private String avatar;
-	
+    @NotBlank
+    private String categoryname;
 
-	public String getCategoryname() {
-		return categoryname;
-	}
+    private String description;
 
-	public void setCategoryname(String categoryname) {
-		this.categoryname = categoryname;
-	}
+    @NotBlank
+    private String avatar;
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getCategoryname() {
+        return categoryname;
+    }
 
-	public String getAvatar() {
-		return avatar;
-	}
+    public void setCategoryname(String categoryname) {
+        this.categoryname = categoryname;
+    }
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-	
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
 }

@@ -27,7 +27,7 @@ export function getUserInfo() {
 }
 
 export function register(account, nickname, password) {
-	const data = {
+  const data = {
     account,
     nickname,
     password

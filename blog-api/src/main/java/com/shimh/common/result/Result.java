@@ -5,25 +5,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.shimh.common.constant.ResultCode;
+
 /**
  * api接口数据返回封装
- * 
+ *
  * @author shimh
- *
+ * <p>
  * 2018年1月23日
- *
  */
 public class Result implements Serializable {
 
-	private static final long serialVersionUID = -4762928619495260423L;
+    private static final long serialVersionUID = -4762928619495260423L;
 
-	private Integer code;
+    private Integer code;
 
     private String msg;
 
     private Object data;
-    
-    public Result() {}
+
+    public Result() {
+    }
 
     public Result(Integer code, String msg) {
         this.code = code;
@@ -61,37 +62,37 @@ public class Result implements Serializable {
         this.msg = code.message();
     }
 
-    
-    public Map<String,Object> simple(){
-    	Map<String,Object> simple =  new HashMap<String,Object>();
-    	this.data = simple;
-    	
-    	return simple;
+
+    public Map<String, Object> simple() {
+        Map<String, Object> simple = new HashMap<String, Object>();
+        this.data = simple;
+
+        return simple;
     }
-    
-	public Integer getCode() {
-		return code;
-	}
 
-	public void setCode(Integer code) {
-		this.code = code;
-	}
+    public Integer getCode() {
+        return code;
+    }
 
-	public String getMsg() {
-		return msg;
-	}
+    public void setCode(Integer code) {
+        this.code = code;
+    }
 
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
+    public String getMsg() {
+        return msg;
+    }
 
-	public Object getData() {
-		return data;
-	}
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
-	public void setData(Object data) {
-		this.data = data;
-	}
-    
-    
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+
 }

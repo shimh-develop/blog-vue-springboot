@@ -6,15 +6,15 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
 import com.shimh.entity.User;
+
 /**
  * 用户 加密工具
- *	生成随机salt
- *	md5(md5(password))
- * 
+ * 生成随机salt
+ * md5(md5(password))
+ *
  * @author shimh
- *
+ * <p>
  * 2018年1月23日
- *
  */
 public class PasswordHelper {
 
@@ -35,6 +35,6 @@ public class PasswordHelper {
 
         user.setPassword(newPassword);
     }
-    
-    
+
+
 }
