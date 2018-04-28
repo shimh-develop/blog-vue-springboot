@@ -30,7 +30,7 @@ Vue + SpringBoot实现的博客系统
 ![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/detail.png)
 
 ## 评论
-![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/comment3.png)
+![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/comment2.png)
 
 # 技术
 
