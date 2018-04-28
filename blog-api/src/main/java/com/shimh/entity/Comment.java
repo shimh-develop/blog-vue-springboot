@@ -1,17 +1,12 @@
 package com.shimh.entity;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -37,6 +32,11 @@ public class Comment extends BaseEntity<Integer> {
     @JoinColumn(name = "author_id")
     private User author;
 
+    /**
+     * 类型 0 文章的评论 1 评论的评论 2 评论的回复 @
+     */
+    @Column(name = "level",length = 1)
+    private String level;
 
     /**
      * 创建时间
@@ -50,6 +50,20 @@ public class Comment extends BaseEntity<Integer> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
     private Article article;
+
+    @OneToMany
+    @JoinColumn(name = "parent_id",nullable = true)
+    private List<Comment> childrens;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    @NotFound(action= NotFoundAction.IGNORE)
+    private Comment parent;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_uid")
+    private User toUser;
 
 
     public String getContent() {
@@ -91,5 +105,35 @@ public class Comment extends BaseEntity<Integer> {
         this.article = article;
     }
 
+    public List<Comment> getChildrens() {
+        return childrens;
+    }
 
+    public void setChildrens(List<Comment> childrens) {
+        this.childrens = childrens;
+    }
+
+    public Comment getParent() {
+        return parent;
+    }
+
+    public void setParent(Comment parent) {
+        this.parent = parent;
+    }
+
+    public User getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 }

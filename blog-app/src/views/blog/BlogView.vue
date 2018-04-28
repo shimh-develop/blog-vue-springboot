@@ -1,7 +1,15 @@
 <template>
-  <div class="me-view-body">
+  <div class="me-view-body" v-title :data-title="title">
     <el-container class="me-view-container">
+      <!--<el-aside class="me-area">-->
+        <!--<ul class="me-operation-list">-->
+          <!--<li class="me-operation-item">-->
+            <!--<el-button type="primary" icon="el-icon-edit"></el-button>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</el-aside>-->
       <el-main>
+
         <div class="me-view-card">
           <h1 class="me-view-title">{{article.title}}</h1>
           <div class="me-view-author">
@@ -11,11 +19,19 @@
             <div class="me-view-info">
               <span>{{article.author.nickname}}</span>
               <div class="me-view-meta">
-                <span>{{article.createDate}}</span>
+                <span>{{article.createDate | format}}</span>
                 <span>阅读   {{article.viewCounts}}</span>
                 <span>评论   {{article.commentCounts}}</span>
               </div>
+
             </div>
+            <el-button
+              v-if="this.article.author.id == this.$store.state.id"
+              @click="editArticle()"
+              style="position: absolute;left: 60%;"
+              size="mini"
+              round
+              icon="el-icon-edit">编辑</el-button>
           </div>
           <div class="me-view-content">
             <markdown-editor :editor=article.editor></markdown-editor>
@@ -31,7 +47,15 @@
           </div>
 
           <div class="me-view-tag">
-            <el-tag v-for="t in article.tags" :key="t.id" class="me-view-tag-item" type="success">{{t.tagname}}</el-tag>
+            标签：
+            <!--<el-tag v-for="t in article.tags" :key="t.id" class="me-view-tag-item" size="mini" type="success">{{t.tagname}}</el-tag>-->
+            <el-button @click="tagOrCategory('tag', t.id)" size="mini" type="primary" v-for="t in article.tags" :key="t.id" round plain>{{t.tagname}}</el-button>
+          </div>
+
+          <div class="me-view-tag">
+            文章分类：
+            <!--<span style="font-weight: 600">{{article.category.categoryname}}</span>-->
+            <el-button @click="tagOrCategory('category', article.category.id)" size="mini" type="primary" round plain>{{article.category.categoryname}}</el-button>
           </div>
 
           <div class="me-view-comment">
@@ -62,34 +86,18 @@
             </div>
 
             <div class="me-view-comment-title">
-              <span>{{comments.length}} 条评论</span>
+              <span>{{article.commentCounts}} 条评论</span>
             </div>
 
-            <div class="me-view-comment-item" v-for="(c,index) in comments" :key="c.id">
-              <div class="me-view-comment-author">
-                <a class="">
-                  <img class="me-view-picture" :src="c.author.avatar"></img>
-                </a>
-                <div class="me-view-info">
-                  <span class="me-view-nickname">{{c.author.nickname}}</span>
-                  <div class="me-view-meta">
-                    <span>{{comments.length - index}}楼</span>
-                    <span>{{c.createDate}}</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <p class="me-view-comment-content">{{c.content}}</p>
-                <!--<div class="me-view-comment-tools">
-                                <a class="me-view-comment-tool">
-                                    <i class="me-icon-comment"></i>&nbsp;120人赞
-                                </a>
-                                <a class="me-view-comment-tool">
-                                    <i class="me-icon-comment"></i>&nbsp;回复
-                                </a>
-                            </div>-->
-              </div>
-            </div>
+            <commment-item
+              v-for="(c,index) in comments"
+              :comment="c"
+              :articleId="article.id"
+              :index="index"
+              :rootCommentCounts="comments.length"
+              @commentCountsIncrement="commentCountsIncrement"
+              :key="c.id">
+            </commment-item>
 
           </div>
 
@@ -102,6 +110,7 @@
 
 <script>
   import MarkdownEditor from '@/components/markdown/MarkdownEditor'
+  import CommmentItem from '@/components/comment/CommentItem'
   import {viewArticle} from '@/api/article'
   import {getCommentsByArticle, publishComment} from '@/api/comment'
 
@@ -125,6 +134,7 @@
           summary: '',
           author: {},
           tags: [],
+          category:{},
           createDate: '',
           editor: {
             value: '',
@@ -148,9 +158,18 @@
           return avatar
         }
         return default_avatar
+      },
+      title() {
+        return `${this.article.title} - 文章 - For Fun`
       }
     },
     methods: {
+      tagOrCategory(type, id) {
+        this.$router.push({path: `/${type}/${id}`})
+      },
+      editArticle() {
+        this.$router.push({path: `/write/${this.article.id}`})
+      },
       getArticle() {
         let that = this
         viewArticle(that.$route.params.id).then(data => {
@@ -166,11 +185,15 @@
       },
       publishComment() {
         let that = this
+        if (!that.comment.content) {
+          return;
+        }
         that.comment.article.id = that.article.id
 
         publishComment(that.comment).then(data => {
           that.$message({type: 'success', message: '评论成功', showClose: true})
           that.comments.unshift(data.data)
+          that.commentCountsIncrement()
           that.comment.content = ''
         }).catch(error => {
           if (error !== 'error') {
@@ -187,10 +210,14 @@
             that.$message({type: 'error', message: '评论加载失败', showClose: true})
           }
         })
+      },
+      commentCountsIncrement() {
+        this.article.commentCounts += 1
       }
     },
     components: {
-      'markdown-editor': MarkdownEditor
+      'markdown-editor': MarkdownEditor,
+      CommmentItem
     },
     //组件内的守卫 调整body的背景色
     beforeRouteEnter(to, from, next) {
@@ -224,7 +251,8 @@
   }
 
   .me-view-author {
-    margin: 30px 0;
+    /*margin: 30px 0;*/
+    margin-top: 30px;
     vertical-align: middle;
   }
 
@@ -254,6 +282,8 @@
 
   .me-view-tag {
     margin-top: 20px;
+    padding-left: 6px;
+    border-left: 4px solid #c5cac3;
   }
 
   .me-view-tag-item {
@@ -286,35 +316,9 @@
     box-shadow: none !important;
   }
 
-  .me-view-comment-item {
-    margin-top: 20px;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  .me-view-comment-author {
-    margin: 10px 0;
-    vertical-align: middle;
-  }
-
-  .me-view-nickname {
-    font-size: 14px;
-  }
-
-  .me-view-comment-content {
-    line-height: 1.5;
-  }
-
-  .me-view-comment-tools {
-    margin-top: 4px;
-    margin-bottom: 20px;
-  }
-
-  .me-view-comment-tool {
-    color: #a6a6a6;
-    padding-right: 14px;
-  }
-
   .v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
     background: #fff !important;
   }
+
+
 </style>

@@ -48,6 +48,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
+    //@RequiresRoles(Base.ROLE_ADMIN)
     @LogAnnotation(module = "注册", operation = "注册")
     public Result register(@RequestBody User user) {
 

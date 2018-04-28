@@ -14,7 +14,7 @@ import com.shimh.entity.Comment;
  */
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
-    List<Comment> findByArticleOrderByCreateDateDesc(Article a);
+    List<Comment> findByArticleAndLevelOrderByCreateDateDesc(Article a, String level);
 
 
 }

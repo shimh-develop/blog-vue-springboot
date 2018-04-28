@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-title :data-title="title">
     <el-container>
 
       <el-aside class="me-area">
@@ -43,13 +43,11 @@
         if (this.$route.params.year && this.$route.params.month) {
           this.article.query.year = this.$route.params.year
           this.article.query.month = this.$route.params.month
-          this.currentArchive = `${this.$route.params.year}年${this.$route.params.month}月`
         }
       }
     },
     data() {
       return {
-        currentArchive: '全部',
         article: {
           query: {
             month: this.$route.params.month,
@@ -57,6 +55,17 @@
           }
         },
         archives: []
+      }
+    },
+    computed: {
+      title (){
+        return this.currentArchive + ' - 文章归档 - For Fun'
+      },
+      currentArchive (){
+        if(this.article.query.year && this.article.query.month){
+          return `${this.article.query.year}年${this.article.query.month}月`
+        }
+        return '全部'
       }
     },
     methods: {

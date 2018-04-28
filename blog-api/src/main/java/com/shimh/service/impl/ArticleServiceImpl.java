@@ -57,7 +57,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
+    public Integer publishArticle(Article article) {
+
+        if(null != article.getId()){
+            return this.updateArticle(article);
+        }else{
+            return this.saveArticle(article);
+        }
+
+    }
+
+    @Override
+    @Transactional
     public Integer saveArticle(Article article) {
+
         User currentUser = UserUtils.getCurrentUser();
 
         if (null != currentUser) {

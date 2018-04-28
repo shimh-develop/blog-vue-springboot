@@ -1,8 +1,11 @@
 package com.shimh.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.shimh.entity.User;
+import com.shimh.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Autowired
@@ -57,7 +63,7 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> listCommentsByArticle(Integer id) {
         Article a = new Article();
         a.setId(id);
-        return commentRepository.findByArticleOrderByCreateDateDesc(a);
+        return commentRepository.findByArticleAndLevelOrderByCreateDateDesc(a, "0");
     }
 
     @Override
@@ -70,6 +76,17 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setAuthor(UserUtils.getCurrentUser());
         comment.setCreateDate(new Date());
+
+        //设置level
+        if(null == comment.getParent()){
+            comment.setLevel("0");
+        }else{
+            if(null == comment.getToUser()){
+                comment.setLevel("1");
+            }else{
+                comment.setLevel("2");
+            }
+        }
 
         return commentRepository.save(comment);
 

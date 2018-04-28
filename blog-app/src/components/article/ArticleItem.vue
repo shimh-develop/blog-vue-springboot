@@ -23,7 +23,7 @@
       <el-tag v-for="t in tags" :key="t.tagname" size="mini" type="success">{{t.tagname}}</el-tag>
 
       <span class="me-pull-right me-article-count">
-	    	<i class="el-icon-time"></i>&nbsp;{{createDate}}
+	    	<i class="el-icon-time"></i>&nbsp;{{createDate | format}}
 	    </span>
 
     </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { formatTime } from "../../utils/time";
 
   export default {
     name: 'ArticleItem',

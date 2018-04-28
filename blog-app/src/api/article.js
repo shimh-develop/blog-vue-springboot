@@ -56,7 +56,7 @@ export function getArticlesByTag(id) {
 
 export function publishArticle(article) {
   return request({
-    url: '/articles/create',
+    url: '/articles/publish',
     method: 'post',
     data: article
   })
@@ -65,6 +65,13 @@ export function publishArticle(article) {
 export function listArchives() {
   return request({
     url: '/articles/listArchives',
+    method: 'get'
+  })
+}
+
+export function getArticleById(id) {
+  return request({
+    url: `/articles/${id}`,
     method: 'get'
   })
 }

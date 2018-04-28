@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    id: '',
     account: '',
     name: '',
     avatar: '',
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
+    },
+    SET_ID: (state, id) => {
+      state.id = id
     }
   },
   actions: {
@@ -45,12 +49,14 @@ export default new Vuex.Store({
         getUserInfo().then(data => {
           if (data.data) {
             commit('SET_ACCOUNT', data.data.account)
-            commit('SET_NAME', data.data.name)
+            commit('SET_NAME', data.data.nickname)
             commit('SET_AVATAR', data.data.avatar)
+            commit('SET_ID', data.data.id)
           } else {
             commit('SET_ACCOUNT', '')
             commit('SET_NAME', '')
             commit('SET_AVATAR', '')
+            commit('SET_ID', '')
             removeToken()
           }
           resolve(data)
@@ -68,6 +74,7 @@ export default new Vuex.Store({
           commit('SET_ACCOUNT', '')
           commit('SET_NAME', '')
           commit('SET_AVATAR', '')
+          commit('SET_ID', '')
           removeToken()
           resolve()
 
@@ -83,6 +90,7 @@ export default new Vuex.Store({
         commit('SET_ACCOUNT', '')
         commit('SET_NAME', '')
         commit('SET_AVATAR', '')
+        commit('SET_ID', '')
         removeToken()
         resolve()
       }).catch(error => {

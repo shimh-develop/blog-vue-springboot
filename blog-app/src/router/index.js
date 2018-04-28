@@ -23,6 +23,13 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
+      path: '/write/:id?',
+      component: r => require.ensure([], () => r(require('@/views/blog/BlogWrite')), 'blogwrite'),
+      meta: {
+        requireLogin: true
+      },
+    },
+    {
       path: '',
       name: 'Home',
       component: Home,
@@ -64,14 +71,8 @@ const router = new Router({
     {
       path: '/register',
       component: r => require.ensure([], () => r(require('@/views/Register')), 'register')
-    },
-    {
-      path: '/write',
-      component: r => require.ensure([], () => r(require('@/views/blog/BlogWrite')), 'blogwrite'),
-      meta: {
-        requireLogin: true
-      },
     }
+
   ],
   scrollBehavior(to, from, savedPosition) {
     return {x: 0, y: 0}

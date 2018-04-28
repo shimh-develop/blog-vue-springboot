@@ -1,5 +1,6 @@
 <template>
-  <div>
+
+  <div class="me-message" v-title :data-title="title">
     <el-container class="">
       <el-main class="me-main">
         <el-alert
@@ -18,12 +19,21 @@
   export default {
     name: 'MessageBoard',
     data() {
-      return {}
+      return {
+      }
+    },
+    computed: {
+      title (){
+        return '留言板 - For Fun'
+      }
     }
   }
 </script>
 
 <style scoped>
+  .me-message {
+  }
+
   .el-container {
     width: 700px;
   }

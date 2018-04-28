@@ -1,15 +1,15 @@
 <template>
-  <div class="me-ct-body">
+  <div class="me-ct-body" v-title :data-title="title">
     <el-container class="me-ct-container">
       <el-main>
         <div class="me-ct-title me-area">
           <template v-if="this.$route.params.type === 'tag'">
-            <img class="me-ct-picture" :src="ct.avatar"/>
+            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar"/>
             <h3 class="me-ct-name">{{ct.tagname}}</h3>
           </template>
 
           <template v-else>
-            <img class="me-ct-picture" :src="ct.avatar"/>
+            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar"/>
             <h3 class="me-ct-name">{{ct.categoryname}}</h3>
             <p>{{ct.description}}</p>
           </template>
@@ -31,6 +31,7 @@
   import {getArticlesByCategory, getArticlesByTag} from '@/api/article'
   import {getTagDetail} from '@/api/tag'
   import {getCategoryDetail} from '@/api/category'
+  import defaultAvatar from '@/assets/img/logo.png'
 
 
   export default {
@@ -43,6 +44,7 @@
     },
     data() {
       return {
+        defaultAvatar: defaultAvatar,
         ct: {},
         article: {
           query: {
@@ -50,6 +52,14 @@
             categoryId: ''
           }
         },
+      }
+    },
+    computed: {
+      title() {
+        if(this.$route.params.type === 'tag'){
+          return `${this.ct.tagname} - 标签 - For Fun`
+        }
+        return `${this.ct.categoryname} - 文章分类 - For Fun`
       }
     },
     methods: {

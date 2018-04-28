@@ -30,7 +30,7 @@ Vue + SpringBoot实现的博客系统
 ![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/detail.png)
 
 ## 评论
-![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/comment.png)
+![image](https://github.com/shimh-develop/blog-vue-springboot/blob/master/document/comment3.png)
 
 # 技术
 
@@ -65,7 +65,7 @@ Vue + SpringBoot实现的博客系统
 - 文章分类-标签：列表、详情
 - 文章归档
 - 文章：写文章、文章详情
-- 评论：文章添加评论
+- 评论：文章添加评论 对评论回复
 - 文章列表滑动分页
 
 ## 后端
@@ -76,8 +76,7 @@ Vue + SpringBoot实现的博客系统
 - 操作日志记录
 
 # 待实现功能
-- 评论的分页
-- 评论回复、点赞
+- 评论的分页 点赞
 - 留言板
 - 第三方登录
 - ......

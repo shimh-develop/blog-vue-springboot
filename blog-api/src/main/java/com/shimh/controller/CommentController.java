@@ -71,8 +71,8 @@ public class CommentController {
     @GetMapping("/article/{id}")
     @FastJsonView(
             exclude = {
-                    @FastJsonFilter(clazz = Comment.class, props = {"article"})},
-            include = {@FastJsonFilter(clazz = User.class, props = {"nickname", "avatar"})})
+                    @FastJsonFilter(clazz = Comment.class, props = {"article", "parent"})},
+            include = {@FastJsonFilter(clazz = User.class, props = {"id", "nickname", "avatar"})})
     @LogAnnotation(module = "评论", operation = "根据文章获取评论")
     public Result listCommentsByArticle(@PathVariable("id") Integer id) {
 
@@ -125,7 +125,7 @@ public class CommentController {
     @FastJsonView(
             exclude = {
                     @FastJsonFilter(clazz = Comment.class, props = {"article"})},
-            include = {@FastJsonFilter(clazz = User.class, props = {"nickname", "avatar"})})
+            include = {@FastJsonFilter(clazz = User.class, props = {"id", "nickname", "avatar"})})
     @RequiresAuthentication
     @LogAnnotation(module = "评论", operation = "添加评论，增加评论数")
     public Result saveCommentAndChangeCounts(@RequestBody Comment comment) {

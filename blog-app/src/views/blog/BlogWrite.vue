@@ -1,5 +1,5 @@
 <template>
-  <div id="write">
+  <div id="write" v-title :data-title="title">
     <el-container>
       <base-header :simple=true>
         <el-col :span="4" :offset="2">
@@ -67,13 +67,18 @@
 <script>
   import BaseHeader from '@/views/BaseHeader'
   import MarkdownEditor from '@/components/markdown/MarkdownEditor'
-  import {publishArticle} from '@/api/article'
+  import {publishArticle, getArticleById} from '@/api/article'
   import {getAllCategorys} from '@/api/category'
   import {getAllTags} from '@/api/tag'
 
   export default {
     name: 'BlogWrite',
     mounted() {
+
+      if(this.$route.params.id){
+        this.getArticleById(this.$route.params.id)
+      }
+
       this.getCategorysAndTags()
       this.editorToolBarToFixedWrapper = this.$_.throttle(this.editorToolBarToFixed, 200)
 
@@ -137,7 +142,32 @@
         }
       }
     },
+    computed: {
+      title (){
+        return '写文章 - For Fun'
+      }
+    },
     methods: {
+      getArticleById(id) {
+        let that = this
+        getArticleById(id).then(data => {
+
+          Object.assign(that.articleForm, data.data)
+          that.articleForm.editor.value = data.data.body.content
+
+          let tags = this.articleForm.tags.map(function (item) {
+            return item.id;
+          })
+
+          this.articleForm.tags = tags
+
+
+        }).catch(error => {
+          if (error !== 'error') {
+            that.$message({type: 'error', message: '文章加载失败', showClose: true})
+          }
+        })
+      },
       publishShow() {
         if (!this.articleForm.title) {
           this.$message({message: '标题不能为空哦', type: 'warning', showClose: true})

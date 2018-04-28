@@ -1,5 +1,5 @@
 <template>
-  <div class="me-allct-body">
+  <div class="me-allct-body" v-title :data-title="categoryTagTitle" >
     <el-container class="me-allct-container">
       <el-main>
         <el-tabs v-model="activeName">
@@ -8,7 +8,7 @@
               <li v-for="c in categorys" @click="view(c.id)" :key="c.id" class="me-allct-item">
                 <div class="me-allct-content">
                   <a class="me-allct-info">
-                    <img class="me-allct-img" :src="c.avatar"/>
+                    <img class="me-allct-img" :src="c.avatar?c.avatar:defaultAvatar"/>
                     <h4 class="me-allct-name">{{c.categoryname}}</h4>
                     <p class="me-allct-description">{{c.description}}</p>
                   </a>
@@ -25,7 +25,7 @@
               <li v-for="t in tags" @click="view(t.id)" :key="t.id" class="me-allct-item">
                 <div class="me-allct-content">
                   <a class="me-allct-info">
-                    <img class="me-allct-img" :src="t.avatar"/>
+                    <img class="me-allct-img" :src="t.avatar?t.avatar:defaultAvatar"/>
                     <h4 class="me-allct-name">{{t.tagname}}</h4>
                   </a>
 
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+  import defaultAvatar from '@/assets/img/logo.png'
   import {getAllCategorysDetail} from '@/api/category'
   import {getAllTagsDetail} from '@/api/tag'
 
@@ -54,6 +55,7 @@
     },
     data() {
       return {
+        defaultAvatar:defaultAvatar,
         categorys: [],
         tags: [],
         currentActiveName: 'category'
@@ -67,6 +69,13 @@
         set(newValue) {
           this.currentActiveName = newValue
         }
+      },
+      categoryTagTitle (){
+        if(this.currentActiveName == 'category'){
+          return '文章分类 - For Fun'
+        }
+        console.info('dddd')
+        return '标签 - For Fun'
       }
     },
     methods: {

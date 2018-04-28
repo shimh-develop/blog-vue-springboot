@@ -22,6 +22,8 @@ public interface ArticleService {
 
     Article getArticleById(Integer id);
 
+    Integer publishArticle(Article article);
+
     Integer saveArticle(Article article);
 
     Integer updateArticle(Article article);

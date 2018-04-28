@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
+import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
 import com.shimh.common.annotation.LogAnnotation;
+import com.shimh.entity.Article;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -43,6 +46,7 @@ public class UserController {
 
     @GetMapping
     @LogAnnotation(module = "用户", operation = "获取所有用户")
+    @RequiresRoles(Base.ROLE_ADMIN)
     public Result listUsers() {
         List<User> users = userService.findAll();
 
@@ -51,6 +55,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @LogAnnotation(module = "用户", operation = "根据id获取用户")
+    @RequiresRoles(Base.ROLE_ADMIN)
     public Result getUserById(@PathVariable("id") Long id) {
 
         Result r = new Result();
@@ -68,6 +73,8 @@ public class UserController {
     }
 
     @GetMapping("/currentUser")
+    @FastJsonView(
+            include = {@FastJsonFilter(clazz = User.class, props = {"id", "account", "nickname", "avatar"})})
     @LogAnnotation(module = "用户", operation = "获取当前登录用户")
     public Result getCurrentUser(HttpServletRequest request) {
 

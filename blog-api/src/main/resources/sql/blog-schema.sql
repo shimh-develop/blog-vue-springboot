@@ -9,7 +9,7 @@
  Target Server Version : 50721
  File Encoding         : utf-8
 
- Date: 04/20/2018 15:41:16 PM
+ Date: 04/28/2018 09:14:32 AM
 */
 
 SET NAMES utf8;
@@ -37,7 +37,7 @@ CREATE TABLE `me_article` (
   CONSTRAINT `FKjrn3ua4xmiulp8raj7m9d2xk6` FOREIGN KEY (`category_id`) REFERENCES `me_category` (`id`),
   CONSTRAINT `FKndx2m69302cso79y66yxiju4h` FOREIGN KEY (`author_id`) REFERENCES `sys_user` (`id`),
   CONSTRAINT `FKrd11pjsmueckfrh9gs7bc6374` FOREIGN KEY (`body_id`) REFERENCES `me_article_body` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `me_article_body`
@@ -48,7 +48,7 @@ CREATE TABLE `me_article_body` (
   `content` longtext,
   `content_html` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `me_article_tag`
@@ -85,12 +85,19 @@ CREATE TABLE `me_comment` (
   `create_date` datetime DEFAULT NULL,
   `article_id` int(11) DEFAULT NULL,
   `author_id` bigint(20) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `to_uid` bigint(20) DEFAULT NULL,
+  `level` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKecq0fuo9k0lnmea6r01vfhiok` (`article_id`),
   KEY `FKkvuyh6ih7dt1rfqhwsjomsa6i` (`author_id`),
+  KEY `FKaecafrcorkhyyp1luffinsfqs` (`parent_id`),
+  KEY `FK73dgr23lbs3ebex5qvqyku308` (`to_uid`),
+  CONSTRAINT `FK73dgr23lbs3ebex5qvqyku308` FOREIGN KEY (`to_uid`) REFERENCES `sys_user` (`id`),
+  CONSTRAINT `FKaecafrcorkhyyp1luffinsfqs` FOREIGN KEY (`parent_id`) REFERENCES `me_comment` (`id`),
   CONSTRAINT `FKecq0fuo9k0lnmea6r01vfhiok` FOREIGN KEY (`article_id`) REFERENCES `me_article` (`id`),
   CONSTRAINT `FKkvuyh6ih7dt1rfqhwsjomsa6i` FOREIGN KEY (`author_id`) REFERENCES `sys_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `me_tag`
@@ -119,7 +126,7 @@ CREATE TABLE `sys_log` (
   `time` bigint(20) DEFAULT NULL,
   `userid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2994 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 --  Table structure for `sys_user`

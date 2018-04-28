@@ -84,10 +84,8 @@ public class ArticleController {
     @GetMapping("/{id}")
     @FastJsonView(
             exclude = {
-                    @FastJsonFilter(clazz = Article.class, props = {"category", "comments"}),
-                    @FastJsonFilter(clazz = ArticleBody.class, props = {"contentHtml"}),
-                    @FastJsonFilter(clazz = Tag.class, props = {"avatar"})},
-            include = {@FastJsonFilter(clazz = User.class, props = {"nickname", "avatar"})})
+                    @FastJsonFilter(clazz = Article.class, props = {"comments"}),
+                    @FastJsonFilter(clazz = ArticleBody.class, props = {"contentHtml"})})
     @LogAnnotation(module = "文章", operation = "根据id获取文章")
     public Result getArticleById(@PathVariable("id") Integer id) {
 
@@ -108,10 +106,10 @@ public class ArticleController {
     @GetMapping("/view/{id}")
     @FastJsonView(
             exclude = {
-                    @FastJsonFilter(clazz = Article.class, props = {"category", "comments"}),
+                    @FastJsonFilter(clazz = Article.class, props = {"comments"}),
                     @FastJsonFilter(clazz = ArticleBody.class, props = {"contentHtml"}),
                     @FastJsonFilter(clazz = Tag.class, props = {"avatar"})},
-            include = {@FastJsonFilter(clazz = User.class, props = {"nickname", "avatar"})})
+            include = {@FastJsonFilter(clazz = User.class, props = {"id", "nickname", "avatar"})})
     @LogAnnotation(module = "文章", operation = "根据id获取文章，添加阅读数")
     public Result getArticleAndAddViews(@PathVariable("id") Integer id) {
 
@@ -156,12 +154,12 @@ public class ArticleController {
         return Result.success(articles);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/publish")
     @RequiresAuthentication
-    @LogAnnotation(module = "文章", operation = "添加文章")
+    @LogAnnotation(module = "文章", operation = "发布文章")
     public Result saveArticle(@Validated @RequestBody Article article) {
 
-        Integer articleId = articleService.saveArticle(article);
+        Integer articleId = articleService.publishArticle(article);
 
         Result r = Result.success();
         r.simple().put("articleId", articleId);
