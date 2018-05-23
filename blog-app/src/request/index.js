@@ -1,10 +1,14 @@
 import axios from 'axios'
 import {Message} from 'element-ui'
-import store from '@/store'
+import { createStore } from '@/store'
 import {getToken} from '@/request/token'
+import Vuex from 'vuex'
+import Vue from 'vue'
+Vue.use(Vuex);
+const store = createStore()
 
 const service = axios.create({
-  baseURL: process.env.BASE_API,
+  baseURL: 'http://localhost:8888/',
   timeout: 10000
 })
 
