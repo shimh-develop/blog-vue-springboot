@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const utils = require('./utils')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -46,7 +47,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: 'img/[name].[hash:7].[ext]'
         }
       },
       {
@@ -54,7 +55,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+          name: 'media/[name].[hash:7].[ext]'
         }
       },
       {
@@ -62,16 +63,24 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: 'fonts/[name].[hash:7].[ext]'
         }
       },
       {
         test: /\.css$/,
-        loader:[
-          'vue-style-loader',
-          'css-loader',
-          'postcss-loader'
-        ]
+        // use: isProd
+        //   ?ExtractTextPlugin.extract({
+        //     use: [
+        //       {
+        //         loader: 'css-loader',
+        //         options: { minimize: true}
+        //       },
+        //       'stylus-loader'
+        //     ],
+        //     fallback: 'vue-style-loader'
+        //   })
+        // :['vue-style-loader','css-loader','postcss-loader']
+        loader: ['vue-style-loader','css-loader','postcss-loader']
       }
     ]
   },
