@@ -2,20 +2,21 @@ import axios from 'axios'
 import {Message} from 'element-ui'
 import { createStore } from '@/store'
 import {getToken} from '@/request/token'
+import web from '@/config/website'
 import Vuex from 'vuex'
 import Vue from 'vue'
 Vue.use(Vuex);
 const store = createStore()
 
 const service = axios.create({
-  baseURL: 'http://localhost:8888/',
+  baseURL: web.URL,
   timeout: 10000
 })
 
 //request拦截器
 service.interceptors.request.use(config => {
-
-  if (store.state.token) {
+  console.info('token--' + getToken())
+  if (getToken()) {
     config.headers['Oauth-Token'] = getToken()
   }
   return config

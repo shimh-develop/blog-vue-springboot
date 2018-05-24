@@ -1,11 +1,15 @@
 export function getToken() {
-  return localStorage.token
+  const storeObj = _CLIENT_ ? localStorage: {}
+  return storeObj.token
 }
 
 export function setToken(token) {
-  return localStorage.token = token
+  const storeObj = _CLIENT_ ? localStorage: {}
+  storeObj.token = token
+  console.info('setToken ----' + storeObj.token)
 }
 
 export function removeToken() {
-  return localStorage.removeItem('token')
+  const storeObj = _CLIENT_ ? localStorage: {}
+  return storeObj.removeItem('token')
 }

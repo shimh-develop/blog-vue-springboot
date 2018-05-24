@@ -8,7 +8,7 @@
               <li v-for="c in categorys" @click="view(c.id)" :key="c.id" class="me-allct-item">
                 <div class="me-allct-content">
                   <a class="me-allct-info">
-                    <img class="me-allct-img" :src="c.avatar?c.avatar:defaultAvatar"/>
+                    <img class="me-allct-img" :src="c.avatar | addWebURL"/>
                     <h4 class="me-allct-name">{{c.categoryname}}</h4>
                     <p class="me-allct-description">{{c.description}}</p>
                   </a>
@@ -25,12 +25,12 @@
               <li v-for="t in tags" @click="view(t.id)" :key="t.id" class="me-allct-item">
                 <div class="me-allct-content">
                   <a class="me-allct-info">
-                    <img class="me-allct-img" :src="t.avatar?t.avatar:defaultAvatar"/>
+                    <img class="me-allct-img" :src="t.avatar | addWebURL"/>
                     <h4 class="me-allct-name">{{t.tagname}}</h4>
                   </a>
 
                   <div class="me-allct-meta">
-                    <span>{{t.articles}}  文章</span>
+                    <span>{{t.articles}} 文章</span>
                   </div>
                 </div>
               </li>
@@ -46,6 +46,7 @@
   import defaultAvatar from '@/assets/img/logo.png'
   import {getAllCategorysDetail} from '@/api/category'
   import {getAllTagsDetail} from '@/api/tag'
+  import web from '@/config/website'
 
   export default {
     name: 'BlogAllCategoryTag',
@@ -105,15 +106,11 @@
     },
     //组件内的守卫 调整body的背景色
     beforeRouteEnter(to, from, next) {
-      if(window){
-        window.document.body.style.backgroundColor = '#fff';
-      }
+      _CLIENT_ && (window.document.body.style.backgroundColor = '#fff');
       next();
     },
     beforeRouteLeave(to, from, next) {
-      if(window){
-        window.document.body.style.backgroundColor = '#f5f5f5';
-      }
+      _CLIENT_ && (window.document.body.style.backgroundColor = '#f5f5f5');
       next();
     }
   }

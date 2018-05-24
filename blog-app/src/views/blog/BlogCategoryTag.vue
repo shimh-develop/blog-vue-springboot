@@ -4,12 +4,12 @@
       <el-main>
         <div class="me-ct-title me-area">
           <template v-if="this.$route.params.type === 'tag'">
-            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar"/>
+            <img class="me-ct-picture" :src="ct.avatar | addWebURL"/>
             <h3 class="me-ct-name">{{ct.tagname}}</h3>
           </template>
 
           <template v-else>
-            <img class="me-ct-picture" :src="ct.avatar?ct.avatar:defaultAvatar"/>
+            <img class="me-ct-picture" :src="ct.avatar | addWebURL"/>
             <h3 class="me-ct-name">{{ct.categoryname}}</h3>
             <p>{{ct.description}}</p>
           </template>
@@ -32,6 +32,7 @@
   import {getTagDetail} from '@/api/tag'
   import {getCategoryDetail} from '@/api/category'
   import defaultAvatar from '@/assets/img/logo.png'
+  import web from '@/config/website'
 
 
   export default {

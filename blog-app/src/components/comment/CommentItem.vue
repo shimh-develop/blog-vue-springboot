@@ -2,13 +2,13 @@
   <div class="me-view-comment-item">
     <div class="me-view-comment-author">
       <a class="">
-        <img class="me-view-picture" :src="comment.author.avatar"></img>
+        <img class="me-view-picture" :src="comment.author.avatar | addWebURL"></img>
       </a>
       <div class="me-view-info">
         <span class="me-view-nickname">{{comment.author.nickname}}</span>
         <div class="me-view-meta">
           <span>{{rootCommentCounts - index}}楼</span>
-          <span>{{comment.createDate | format}}</span>
+          <span>{{comment.createDate | formatTime}}</span>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
             <span>{{c.content}}</span>
           </div>
           <div class="me-view-meta">
-            <span style="padding-right: 10px">{{c.createDate | format}}</span>
+            <span style="padding-right: 10px">{{c.createDate | formatTime}}</span>
             <a class="me-view-comment-tool" @click="showComment(c.id, c.author)">
               <i class="me-icon-comment"></i>&nbsp;回复
             </a>

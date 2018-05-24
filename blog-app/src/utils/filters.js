@@ -1,3 +1,5 @@
+import web from '@/config/website'
+
 export function formatTime(time) {
   const d = new Date(time)
   const now = Date.now()
@@ -15,4 +17,8 @@ export function formatTime(time) {
   }
 
   return time
+}
+
+export function addWebURL(url) {
+  return `${web.URL}${url}`
 }

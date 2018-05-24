@@ -58,9 +58,9 @@ router.onReady(() => {
 })
 
 // service worker
-function isLocalhost() {
-  return /^http(s)?:\/\/localhost/.test(location.href);
-}
-if (('https:' === location.protocol || isLocalhost()) && navigator.serviceWorker) {
-  navigator.serviceWorker.register('/service-worker.js')
-}
+// function isLocalhost() {
+//   return /^http(s)?:\/\/localhost/.test(location.href);
+// }
+// if (('https:' === location.protocol || isLocalhost()) && navigator.serviceWorker) {
+//   navigator.serviceWorker.register('/service-worker.js')
+// }

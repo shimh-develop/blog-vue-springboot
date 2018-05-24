@@ -13,8 +13,11 @@ import '@/assets/theme/index.css'
 
 import '@/assets/icon/iconfont.css'
 
-import {formatTime} from "./utils/time";
+import * as filters from "@/utils/filters";
 
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 
@@ -22,12 +25,10 @@ Vue.use(ElementUI)
 
 Object.defineProperty(Vue.prototype, '$_', { value: lodash })
 
-
 Vue.directive('title',  function (el, binding) {
   document.title = el.dataset.title
 })
-// 格式话时间
-Vue.filter('format', formatTime)
+
 
 // Expose a factory function that creates a fresh set of store, router,
 // app instances on each call (which is called for each SSR request)

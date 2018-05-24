@@ -32,6 +32,12 @@
   import CardTag from '@/components/card/CardTag'
   import ArticleScrollPage from '@/views/common/ArticleScrollPage'
 
+  // const CardMe = () => import('@/components/card/CardMe')
+  // const CardArticle  = () => import( '@/components/card/CardArticle')
+  // const CardArchive  = () => import( '@/components/card/CardArchive')
+  // const CardTag  = () => import( '@/components/card/CardTag')
+  // const ArticleScrollPage  = () => import( '@/views/common/ArticleScrollPage')
+
   import {getArticles, getHotArtices, getNewArtices} from '@/api/article'
   import {getHotTags} from '@/api/tag'
   import {listArchives} from '@/api/article'

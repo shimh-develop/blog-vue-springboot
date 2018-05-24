@@ -14,12 +14,12 @@
           <h1 class="me-view-title">{{article.title}}</h1>
           <div class="me-view-author">
             <a class="">
-              <img class="me-view-picture" :src="article.author.avatar"></img>
+              <img class="me-view-picture" :src="article.author.avatar | addWebURL"></img>
             </a>
             <div class="me-view-info">
               <span>{{article.author.nickname}}</span>
               <div class="me-view-meta">
-                <span>{{article.createDate | format}}</span>
+                <span>{{article.createDate | formatTime}}</span>
                 <span>阅读   {{article.viewCounts}}</span>
                 <span>评论   {{article.commentCounts}}</span>
               </div>
@@ -34,7 +34,8 @@
               icon="el-icon-edit">编辑</el-button>
           </div>
           <div class="me-view-content">
-            <markdown-editor :editor=article.editor></markdown-editor>
+            <markdown-editor2 :editor=article.editor>
+            </markdown-editor2>
           </div>
 
           <div class="me-view-end">
@@ -63,7 +64,7 @@
               <el-row :gutter="20">
                 <el-col :span="2">
                   <a class="">
-                    <img class="me-view-picture" :src="avatar"></img>
+                    <img class="me-view-picture" :src="avatar | addWebURL"></img>
                   </a>
                 </el-col>
                 <el-col :span="22">
@@ -109,7 +110,7 @@
 </template>
 
 <script>
-  import MarkdownEditor from '@/components/markdown/MarkdownEditor'
+  //import MarkdownEditor from '@/components/markdown/MarkdownEditor'
   import CommmentItem from '@/components/comment/CommentItem'
   import {viewArticle} from '@/api/article'
   import {getCommentsByArticle, publishComment} from '@/api/comment'
@@ -118,7 +119,10 @@
 
   export default {
     name: 'BlogView',
-    created() {
+    beforeMount() {
+      this.$options.components['markdown-editor2'] = () => import('@/components/markdown/MarkdownEditor');
+    },
+    mounted() {
       this.getArticle()
     },
     watch: {
@@ -216,20 +220,16 @@
       }
     },
     components: {
-      'markdown-editor': MarkdownEditor,
+      //'markdown-editor': MarkdownEditor,
       CommmentItem
     },
     //组件内的守卫 调整body的背景色
     beforeRouteEnter(to, from, next) {
-      if(window){
-        window.document.body.style.backgroundColor = '#fff';
-      }
+      _CLIENT_ && (window.document.body.style.backgroundColor = '#fff');
       next();
     },
     beforeRouteLeave(to, from, next) {
-      if(window){
-        window.document.body.style.backgroundColor = '#f5f5f5';
-      }
+      _CLIENT_ && (window.document.body.style.backgroundColor = '#f5f5f5');
       next();
     }
   }

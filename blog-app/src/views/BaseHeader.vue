@@ -44,7 +44,7 @@
           <template v-else>
             <el-submenu index>
               <template slot="title">
-                <img class="me-header-picture" :src="user.avatar"/>
+                <img class="me-header-picture" :src="user.avatar | addWebURL"/>
               </template>
               <el-menu-item index @click="logout"><i class="el-icon-back"></i>退出</el-menu-item>
             </el-submenu>
