@@ -20,5 +20,11 @@ export function formatTime(time) {
 }
 
 export function addWebURL(url) {
-  return `${web.URL}${url}`
+
+  if(url){
+    if(url.startsWith('data')){
+      return url
+    }
+    return `${web.URL}${url}`
+  }
 }

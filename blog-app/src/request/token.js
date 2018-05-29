@@ -6,7 +6,6 @@ export function getToken() {
 export function setToken(token) {
   const storeObj = _CLIENT_ ? localStorage: {}
   storeObj.token = token
-  console.info('setToken ----' + storeObj.token)
 }
 
 export function removeToken() {

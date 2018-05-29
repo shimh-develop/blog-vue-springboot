@@ -32,7 +32,7 @@
       <el-col :span="4">
         <el-menu :router=true menu-trigger="click" mode="horizontal" active-text-color="#5FB878">
 
-          <template v-if="!user.login">
+          <template v-if="isBrower && !user.login">
             <el-menu-item index="/login">
               <el-button type="text">登录</el-button>
             </el-menu-item>
@@ -43,7 +43,7 @@
 
           <template v-else>
             <el-submenu index>
-              <template slot="title">
+              <template slot="title" v-if="isBrower">
                 <img class="me-header-picture" :src="user.avatar | addWebURL"/>
               </template>
               <el-menu-item index @click="logout"><i class="el-icon-back"></i>退出</el-menu-item>
@@ -67,7 +67,9 @@
       }
     },
     data() {
-      return {}
+      return {
+        isBrower: _CLIENT_
+      }
     },
     computed: {
       user() {

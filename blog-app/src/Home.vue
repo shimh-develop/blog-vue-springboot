@@ -1,17 +1,17 @@
 <template>
   <div id="home">
     <el-container>
-    	
+
     	<base-header :activeIndex="activeIndex"></base-header>
-		  
+
 		  <router-view class="me-container"/>
-		  
+
 			<base-footer v-show="footerShow"></base-footer>
-		  
+
 		</el-container>
-		
+
   </div>
-  
+
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
   data (){
   	return {
   			activeIndex: '/',
-  			footerShow:true
+  			footerShow:false
   	}
   },
   components:{
@@ -31,19 +31,25 @@ export default {
   	'base-footer':BaseFooter
   },
   beforeRouteEnter (to, from, next){
+
   	 next(vm => {
-    	vm.activeIndex = to.path
+       vm.changeFooterAndAcitveTab(to)
   	})
   },
-  beforeRouteUpdate (to, from, next) {
-	  if(to.path == '/'){
-	  	this.footerShow = true
-	  }else{
-	  	this.footerShow = false
-	  }
-	  this.activeIndex = to.path
+  beforeRouteUpdate (to, from, next){
+	  this.changeFooterAndAcitveTab(to)
 	  next()
-	}
+	},
+  methods: {
+    changeFooterAndAcitveTab(to) {
+      if(to.path == '/'){
+        this.footerShow = true
+      }else{
+        this.footerShow = false
+      }
+      this.activeIndex = to.path
+    }
+  }
 }
 </script>
 

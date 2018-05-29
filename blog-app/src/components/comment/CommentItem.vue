@@ -7,7 +7,7 @@
       <div class="me-view-info">
         <span class="me-view-nickname">{{comment.author.nickname}}</span>
         <div class="me-view-meta">
-          <span>{{rootCommentCounts - index}}楼</span>
+          <span>{{rootCommentCounts - index}}楼&nbsp;&nbsp;&nbsp;</span>
           <span>{{comment.createDate | formatTime}}</span>
         </div>
       </div>
