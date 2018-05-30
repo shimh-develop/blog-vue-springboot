@@ -68,7 +68,7 @@ app.use(compression({threshold: 0}))
 // app.use(favicon('./public/logo-48.png'))
 app.use('/dist', serve('./dist', true))
 // app.use('/public', serve('./public', true))
-// app.use('/manifest.json', serve('./manifest.json', true))
+//app.use('/manifest.json', serve('./manifest.json', true))
 //app.use('/service-worker.js', serve('./dist/service-worker.js'))
 
 // since this app has no user-specific content, every page is micro-cacheable.
@@ -99,7 +99,7 @@ function render(req, res) {
     }
 
     const context = {
-        title: '掘金', // default title
+        title: 'For Fun', // default title
         url: req.url
     }
     renderer.renderToString(context, (err, html) => {

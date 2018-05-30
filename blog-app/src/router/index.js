@@ -86,9 +86,7 @@ export function createRouter() {
         path: '/register',
         name: 'Register',
         component: () => import('@/views/Register')
-      },
-      { path: '*', component: () => import('@/views/blog/BlogWrite') }
-
+      }
     ],
     scrollBehavior(to, from, savedPosition) {
       return {x: 0, y: 0}
@@ -113,7 +111,7 @@ export function createRouter() {
         }
       }
     } else {
-      if (to.matched.some(r => r.meta.requireLogin)) {
+      if (_CLIENT_ && to.matched.some(r => r.meta.requireLogin)) {
         Message({
           type: 'warning',
           showClose: true,

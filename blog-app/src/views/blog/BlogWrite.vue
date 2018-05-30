@@ -26,7 +26,7 @@
 
           </div>
           <div id="placeholder" style="visibility: hidden;height: 89px;display: none;"></div>
-          <markdown-editor :editor="articleForm.editor" class="me-write-editor"></markdown-editor>
+          <markdown-editor2  :editor="articleForm.editor" class="me-write-editor"></markdown-editor2>
         </el-main>
       </el-container>
 
@@ -66,13 +66,16 @@
 
 <script>
   import BaseHeader from '@/views/BaseHeader'
-  import MarkdownEditor from '@/components/markdown/MarkdownEditor'
+  //import MarkdownEditor from '@/components/markdown/MarkdownEditor'
   import {publishArticle, getArticleById} from '@/api/article'
   import {getAllCategorys} from '@/api/category'
   import {getAllTags} from '@/api/tag'
 
   export default {
     name: 'BlogWrite',
+    beforeMount() {
+      this.$options.components['markdown-editor2'] = () => import('@/components/markdown/MarkdownEditor');
+    },
     mounted() {
 
       if(this.$route.params.id){
@@ -277,7 +280,7 @@
     },
     components: {
       'base-header': BaseHeader,
-      'markdown-editor': MarkdownEditor
+      //'markdown-editor': MarkdownEditor
     }
   }
 </script>

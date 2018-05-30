@@ -17,6 +17,7 @@
 <script>
 import BaseFooter from '@/components/BaseFooter'
 import BaseHeader from '@/views/BaseHeader'
+import Constant from '@/config/constant'
 
 export default {
   name: 'Home',
@@ -47,7 +48,12 @@ export default {
       }else{
         this.footerShow = false
       }
-      this.activeIndex = to.path
+      // 特殊处理下 唉
+      if(to.path.startsWith('/archives')){
+        this.activeIndex = '/archives'
+      }else {
+        this.activeIndex = to.path
+      }
     }
   }
 }

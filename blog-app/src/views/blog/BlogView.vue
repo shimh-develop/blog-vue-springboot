@@ -160,8 +160,9 @@
 
         if (avatar.length > 0) {
           return avatar
+        }else{
+          return default_avatar
         }
-        return default_avatar
       },
       title() {
         return `${this.article.title} - 文章 - For Fun`
