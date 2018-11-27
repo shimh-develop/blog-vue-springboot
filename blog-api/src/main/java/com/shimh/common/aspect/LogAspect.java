@@ -67,25 +67,25 @@ public class LogAspect {
         String methodName = signature.getName();
         log.setMethod(className + "." + methodName + "()");
 
-        //请求的参数
-        Object[] args = joinPoint.getArgs();
-        String params = JSON.toJSONString(args[0]);
-        log.setParams(params);
+//        //请求的参数
+//        Object[] args = joinPoint.getArgs();
+//        String params = JSON.toJSONString(args[0]);
+//        log.setParams(params);
 
         //获取request 设置IP地址
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         log.setIp(IpUtils.getIpAddr(request));
 
-        //用户名
-        User user = UserUtils.getCurrentUser();
-
-        if (null != user) {
-            log.setUserId(user.getId());
-            log.setNickname(user.getNickname());
-        } else {
-            log.setUserId(-1L);
-            log.setNickname("获取用户信息为空");
-        }
+//        //用户名
+//        User user = UserUtils.getCurrentUser();
+//
+//        if (null != user) {
+//            log.setUserId(user.getId());
+//            log.setNickname(user.getNickname());
+//        } else {
+//            log.setUserId(-1L);
+//            log.setNickname("获取用户信息为空");
+//        }
 
         log.setTime(time);
         log.setCreateDate(new Date());
