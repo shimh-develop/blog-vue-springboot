@@ -1,0 +1,59 @@
+{
+  "name": "postcss-import",
+  "version": "11.1.0",
+  "description": "PostCSS plugin to import CSS files",
+  "keywords": [
+    "css",
+    "postcss",
+    "postcss-plugin",
+    "import",
+    "node modules",
+    "npm"
+  ],
+  "author": "Maxime Thirouin",
+  "license": "MIT",
+  "repository": "https://github.com/postcss/postcss-import.git",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "dependencies": {
+    "postcss": "^6.0.1",
+    "postcss-value-parser": "^3.2.3",
+    "read-cache": "^1.0.0",
+    "resolve": "^1.1.7"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "eslint": "^4.16.0",
+    "eslint-config-i-am-meticulous": "^8.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-prettier": "^2.2.0",
+    "npmpub": "^3.0.1",
+    "postcss-scss": "^1.0.0",
+    "prettier": "1.10.2",
+    "sugarss": "^1.0.0"
+  },
+  "scripts": {
+    "ci": "eslint . && ava",
+    "lint": "eslint . --fix",
+    "pretest": "npm run lint",
+    "test": "ava",
+    "release": "npmpub"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-i-am-meticulous",
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "semi": false,
+          "trailingComma": "es5"
+        }
+      ]
+    }
+  }
+}

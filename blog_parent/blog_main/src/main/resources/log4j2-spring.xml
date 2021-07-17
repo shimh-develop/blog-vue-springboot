@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    status : 这个用于设置log4j2自身内部的信息输出,可以不设置,当设置成trace时,会看到log4j2内部各种详细输出
+    monitorInterval : Log4j能够自动检测修改配置文件和重新配置本身, 设置间隔秒数。
+-->
+<Configuration status="WARN" monitorInterval="600">
+
+    <Properties>
+        <!-- 配置日志文件输出目录 -->
+       <!--  <Property name="LOG_HOME">/me/logs</Property> -->
+    </Properties>
+
+    <Appenders>
+
+        <!--这个输出控制台的配置-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- 控制台只输出level及以上级别的信息(onMatch),其他的直接拒绝(onMismatch) -->
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 输出日志的格式 -->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </Console>
+        
+          <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用-->
+	     <File name="Log" fileName="blog/blog.log" append="false">
+	        <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+	     </File>
+
+        <!-- 设置日志格式并配置日志压缩格式(service.log.年份.gz) -->
+        <RollingRandomAccessFile name="RollingRandomAccessFileWarn"
+                                 immediateFlush="false" fileName="${sys:user.home}/blog/warn.log"
+                                 filePattern="${sys:user.home}/blog/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--
+                %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间
+                %p : 日志输出格式
+                %c : logger的名称
+                %m : 日志内容，即 logger.info("message")
+                %n : 换行符
+                %C : Java类名
+                %L : 日志输出所在行数
+                %M : 日志输出所在方法名
+                hostName : 本地机器名
+                hostAddress : 本地ip地址
+             -->
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M -- %msg%xEx%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingRandomAccessFile>
+		
+		<RollingFile name="RollingFileError" fileName="${sys:user.home}/blog/error.log"
+                     filePattern="${sys:user.home}/blog/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+        	<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+        	<!-- [%d{HH:mm:ss:SSS}] [%p] - %l - %m%n -->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M -- %msg%xEx%n"/>
+            <Policies>
+                 <TimeBasedTriggeringPolicy/>
+                 <SizeBasedTriggeringPolicy size="100 MB"/>
+             </Policies>
+        	<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+            <DefaultRolloverStrategy max="20"/>
+         </RollingFile>
+	</Appenders>
+
+    <Loggers>
+    	
+    	 <!-- 第三方日志系统 -->
+        <!-- <logger name="org.springframework" level="info"/> -->
+    	
+        <!-- 配置日志的根节点 -->
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <!-- <appender-ref ref="Log"/>
+            <appender-ref ref="RollingFileInfo"></appender-ref>
+            <appender-ref ref="RollingRandomAccessFileWarn"></appender-ref> -->
+        </root>
+
+       
+
+        <!-- 日志实例(info),其中'service-log'继承root,但是root将日志输出控制台,而'service-log'将日志输出到文件,通过属性'additivity="false"'将'service-log'的
+             的日志不再输出到控制台 -->
+        <!-- <logger name="service_log" level="info" includeLocation="true" additivity="true">
+            <appender-ref ref="service_appender"/>
+        </logger> -->
+
+        
+    </Loggers>
+
+</Configuration>

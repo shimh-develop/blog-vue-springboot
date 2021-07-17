@@ -1,0 +1,18 @@
+server:
+  port: 9009
+spring:
+  application:
+    name: blog_sms
+  rabbitmq:
+    host:  82.156.209.49
+    username: admin
+    password: admin
+  main:
+    allow-bean-definition-overriding: true
+aliyun:
+  sms:
+    tempCode: SMS_205889932
+    signName: ABC商城
+    accessKeyId: LTAI5t9eBEZkYUafTX37HoPY
+    accessKeySecret: ao0QvaMGg0qi5CtYNcEpJDCZrcslCY
+

@@ -1,0 +1,18 @@
+server:
+  port: 9009
+spring:
+  application:
+    name: blog_sms
+  rabbitmq:
+    host: rabbitmq地址
+    username: 账户
+    password: 密码
+  main:
+    allow-bean-definition-overriding: true
+aliyun:
+  sms:
+    tempCode: 阿里云短信码
+    signName: 阿里云短信服务名
+    accessKeyId: 阿里云访问ID
+    accessKeySecret: 阿里云服务访问秘钥
+
