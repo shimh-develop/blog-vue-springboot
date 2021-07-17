@@ -1,9 +1,10 @@
 
 import Vue from 'vue'
 import App from './App'
-
+import VueParticles from 'vue-particles'
 import router from './router'
 import store from './store'
+import '@/canvas-nest.js'
 
 import lodash from 'lodash'
 

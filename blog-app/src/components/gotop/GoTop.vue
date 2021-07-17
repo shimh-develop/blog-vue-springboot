@@ -22,7 +22,7 @@
       needToTop() {
         let curHeight = document.documentElement.scrollTop || document.body.scrollTop;
 
-        if (curHeight > 400) {
+        if (curHeight > 200) {
           this.topShow = true;
         } else {
           this.topShow = false;

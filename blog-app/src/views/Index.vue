@@ -1,9 +1,14 @@
 <template>
-  <div v-title data-title="ForFun Find Yourself">
+  <div v-title data-title="BLOG_LEE">
     <el-container>
 
       <el-main class="me-articles">
-
+        
+  <el-carousel :interval="4000" type="card" height="200px">
+    <el-carousel-item v-for="item in hotArticles " :key="item.id">
+      <img class="me-carousel" :src="item.photo"   @click="view(item.id)"/>
+    </el-carousel-item>
+  </el-carousel>
         <article-scroll-page></article-scroll-page>
 
       </el-main>
@@ -23,6 +28,29 @@
 
     </el-container>
   </div>
+
+     <!-- <div id="app">
+      <vue-particles
+        color="#dedede"
+        :particleOpacity="0.7"
+        :particlesNumber="80"
+        shapeType="circle"
+        :particleSize="4"
+        linesColor="#dedede"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="150"
+        :moveSpeed="3"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+      >
+      </vue-particles>
+</div> -->
+
+
 </template>
 
 <script>
@@ -96,6 +124,9 @@
             that.$message({type: 'error', message: '文章归档加载失败!', showClose: true})
           }
         })
+      },  
+       view(id) {
+        this.$router.push({path: `/view/${id}`})
       }
 
     },
@@ -107,6 +138,7 @@
       CardArchive
     }
   }
+  
 </script>
 
 <style scoped>
@@ -132,4 +164,24 @@
   .el-card:not(:first-child) {
     margin-top: 20px;
   }
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
+  }
+  
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+  img{
+     /*设置图片宽度和浏览器宽度一致*/
+      width:100%;
+      height:inherit;
+    }
 </style>
