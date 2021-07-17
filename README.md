@@ -5,7 +5,7 @@
 项目访问地址http://82.156.209.49:9001/
 
 项目前端Vue+ElementUI
-后端：springboot、shrio、JPA、Mysql、Redis、RabbitMQ、阿里云OSS对象存储、阿里云短信服务
+后端：springboot、Shiro、JPA、Mysql、Redis、RabbitMQ、阿里云OSS对象存储、阿里云短信服务
 
 项目启动
 可以前后端分离启动，先修改application.yml以及阿里云对象service类里的相关配置
