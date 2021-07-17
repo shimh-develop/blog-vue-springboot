@@ -1,10 +1,8 @@
 <template>
   <el-footer class="me-area">
     <div class="me-footer">
-      <p>Designed by
-        <strong>
-          <router-link to="/" class="me-login-design-color">ForFun</router-link>
-        </strong>
+      <p>
+    Copyright © 2020-2021 Personal open source project. All rights reserved.
       </p>
     </div>
   </el-footer>
@@ -39,7 +37,7 @@
     text-align: center;
     line-height: 60px;
     font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
+    font-size: 10px;
 
   }
 

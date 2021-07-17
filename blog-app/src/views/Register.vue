@@ -1,37 +1,44 @@
 <template>
-  <div id="register" v-title data-title="注册 - For Fun">
+  <div id="register" v-title data-title="注册">
     <!--<video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
           <source src="../../static/vedio/sea.mp4" type="video/mp4">
       </video>-->
 
     <div class="me-login-box me-login-box-radius">
-      <h1>ForFun 注册</h1>
+      <h1>注册</h1>
 
       <el-form ref="userForm" :model="userForm" :rules="rules">
+   
         <el-form-item prop="account">
           <el-input placeholder="用户名" v-model="userForm.account"></el-input>
         </el-form-item>
 
-        <el-form-item prop="nickname">
+         <el-form-item prop="nickname">
           <el-input placeholder="昵称" v-model="userForm.nickname"></el-input>
         </el-form-item>
 
-        <el-form-item prop="password">
-          <el-input placeholder="密码" v-model="userForm.password"></el-input>
+        <el-form-item prop="mobilephonenumber">
+          <el-input type="text" placeholder="手机号" v-model="userForm.mobilephonenumber"></el-input>
+        </el-form-item>
+ 
+        <el-form-item prop="code">
+          <el-input type="text" placeholder="验证码" v-model="userForm.code"></el-input>
         </el-form-item>
 
+          <el-form-item size="small" class="me-login-button">
+          <el-button type="primary" @click="sendsms">发送验证码</el-button>
+        </el-form-item>
+
+        <el-form-item prop="password">
+          <el-input placeholder="密码" v-model="userForm.password" show-password></el-input>
+        </el-form-item>
+
+
         <el-form-item size="small" class="me-login-button">
-          <el-button type="primary" @click.native.prevent="register('userForm')">注册</el-button>
+          <el-button type="primary" @click="register">注册</el-button>
         </el-form-item>
       </el-form>
 
-      <div class="me-login-design">
-        <p>Designed by
-          <strong>
-            <router-link to="/" class="me-login-design-color">ForFun</router-link>
-          </strong>
-        </p>
-      </div>
 
     </div>
   </div>
@@ -39,6 +46,7 @@
 
 <script>
   import {register} from '@/api/login'
+  import register1 from '@/api/login'
 
   export default {
     name: 'Register',
@@ -47,11 +55,13 @@
         userForm: {
           account: '',
           nickname: '',
-          password: ''
+          password: '',
         },
+        code: '',
+        mobilephonenumber: '',
         rules: {
           account: [
-            {required: true, message: '请输入用户名', trigger: 'blur'},
+            {required: true, message: '请输入昵称', trigger: 'blur'},
             {max: 10, message: '不能大于10个字符', trigger: 'blur'}
           ],
           nickname: [
@@ -61,30 +71,37 @@
           password: [
             {required: true, message: '请输入密码', trigger: 'blur'},
             {max: 10, message: '不能大于10个字符', trigger: 'blur'}
+          ],
+          mobilephonenumber: [
+            {required: true, message: '手机号不能为空', trigger: 'blur'},
+            {max: 11, message: '不能大于11个字符', trigger: 'blur'}
           ]
+       
         }
 
       }
     },
     methods: {
-      register(formName) {
-        let that = this
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-
-            that.$store.dispatch('register', that.userForm).then(() => {
-              that.$message({message: '注册成功 快写文章吧', type: 'success', showClose: true});
-              that.$router.push({path: '/'})
-            }).catch((error) => {
+          sendsms(){
+     register1.sendsms(this.userForm.mobilephonenumber).then(res=> {
+        this.$message({message: '验证码发送成功', type: 'success', showClose: true}
+        );
+      }).catch((error) => {
               if (error !== 'error') {
-                that.$message({message: error, type: 'error', showClose: true});
+                this.$message({message: error, type: 'error', showClose: true});
               }
             })
-
-          } else {
-            return false;
-          }
-        });
+     
+          },
+      register() {
+        register1.register(this.userForm,this.userForm.code).then(res => {
+              this.$message({message: '注册成功 快来登录吧', type: 'success', showClose: true});
+              this.$router.push({path: '/Login'})
+            }).catch((error) => {
+              if (error !== 'error') {
+                this.$message({message: error, type: 'error', showClose: true});
+              }
+            })
 
       }
 
@@ -113,12 +130,12 @@
   .me-login-box {
     position: absolute;
     width: 300px;
-    height: 320px;
-    background-color: white;
+    height: 420px;
+    background-color: rgb(255, 255, 255);
     margin-top: 150px;
     margin-left: -180px;
     left: 50%;
-    padding: 30px;
+    padding: 60px;
   }
 
   .me-login-box-radius {

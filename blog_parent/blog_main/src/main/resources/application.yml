@@ -1,0 +1,93 @@
+server:
+  port: 9001
+spring:
+  application:
+     name: blog-main
+  datasource:
+    #    jdbc驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    #    数据库连接类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    #    数据库地址
+    url: jdbc:mysql://ip:3306/blog?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
+    #    数据库账户
+    username: root
+    #    数据库密码
+    password: 
+
+
+
+    #    druid连接池设置
+    druid:
+
+    #启动程序时连接池中初始化链接数
+    initial-size: 5
+    #连接池中最多支持活动会话数
+    max-active: 20
+    #回收空闲连接时，保证至少有5个连接数
+    min-idle: 5
+    #请求连接时，超过最大等待数则
+    max-wait: 60000
+    #缓存通过以下两个方法发起的SQL：true
+    # 	public PreparedStatement prepareStatement(String sql)
+    # 	public PreparedStatement prepareStatement(String sql,int resultSetType, int resultSetConcurrency)
+    pool-prepared-statements: true
+    #每个连接最多缓存SQL数
+    max-pool-prepared-statement-per-connection-size: 20
+    validation-query: SELECT 'x'
+    test-on-borrow: false
+    test-on-return: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    use-global-data-source-stat: true
+    filter:
+    stat:
+    merge-sql: true
+    stat-view-servlet:
+    #        账户
+    login-username: 
+    #        密码
+    login-password: 
+    #        是否开启重置功能按钮
+    reset-enable: false
+
+
+#    redis配置
+  redis:
+    #地址
+    host: 
+    #密码
+    password: 
+
+#超时连接
+    timeout: 10000
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+
+#      jpa配置
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  http:
+    multipart:
+      max-file-size: 20Mb
+      max-request-size: 30Mb
+
+  #rabbitmq配置
+  rabbitmq:
+    host:  
+    username: 
+    password: 
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+me.upload.path: D:/blogFile/
+

@@ -59,7 +59,7 @@
     },
     computed: {
       title (){
-        return this.currentArchive + ' - 文章归档 - For Fun'
+        return this.currentArchive + ' - 文章归档 - '
       },
       currentArchive (){
         if(this.article.query.year && this.article.query.month){

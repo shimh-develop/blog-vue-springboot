@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="blog_main" />
+        <module name="blog_sms" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="blog_common" target="1.8" />
+      <module name="blog_eureka" target="1.8" />
+      <module name="blog_user" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="blog_common" options="" />
+      <module name="blog_eureka" options="" />
+      <module name="blog_main" options="" />
+      <module name="blog_sms" options="" />
+      <module name="blog_user" options="" />
+    </option>
+  </component>
+</project>

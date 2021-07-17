@@ -1,4 +1,4 @@
-<template>
+ceshices<template>
   <div id="write" v-title :data-title="title">
     <el-container>
       <base-header :simple=true>
@@ -36,6 +36,25 @@
                  custom-class="me-dialog">
 
         <el-form :model="articleForm" ref="articleForm" :rules="rules">
+          
+        请上传文章封面
+          <el-upload
+  class="upload-demo"
+  drag
+  ref="upload"
+  action="http://localhost:9001//articles/photo"
+  multiple
+  :on-preview="handlePreview"
+  :limit="1"
+  :on-change="imgPreview"
+  show-file-list="true"
+  :auto-upload="false"
+  >
+  <i class="el-icon-upload"></i>
+  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+  <el-button class="bt_photo" @click="subphoto()">提交</el-button>
+</el-upload>
           <el-form-item prop="summary">
             <el-input type="textarea"
                       v-model="articleForm.summary"
@@ -144,7 +163,7 @@
     },
     computed: {
       title (){
-        return '写文章 - For Fun'
+        return '-写文章 -'
       }
     },
     methods: {
@@ -186,10 +205,14 @@
 
         this.publishVisible = true;
       },
+      subphoto(){
+        this.$refs.upload.submit();
+      },
       publish(articleForm) {
-
+        
+        
         let that = this
-
+        
         this.$refs[articleForm].validate((valid) => {
           if (valid) {
 
@@ -273,6 +296,12 @@
           document.getElementById("placeholder").style.display = "none";
           toolbar.classList.remove("me-write-toolbar-fixed");
         }
+      },
+      hadlePreview(file){
+        console.log(file);
+      },
+      imgPreview(file,fileList){
+        this.fromMovie.posterURL=file.url;
       }
     },
     components: {
@@ -318,9 +347,6 @@
     padding: 0;
   }
 
-  .me-write-title {
-  }
-
   .me-write-input textarea {
     font-size: 32px;
     font-weight: 600;
@@ -353,5 +379,29 @@
 
   .auto-textarea-input, .auto-textarea-block {
     font-size: 18px !important;
+  }
+
+   .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
   }
 </style>

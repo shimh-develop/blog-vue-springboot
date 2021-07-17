@@ -2,7 +2,7 @@
   <div class="me-view-comment-item">
     <div class="me-view-comment-author">
       <a class="">
-        <img class="me-view-picture" :src="comment.author.avatar"></img>
+        <img class="me-view-picture" :src="comment.author.avatar"/>
       </a>
       <div class="me-view-info">
         <span class="me-view-nickname">{{comment.author.nickname}}</span>

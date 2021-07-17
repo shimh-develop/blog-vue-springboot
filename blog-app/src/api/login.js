@@ -26,15 +26,30 @@ export function getUserInfo() {
   })
 }
 
-export function register(account, nickname, password) {
+export function register(name, password,code) {
   const data = {
-    account,
-    nickname,
+    name,
     password
   }
   return request({
-    url: '/register',
+    url: `/register/${code}`,
     method: 'post',
     data
   })
+}
+
+export default{
+sendsms(mobilephonenumber){
+  return request({
+    url: `/sendsms/${mobilephonenumber}`,
+    method: 'post',
+  })
+},
+register(userForm,code) {
+  return request({
+    url: `/register/${code}`,
+    method: 'post',
+    data: userForm
+  })
+}
 }
