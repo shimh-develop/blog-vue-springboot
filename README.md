@@ -14,4 +14,6 @@
 
 纯后端启动，前端页面已经打包到后端static中
 启动后访问localhost:9001即可访问
+效果图如下：
+![image](https://user-images.githubusercontent.com/41831536/128821629-03be1fcb-a434-4434-9079-e1b6f86ddd89.png)
 
