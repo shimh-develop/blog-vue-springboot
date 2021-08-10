@@ -1,0 +1,52 @@
+{
+  "name": "bfj-node4",
+  "version": "5.3.1",
+  "description": "Big-friendly JSON. Asynchronous streaming functions for large JSON data sets.",
+  "homepage": "https://github.com/philbooth/bfj",
+  "bugs": "https://github.com/philbooth/bfj/issues",
+  "license": "MIT",
+  "author": "Phil Booth (https://github.com/philbooth)",
+  "main": "./src",
+  "keywords": [
+    "json",
+    "streamify",
+    "stringify",
+    "walk",
+    "parse",
+    "parser",
+    "serialise",
+    "serialize",
+    "read",
+    "write",
+    "async",
+    "asynchronous"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philbooth/bfj.git"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "check-types": "^7.3.0",
+    "tryer": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "4.19.x",
+    "mocha": "5.0.x",
+    "chai": "4.1.x",
+    "proxyquire": "1.8.x",
+    "spooks": "2.0.x",
+    "please-release-me": "2.0.x",
+    "request": "2.85.x"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "test": "npm run unit && npm run integration",
+    "unit": "mocha --ui tdd --reporter spec --recursive --colors --slow 120 test/unit",
+    "integration": "mocha --ui tdd --reporter spec --colors test/integration",
+    "perf": "wget -O test/mtg.json http://mtgjson.com/json/AllSets-x.json && node test/performance mtg"
+  }
+}

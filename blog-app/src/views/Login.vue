@@ -1,11 +1,11 @@
 <template>
-  <div id="login" v-title data-title="登录 - For Fun">
+  <div id="login" v-title data-title="登录">
     <!--<video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
           <source src="../../static/vedio/sea.mp4" type="video/mp4">
       </video>-->
 
     <div class="me-login-box me-login-box-radius">
-      <h1>ForFun 登录</h1>
+      <h1>登录</h1>
 
       <el-form ref="userForm" :model="userForm" :rules="rules">
         <el-form-item prop="account">
@@ -20,14 +20,10 @@
           <el-button type="primary" @click.native.prevent="login('userForm')">登录</el-button>
         </el-form-item>
       </el-form>
+        <router-link to="/register">
+          <button>没有账户？这里进行注册</button>
+        </router-link>
 
-      <div class="me-login-design">
-        <p>Designed by
-          <strong>
-            <router-link to="/" class="me-login-design-color">ForFun</router-link>
-          </strong>
-        </p>
-      </div>
 
     </div>
   </div>
@@ -62,7 +58,7 @@
           if (valid) {
 
             that.$store.dispatch('login', that.userForm).then(() => {
-              that.$router.go(-1)
+            this.$router.push({path: '/'})
             }).catch((error) => {
               if (error !== 'error') {
                 that.$message({message: error, type: 'error', showClose: true});
@@ -99,7 +95,7 @@
     position: absolute;
     width: 300px;
     height: 260px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     margin-top: 150px;
     margin-left: -180px;
     left: 50%;
@@ -108,7 +104,7 @@
 
   .me-login-box-radius {
     border-radius: 10px;
-    box-shadow: 0px 0px 1px 1px rgba(161, 159, 159, 0.1);
+    box-shadow: 0px 0px 1px 1px rgba(90, 122, 160, 0.1);
   }
 
   .me-login-box h1 {
@@ -125,7 +121,7 @@
   }
 
   .me-login-design-color {
-    color: #5FB878 !important;
+    color: #dbf300 !important;
   }
 
   .me-login-button {

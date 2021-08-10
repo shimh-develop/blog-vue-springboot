@@ -21,13 +21,15 @@ import {getToken} from '@/request/token'
 Vue.use(Router)
 
 const router = new Router({
+mode: 'hash',
   routes: [
     {
       path: '/write/:id?',
       component: r => require.ensure([], () => r(require('@/views/blog/BlogWrite')), 'blogwrite'),
       meta: {
         requireLogin: true
-      },
+      }
+
     },
     {
       path: '',
@@ -38,17 +40,14 @@ const router = new Router({
           path: '/',
           component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
         },
-        {
-          path: '/log',
-          component: r => require.ensure([], () => r(require('@/views/Log')), 'log')
-        },
+        
         {
           path: '/archives/:year?/:month?',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogArchive')), 'archives')
         },
         {
-          path: '/messageBoard',
-          component: r => require.ensure([], () => r(require('@/views/MessageBoard')), 'messageboard')
+          path: '/Board',
+          component: r => require.ensure([], () => r(require('@/views/Board')), 'board')
         },
         {
           path: '/view/:id',

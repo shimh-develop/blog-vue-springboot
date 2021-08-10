@@ -1,0 +1,42 @@
+{
+  "name": "postcss-url",
+  "version": "7.3.2",
+  "description": "PostCSS plugin to rebase or inline on url().",
+  "keywords": [
+    "css",
+    "postcss",
+    "postcss-plugin",
+    "url",
+    "rebase",
+    "inline",
+    "base64",
+    "assets"
+  ],
+  "author": "Maxime Thirouin",
+  "license": "MIT",
+  "repository": "https://github.com/postcss/postcss-url.git",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "mime": "^1.4.1",
+    "minimatch": "^3.0.4",
+    "mkdirp": "^0.5.0",
+    "postcss": "^6.0.1",
+    "xxhashjs": "^0.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.16.1",
+    "mocha": "^3.2.0",
+    "npmpub": "^3.0.1",
+    "postcss-import": "^10.0.0"
+  },
+  "scripts": {
+    "lint": "eslint --fix .",
+    "tests": "mocha",
+    "test": "npm run lint && npm run tests",
+    "release": "npmpub"
+  }
+}

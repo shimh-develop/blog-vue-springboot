@@ -13,12 +13,12 @@
                  mode="horizontal">
           <el-menu-item index="/">首页</el-menu-item>
           <el-menu-item index="/category/all">文章分类</el-menu-item>
-          <el-menu-item index="/tag/all">标签</el-menu-item>
-          <el-menu-item index="/archives">文章归档</el-menu-item>
-          <el-menu-item index="/log">日志</el-menu-item>
-          <el-menu-item index="/messageBoard">留言板</el-menu-item>
 
-          <el-col :span="4" :offset="4">
+          <el-menu-item index="/archives">文章归档</el-menu-item>
+
+          <el-menu-item index="/Board">留言板</el-menu-item>
+
+          <el-col :span="4" :offset="0">
             <el-menu-item index="/write"><i class="el-icon-edit"></i>写文章</el-menu-item>
           </el-col>
 
