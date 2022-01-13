@@ -12,6 +12,9 @@
  Date: 04/28/2018 09:14:32 AM
 */
 
+CREATE DATABASE blog-schema DEFAULT character SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE blog-schema;
+
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
