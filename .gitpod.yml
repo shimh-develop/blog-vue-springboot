@@ -1,0 +1,31 @@
+image:
+  file: .gitpod.Dockerfile
+tasks:
+  - init: |
+      mysql -e "CREATE DATABASE blog-schema;"
+      mysql -e "CREATE DATABASE blog-data;"
+      mysql < blog-api/src/main/resources/sql/blog-schema.sql
+      mysql < blog-api/src/main/resources/sql/blog-data.sql
+      mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';"
+  - init: |
+      cd blog-api
+      mvn install -DskipTests=true
+    command: java -jar blog-api/target/blog-api-0.0.1-SNAPSHOT.jar
+  - init: |
+      cd blog-app
+      npm install
+      npm run build
+    command: cd cd blog-app && npm run dev
+ports:
+- port: 8888
+  onOpen: open-preview
+  visibility: public
+- port: 8080
+  onOpen: open-preview
+  visibility: public
+- port: 3306
+  onOpen: ignore
+  visibility: public
+- port: 6379
+  onOpen: ignore
+  visibility: public
