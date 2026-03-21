@@ -107,7 +107,7 @@ public class CategoryController {
         Result r = new Result();
 
         if (null == category.getId()) {
-            r.setResultCode(ResultCode.USER_NOT_EXIST);
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
             return r;
         }
 

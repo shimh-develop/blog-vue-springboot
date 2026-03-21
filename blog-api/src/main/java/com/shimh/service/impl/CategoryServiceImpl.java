@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getCategoryById(Integer id) {
-        return categoryRepository.getOne(id);
+        return categoryRepository.findOne(id);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public Integer updateCategory(Category category) {
-        Category oldCategory = categoryRepository.getOne(category.getId());
+        Category oldCategory = categoryRepository.findOne(category.getId());
 
         oldCategory.setCategoryname(category.getCategoryname());
         oldCategory.setAvatar(category.getAvatar());

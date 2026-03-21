@@ -30,7 +30,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag getTagById(Integer id) {
-        return tagRepository.getOne(id);
+        return tagRepository.findOne(id);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional
     public Integer updateTag(Tag tag) {
-        Tag oldTag = tagRepository.getOne(tag.getId());
+        Tag oldTag = tagRepository.findOne(tag.getId());
 
         oldTag.setTagname(tag.getTagname());
         oldTag.setAvatar(tag.getAvatar());

@@ -34,10 +34,13 @@ public class OAuthSessionManager extends DefaultWebSessionManager {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String id = httpRequest.getHeader(OAUTH_TOKEN);
 
-        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
-        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);
-        request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
-        return id;
+        if (!StringUtils.isEmpty(id)) {
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
+            return id;
+        }
+        return super.getSessionId(request, response);
     }
 }
 

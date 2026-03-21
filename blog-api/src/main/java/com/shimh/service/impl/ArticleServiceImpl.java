@@ -52,7 +52,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article getArticleById(Integer id) {
-        return articleRepository.getOne(id);
+        return articleRepository.findOne(id);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Integer updateArticle(Article article) {
-        Article oldArticle = articleRepository.getOne(article.getId());
+        Article oldArticle = articleRepository.findOne(article.getId());
 
         oldArticle.setTitle(article.getTitle());
         oldArticle.setSummary(article.getSummary());
@@ -122,7 +122,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public Article getArticleAndAddViews(Integer id) {
         int count = 1;
-        Article article = articleRepository.getOne(id);
+        Article article = articleRepository.findOne(id);
         article.setViewCounts(article.getViewCounts() + count);
         return article;
     }

@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,7 +33,7 @@ public class UploadController {
     @PostMapping("/upload")
     @RequiresAuthentication
     @LogAnnotation(module = "文件上传", operation = "文件上传")
-    public Result upload(HttpServletRequest request, MultipartFile image) {
+    public Result upload(HttpServletRequest request, @RequestParam("image") MultipartFile image) {
 
         Result r = new Result();
 
