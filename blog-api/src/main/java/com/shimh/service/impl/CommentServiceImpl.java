@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment getCommentById(Integer id) {
-        return commentRepository.getOne(id);
+        return commentRepository.findOne(id);
     }
 
     @Override
@@ -72,12 +72,14 @@ public class CommentServiceImpl implements CommentService {
 
         int count = 1;
         Article a = articleRepository.findOne(comment.getArticle().getId());
+        if (a == null) {
+            return null;
+        }
         a.setCommentCounts(a.getCommentCounts() + count);
 
         comment.setAuthor(UserUtils.getCurrentUser());
         comment.setCreateDate(new Date());
 
-        //设置level
         if(null == comment.getParent()){
             comment.setLevel("0");
         }else{
@@ -97,9 +99,13 @@ public class CommentServiceImpl implements CommentService {
     public void deleteCommentByIdAndChangeCounts(Integer id) {
         int count = 1;
         Comment c = commentRepository.findOne(id);
+        if (c == null) {
+            return;
+        }
         Article a = c.getArticle();
-
-        a.setCommentCounts(a.getCommentCounts() - count);
+        if (a != null) {
+            a.setCommentCounts(a.getCommentCounts() - count);
+        }
 
         commentRepository.delete(c);
     }

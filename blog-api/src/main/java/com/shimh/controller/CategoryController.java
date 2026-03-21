@@ -107,11 +107,15 @@ public class CategoryController {
         Result r = new Result();
 
         if (null == category.getId()) {
-            r.setResultCode(ResultCode.USER_NOT_EXIST);
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
             return r;
         }
 
         Integer categoryId = categoryService.updateCategory(category);
+        if (null == categoryId) {
+            r.setResultCode(ResultCode.RESULE_DATA_NONE);
+            return r;
+        }
 
         r.setResultCode(ResultCode.SUCCESS);
         r.simple().put("categoryId", categoryId);

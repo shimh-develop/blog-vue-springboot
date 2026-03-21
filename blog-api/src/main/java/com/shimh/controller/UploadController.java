@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,16 +26,52 @@ public class UploadController {
 
     private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
+    private static final java.util.Set<String> ALLOWED_EXTENSIONS = new java.util.HashSet<>(java.util.Arrays.asList(
+            "jpg", "jpeg", "png", "gif", "bmp", "webp"
+    ));
 
     @Value("${me.upload.path}")
     private String baseFolderPath;
 
+    private String getFileExtension(String filename) {
+        if (filename == null || filename.lastIndexOf(".") == -1) {
+            return "";
+        }
+        return filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+    }
+
+    private boolean isAllowedExtension(String extension) {
+        return extension != null && ALLOWED_EXTENSIONS.contains(extension);
+    }
+
+    private String sanitizeFilename(String filename) {
+        return filename.replaceAll("[^a-zA-Z0-9.\\-_]", "_");
+    }
+
     @PostMapping("/upload")
     @RequiresAuthentication
     @LogAnnotation(module = "文件上传", operation = "文件上传")
-    public Result upload(HttpServletRequest request, MultipartFile image) {
+    public Result upload(HttpServletRequest request, @RequestParam("image") MultipartFile image) {
 
         Result r = new Result();
+
+        if (image == null || image.isEmpty()) {
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
+            return r;
+        }
+
+        String originalFilename = image.getOriginalFilename();
+        if (originalFilename == null || originalFilename.isEmpty()) {
+            r.setResultCode(ResultCode.PARAM_IS_INVALID);
+            return r;
+        }
+
+        String extension = getFileExtension(originalFilename);
+        if (!isAllowedExtension(extension)) {
+            r.setResultCode(ResultCode.PARAM_IS_INVALID);
+            r.simple().put("errdetail", "不支持的文件类型");
+            return r;
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
@@ -55,11 +92,19 @@ public class UploadController {
                 .append("/")
                 .append(filePath);
 
-        String imgName = UUID.randomUUID() + "_" + image.getOriginalFilename().replaceAll(" ", "");
+        String safeFilename = sanitizeFilename(originalFilename);
+        String imgName = UUID.randomUUID().toString() + "_" + safeFilename;
 
         try {
 
             File dest = new File(baseFolder, imgName);
+            String canonicalPath = dest.getCanonicalPath();
+            if (!canonicalPath.startsWith(baseFolder.getCanonicalPath())) {
+                r.setResultCode(ResultCode.PARAM_IS_INVALID);
+                r.simple().put("errdetail", "非法文件路径");
+                return r;
+            }
+
             image.transferTo(dest);
 
             url.append("/").append(imgName);

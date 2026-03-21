@@ -46,10 +46,10 @@ public class TagController {
 
     @GetMapping("detail")
     @LogAnnotation(module = "标签", operation = "获取所有标签，详细")
-    public Result listCategorysDetail() {
-        List<TagVO> categorys = tagService.findAllDetail();
+    public Result listTagsDetail() {
+        List<TagVO> tags = tagService.findAllDetail();
 
-        return Result.success(categorys);
+        return Result.success(tags);
     }
 
     @GetMapping("/hot")
@@ -116,11 +116,15 @@ public class TagController {
         Result r = new Result();
 
         if (null == tag.getId()) {
-            r.setResultCode(ResultCode.USER_NOT_EXIST);
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
             return r;
         }
 
         Integer tagId = tagService.updateTag(tag);
+        if (null == tagId) {
+            r.setResultCode(ResultCode.RESULE_DATA_NONE);
+            return r;
+        }
 
         r.setResultCode(ResultCode.SUCCESS);
         r.simple().put("tagId", tagId);

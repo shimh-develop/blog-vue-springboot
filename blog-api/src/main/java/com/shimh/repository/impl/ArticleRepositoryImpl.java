@@ -17,26 +17,44 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ArticleRepositoryImpl implements ArticleWrapper {
 
     @PersistenceContext
     private EntityManager em;
 
+    private static final Set<String> ALLOWED_SORT_FIELDS = new HashSet<>(Arrays.asList(
+            "id", "title", "createDate", "viewCounts", "commentCounts", "weight"
+    ));
+
+    private static final Set<String> ALLOWED_SORT_ORDERS = new HashSet<>(Arrays.asList(
+            "asc", "desc", "ASC", "DESC"
+    ));
+
+    private boolean isValidSortField(String field) {
+        return field != null && ALLOWED_SORT_FIELDS.contains(field);
+    }
+
+    private boolean isValidSortOrder(String order) {
+        return order != null && ALLOWED_SORT_ORDERS.contains(order);
+    }
+
     @Override
     public List<Article> listArticles(PageVo page) {
 
         StringBuilder hql = new StringBuilder("from Article");
 
-        if (null != page.getName() && !"".equals(page.getName())) {
+        if (isValidSortField(page.getName())) {
             hql.append(" order by ");
             hql.append(page.getName());
-        }
-
-        if (null != page.getSort() && !"".equals(page.getSort())) {
-            hql.append(" ");
-            hql.append(page.getSort());
+            if (isValidSortOrder(page.getSort())) {
+                hql.append(" ");
+                hql.append(page.getSort());
+            }
         }
 
         Query query = getSession().createQuery(hql.toString());
@@ -81,14 +99,13 @@ public class ArticleRepositoryImpl implements ArticleWrapper {
             hql.append(" and MONTH(a.createDate) = :month");
         }
 
-        if (null != page.getName() && !"".equals(page.getName())) {
+        if (isValidSortField(page.getName())) {
             hql.append(" order by ");
             hql.append(page.getName());
-        }
-
-        if (null != page.getSort() && !"".equals(page.getSort())) {
-            hql.append(" ");
-            hql.append(page.getSort());
+            if (isValidSortOrder(page.getSort())) {
+                hql.append(" ");
+                hql.append(page.getSort());
+            }
         }
 
 

@@ -106,11 +106,15 @@ public class UserController {
         Result r = new Result();
 
         if (null == user.getId()) {
-            r.setResultCode(ResultCode.USER_NOT_EXIST);
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
             return r;
         }
 
         Long userId = userService.updateUser(user);
+        if (null == userId) {
+            r.setResultCode(ResultCode.RESULE_DATA_NONE);
+            return r;
+        }
 
         r.setResultCode(ResultCode.SUCCESS);
         r.simple().put("userId", userId);

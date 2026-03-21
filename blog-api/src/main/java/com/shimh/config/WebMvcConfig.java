@@ -46,7 +46,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         );
 
 
-        List<MediaType> fastMediaTypes = new ArrayList<>();
+        List<MediaType> fastMediaTypes = new ArrayList();
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
 
         fastConverter.setFastJsonConfig(fastJsonConfig);

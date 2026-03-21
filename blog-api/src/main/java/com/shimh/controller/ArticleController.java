@@ -173,11 +173,15 @@ public class ArticleController {
         Result r = new Result();
 
         if (null == article.getId()) {
-            r.setResultCode(ResultCode.USER_NOT_EXIST);
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
             return r;
         }
 
         Integer articleId = articleService.updateArticle(article);
+        if (null == articleId) {
+            r.setResultCode(ResultCode.RESULE_DATA_NONE);
+            return r;
+        }
 
         r.setResultCode(ResultCode.SUCCESS);
         r.simple().put("articleId", articleId);
