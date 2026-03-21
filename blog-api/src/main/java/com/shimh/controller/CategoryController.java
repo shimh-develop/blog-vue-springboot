@@ -112,6 +112,10 @@ public class CategoryController {
         }
 
         Integer categoryId = categoryService.updateCategory(category);
+        if (null == categoryId) {
+            r.setResultCode(ResultCode.RESULE_DATA_NONE);
+            return r;
+        }
 
         r.setResultCode(ResultCode.SUCCESS);
         r.simple().put("categoryId", categoryId);

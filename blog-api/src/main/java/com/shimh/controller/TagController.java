@@ -121,6 +121,10 @@ public class TagController {
         }
 
         Integer tagId = tagService.updateTag(tag);
+        if (null == tagId) {
+            r.setResultCode(ResultCode.RESULE_DATA_NONE);
+            return r;
+        }
 
         r.setResultCode(ResultCode.SUCCESS);
         r.simple().put("tagId", tagId);

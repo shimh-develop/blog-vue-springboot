@@ -57,6 +57,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Long updateUser(User user) {
         User oldUser = userRepository.findOne(user.getId());
+        if (oldUser == null) {
+            return null;
+        }
         oldUser.setNickname(user.getNickname());
 
         return oldUser.getId();

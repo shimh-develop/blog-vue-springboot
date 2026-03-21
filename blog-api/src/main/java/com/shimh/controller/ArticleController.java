@@ -178,6 +178,10 @@ public class ArticleController {
         }
 
         Integer articleId = articleService.updateArticle(article);
+        if (null == articleId) {
+            r.setResultCode(ResultCode.RESULE_DATA_NONE);
+            return r;
+        }
 
         r.setResultCode(ResultCode.SUCCESS);
         r.simple().put("articleId", articleId);

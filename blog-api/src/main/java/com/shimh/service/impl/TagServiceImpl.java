@@ -44,7 +44,9 @@ public class TagServiceImpl implements TagService {
     @Transactional
     public Integer updateTag(Tag tag) {
         Tag oldTag = tagRepository.findOne(tag.getId());
-
+        if (oldTag == null) {
+            return null;
+        }
         oldTag.setTagname(tag.getTagname());
         oldTag.setAvatar(tag.getAvatar());
 

@@ -131,6 +131,9 @@ public class CommentController {
     public Result saveCommentAndChangeCounts(@RequestBody Comment comment) {
 
         Comment savedComment = commentService.saveCommentAndChangeCounts(comment);
+        if (null == savedComment) {
+            return Result.error(ResultCode.PARAM_IS_INVALID);
+        }
 
         Result r = Result.success(savedComment);
         return r;

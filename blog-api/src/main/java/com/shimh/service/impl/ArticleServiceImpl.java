@@ -87,7 +87,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public Integer updateArticle(Article article) {
         Article oldArticle = articleRepository.findOne(article.getId());
-
+        if (oldArticle == null) {
+            return null;
+        }
         oldArticle.setTitle(article.getTitle());
         oldArticle.setSummary(article.getSummary());
         oldArticle.setBody(article.getBody());
@@ -123,6 +125,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getArticleAndAddViews(Integer id) {
         int count = 1;
         Article article = articleRepository.findOne(id);
+        if (article == null) {
+            return null;
+        }
         article.setViewCounts(article.getViewCounts() + count);
         return article;
     }

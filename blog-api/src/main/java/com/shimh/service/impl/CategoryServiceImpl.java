@@ -44,7 +44,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     public Integer updateCategory(Category category) {
         Category oldCategory = categoryRepository.findOne(category.getId());
-
+        if (oldCategory == null) {
+            return null;
+        }
         oldCategory.setCategoryname(category.getCategoryname());
         oldCategory.setAvatar(category.getAvatar());
         oldCategory.setDescription(category.getDescription());
