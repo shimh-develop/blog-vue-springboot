@@ -173,7 +173,7 @@ public class ArticleController {
         Result r = new Result();
 
         if (null == article.getId()) {
-            r.setResultCode(ResultCode.USER_NOT_EXIST);
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
             return r;
         }
 
