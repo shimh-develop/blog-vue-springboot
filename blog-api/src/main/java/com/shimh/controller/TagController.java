@@ -116,7 +116,7 @@ public class TagController {
         Result r = new Result();
 
         if (null == tag.getId()) {
-            r.setResultCode(ResultCode.USER_NOT_EXIST);
+            r.setResultCode(ResultCode.PARAM_IS_BLANK);
             return r;
         }
 

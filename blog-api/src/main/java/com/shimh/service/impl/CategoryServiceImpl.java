@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
         oldCategory.setAvatar(category.getAvatar());
         oldCategory.setDescription(category.getDescription());
 
-        return oldCategory.getId();
+        return categoryRepository.save(oldCategory).getId();
     }
 
     @Override
