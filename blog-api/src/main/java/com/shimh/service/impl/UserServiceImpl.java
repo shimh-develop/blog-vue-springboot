@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         User oldUser = userRepository.findOne(user.getId());
         oldUser.setNickname(user.getNickname());
 
-        return oldUser.getId();
+        return userRepository.save(oldUser).getId();
     }
 
     @Override

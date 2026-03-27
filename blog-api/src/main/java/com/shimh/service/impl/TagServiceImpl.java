@@ -48,7 +48,7 @@ public class TagServiceImpl implements TagService {
         oldTag.setTagname(tag.getTagname());
         oldTag.setAvatar(tag.getAvatar());
 
-        return oldTag.getId();
+        return tagRepository.save(oldTag).getId();
     }
 
     @Override

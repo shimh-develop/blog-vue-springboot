@@ -94,7 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
         oldArticle.setCategory(article.getCategory());
         oldArticle.setTags(article.getTags());
 
-        return oldArticle.getId();
+        return articleRepository.save(oldArticle).getId();
     }
 
     @Override
